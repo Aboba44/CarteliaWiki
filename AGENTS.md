@@ -41,25 +41,36 @@ CarteliaWiki — локальный сайт-вики для вымышленн�
 CarteliaWiki/
 │
 ├── index.html
-├── style.css
 ├── script.js
 ├── AGENTS.md
+├── .gitignore
+│
+├── style.css
+├── style-components.css
+├── style-gods.css
+├── style-theme.css
+├── style-responsive.css
 │
 ├── data/
 │   ├── church.js
 │   ├── orders.js
 │   ├── races.js
 │   ├── peoples.js
-│   ├── factions.js
 │   ├── gods.js
-│   ├── geography.js
 │   ├── magic.js
-│   └── worlds.js
+│   ├── worlds.js
+│   ├── dimensions.js
+│   └── i18n.js
 │
-└── assets/
-    ├── images/
-    ├── maps/
-    └── icons/
+└── images/
+
+Примечания к текущему состоянию (обновлено 2026-10-12):
+
+- `factions.js` и `geography.js` пока не созданы; фракции (Теократия, Гегемония, Конфедерация) — секции-заглушки в `index.html`.
+- Вместо `assets/` используется папка `images/`.
+- CSS разделён по назначению: `style.css` (каркас), `style-components.css`, `style-gods.css`, `style-theme.css`, `style-responsive.css`.
+- `data/dimensions.js` — измерения между мирами; `data/i18n.js` — переводы интерфейса RU/EN.
+- Проект находится под git (ветка main), в корне лежит `.gitignore`.
 
 Не создавай новые крупные системы или файлы без необходимости.
 
