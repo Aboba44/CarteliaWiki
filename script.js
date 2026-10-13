@@ -581,38 +581,11 @@ function showRace(raceId, categoryId = "sentient", syncRoute = true) {
 
 let currentSection = "home";
 
-function setReadingMode(enabled) {
-    const app = document.querySelector(".app");
-    if (!app) return;
-
-    app.classList.toggle("is-reading-mode", enabled);
-
-    const toggle = document.querySelector(".reading-mode-toggle");
-    if (toggle) {
-        toggle.setAttribute("aria-pressed", String(enabled));
-        toggle.textContent = enabled ? "Выйти из режима чтения" : "Режим чтения";
-    }
-}
-
-function toggleReadingMode() {
-    const app = document.querySelector(".app");
-    if (app) setReadingMode(!app.classList.contains("is-reading-mode"));
-}
-
-document.addEventListener("keydown", function (event) {
-    if (event.key !== "Escape") return;
-
-    const app = document.querySelector(".app");
-    if (app?.classList.contains("is-reading-mode")) setReadingMode(false);
-});
-
 function showSection(section, setRootRoute = false, syncGodRoute = true, syncRoute = true) {
     const sections = document.querySelectorAll(".content section");
     const selected = document.getElementById(section);
 
     if (!selected) return;
-
-    setReadingMode(false);
 
     if (
         syncGodRoute &&
@@ -1146,20 +1119,6 @@ function openChurchTopic(branchId, chamberId, topicIndex, syncRoute = true) {
     const content = document.getElementById("church-content");
     const article = document.createElement("article");
     article.className = "church-article";
-
-    if (topic.readingMode) {
-        const toolbar = document.createElement("div");
-        toolbar.className = "church-article-toolbar";
-
-        const toggle = document.createElement("button");
-        toggle.type = "button";
-        toggle.className = "reading-mode-toggle";
-        toggle.setAttribute("aria-pressed", "false");
-        toggle.textContent = "Режим чтения";
-        toggle.addEventListener("click", toggleReadingMode);
-        toolbar.appendChild(toggle);
-        article.appendChild(toolbar);
-    }
 
     const title = document.createElement("h1");
     title.textContent = topic.name;

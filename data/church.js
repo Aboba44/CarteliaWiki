@@ -21,8 +21,7 @@ const church = {
                         },
                         {
                             name: "Регулярная армия",
-                            type: "text",
-                            readingMode: true
+                            type: "text"
                         }
                     ]
                 },
@@ -33,18 +32,15 @@ const church = {
                     topics: [
                         {
                             name: "Судебная система",
-                            type: "text",
-                            readingMode: true
+                            type: "text"
                         },
                         {
                             name: "Законодательство",
-                            type: "text",
-                            readingMode: true
+                            type: "text"
                         },
                         {
                             name: "Инквизиция",
-                            type: "text",
-                            readingMode: true
+                            type: "text"
                         }
                     ]
                 }

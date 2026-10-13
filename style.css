@@ -133,7 +133,8 @@ body {
     color: var(--text-secondary);
 }
 
-.content > section > h2 {
+.content > section > h2,
+.content > section > .home-content > h2 {
     font-size: 36px;
     margin-top: 0;
 }
@@ -198,4 +199,3 @@ body {
 /* =========================
    РАСЫ
    ========================= */
-

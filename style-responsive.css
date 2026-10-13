@@ -49,8 +49,13 @@
         width: min(460px, calc(100vw - 32px));
     }
 
-    .content > section > h2 {
+    .content > section > h2,
+    .content > section > .home-content > h2 {
         font-size: 30px;
+    }
+
+    #home {
+        min-height: 60vh;
     }
 
     .god-creator-columns {

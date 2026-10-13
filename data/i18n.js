@@ -30,7 +30,8 @@ const i18n = {
             resultCount: "Найдено: {count}"
         },
         home: {
-            title: "Добро пожаловать в Мир Картелии"
+            title: "Добро пожаловать в Мир Картелии",
+            subtitle: "Хранилище знаний о мире: боги, Церковь, магия, расы, миры и измерения."
         },
         sections: {
             church: "Церковь",
@@ -78,7 +79,8 @@ const i18n = {
             resultCount: "Found: {count}"
         },
         home: {
-            title: "Welcome to the World of Cartelia"
+            title: "Welcome to the World of Cartelia",
+            subtitle: "A repository of the world's lore: gods, the Church, magic, races, worlds and dimensions."
         },
         sections: {
             church: "Church",
