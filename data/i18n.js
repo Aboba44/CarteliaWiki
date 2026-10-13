@@ -17,9 +17,7 @@ const i18n = {
             back: "Назад",
             interfaceLanguage: "Язык интерфейса",
             search: "Поиск",
-            switchTheme: "Переключить тему",
-            lightTheme: "Включить светлую тему",
-            darkTheme: "Включить тёмную тему"
+            switchTheme: "Не нажимать"
         },
         search: {
             inputLabel: "Поиск по Cartelia Wiki",
@@ -66,9 +64,7 @@ const i18n = {
             back: "Back",
             interfaceLanguage: "Interface language",
             search: "Search",
-            switchTheme: "Switch theme",
-            lightTheme: "Enable light theme",
-            darkTheme: "Enable dark theme"
+            switchTheme: "Do not press"
         },
         search: {
             inputLabel: "Search Cartelia Wiki",

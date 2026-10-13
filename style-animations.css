@@ -286,22 +286,88 @@
 
 
 /* =========================
-   ПЕРЕКЛЮЧЕНИЕ ТЕМЫ
+   КНОПКА ТЕМЫ — РОЗЫГРЫШ
 
-   Класс theme-switching вешается на <html> из script.js
-   на время перехода, затем снимается.
+   Светлой темы больше нет. Кнопка запускает полноэкранную
+   надпись и синтезированный звук (script.js: triggerPrank).
    ========================= */
 
-html.theme-switching,
-html.theme-switching *,
-html.theme-switching *::before,
-html.theme-switching *::after {
-    transition:
-        background-color 0.4s ease,
-        color 0.4s ease,
-        border-color 0.4s ease,
-        box-shadow 0.4s ease !important;
-    transition-delay: 0s !important;
+#prank-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #0a0505;
+    cursor: pointer;
+}
+
+#prank-overlay[hidden] {
+    display: none;
+}
+
+.prank-text {
+    font-family: var(--font-heading);
+    font-size: clamp(64px, 16vw, 240px);
+    font-weight: 800;
+    line-height: 1;
+    color: #e01616;
+    letter-spacing: 0.02em;
+    text-shadow:
+        0 0 18px rgb(224 22 22 / 55%),
+        0 0 60px rgb(224 22 22 / 35%);
+    user-select: none;
+}
+
+@keyframes prank-slam {
+    0% {
+        opacity: 0;
+        transform: scale(2.6);
+    }
+
+    55% {
+        opacity: 1;
+        transform: scale(0.96);
+    }
+
+    70% {
+        transform: scale(1.04);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+@keyframes prank-shake {
+    0%, 100% {
+        transform: translate(0, 0);
+    }
+
+    20% {
+        transform: translate(-3px, 2px);
+    }
+
+    40% {
+        transform: translate(3px, -2px);
+    }
+
+    60% {
+        transform: translate(-2px, -2px);
+    }
+
+    80% {
+        transform: translate(2px, 2px);
+    }
+}
+
+#prank-overlay.is-playing {
+    animation: prank-shake 0.35s linear 0.25s 5;
+}
+
+#prank-overlay.is-playing .prank-text {
+    animation: prank-slam 0.45s cubic-bezier(0.2, 0.7, 0.2, 1);
 }
 
 
@@ -352,10 +418,8 @@ html.theme-switching *::after {
         transition: none !important;
     }
 
-    html.theme-switching,
-    html.theme-switching *,
-    html.theme-switching *::before,
-    html.theme-switching *::after {
-        transition-duration: 0.01s !important;
+    #prank-overlay.is-playing,
+    #prank-overlay.is-playing .prank-text {
+        animation: none !important;
     }
 }

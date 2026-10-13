@@ -76,6 +76,7 @@ CarteliaWiki/
 - Вместо `assets/` используется папка `images/`.
 - CSS разделён по назначению: `style.css` (каркас и дизайн-токены), `style-components.css`, `style-gods.css`, `style-theme.css`, `style-responsive.css`, `style-fonts.css` (локальные шрифты), `style-animations.css` (все анимации сайта).
 - `data/dimensions.js` — измерения между мирами; `data/i18n.js` — переводы интерфейса RU/EN.
+- Светлой темы больше нет: кнопка переключения темы оставлена как розыгрыш (`script.js`: `triggerPrank`, звук синтезируется через Web Audio API).
 - Проект находится под git (ветка main), в корне лежит `.gitignore`.
 
 Не создавай новые крупные системы или файлы без необходимости.
