@@ -581,6 +581,22 @@ function showRace(raceId, categoryId = "sentient", syncRoute = true) {
 
 let currentSection = "home";
 
+function updateActiveNav(section) {
+    document.querySelectorAll(".sidebar nav [data-nav-section]").forEach(function (element) {
+        const isActive = element.dataset.navSection
+            .split(",")
+            .map(function (item) { return item.trim(); })
+            .includes(section);
+
+        element.classList.toggle("is-active", isActive);
+        if (isActive) {
+            element.setAttribute("aria-current", "true");
+        } else {
+            element.removeAttribute("aria-current");
+        }
+    });
+}
+
 function showSection(section, setRootRoute = false, syncGodRoute = true, syncRoute = true) {
     const sections = document.querySelectorAll(".content section");
     const selected = document.getElementById(section);
@@ -616,6 +632,12 @@ function showSection(section, setRootRoute = false, syncGodRoute = true, syncRou
     });
 
     selected.style.display = "block";
+    if (sectionChanged) {
+        selected.classList.remove("section-enter");
+        void selected.offsetWidth;
+        selected.classList.add("section-enter");
+    }
+    updateActiveNav(section);
     if (section === "gods") {
         renderGods();
     }
@@ -766,6 +788,12 @@ function saveTheme(theme) {
 
 function toggleTheme() {
     const nextTheme = document.body.dataset.theme === "light" ? "dark" : "light";
+    const root = document.documentElement;
+
+    root.classList.add("theme-switching");
+    window.setTimeout(function () {
+        root.classList.remove("theme-switching");
+    }, 450);
 
     saveTheme(nextTheme);
     setTheme(nextTheme);

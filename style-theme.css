@@ -166,54 +166,6 @@ body {
     background-color: var(--surface-bg);
 }
 
-.content button,
-.wiki-card,
-.belonging-button,
-.god-button,
-.creature-category-button {
-    background-color: var(--surface-bg);
-    color: var(--text-primary);
-    border-color: var(--border-strong);
-}
-
-.content button:hover,
-.wiki-card:hover,
-.belonging-button:hover,
-.god-button:hover,
-.creature-category-button:hover {
-    background-color: var(--surface-hover);
-}
-
-.wiki-card p,
-.branch-card p,
-.section-description,
-.god-subtitle {
-    color: var(--text-muted);
-}
-
-.branch-card,
-.belonging-button,
-.creature-category-button,
-.god-button {
-    background-color: var(--surface-bg);
-    color: var(--text-primary);
-    border-color: var(--border-strong);
-}
-
-#belonging-info {
-    background-color: var(--panel-bg);
-}
-
-.god-image {
-    background-color: var(--deep-bg);
-    border-color: var(--border);
-    color: var(--text-placeholder);
-}
-
-.god-details {
-    background-color: var(--surface-bg);
-}
-
 .content .god-button.is-tap-ready,
 .content .god-button.is-tap-ready:hover {
     background-color: var(--text-primary);

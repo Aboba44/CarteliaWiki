@@ -3,11 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <title>Cartelia Wiki</title>
+    <link rel="stylesheet" href="style-fonts.css">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="style-components.css">
     <link rel="stylesheet" href="style-gods.css">
     <link rel="stylesheet" href="style-theme.css">
     <link rel="stylesheet" href="style-responsive.css">
+    <link rel="stylesheet" href="style-animations.css">
 </head>
 
 <body>
@@ -28,6 +30,7 @@
                 <button
                     type="button"
                     aria-expanded="false"
+                    data-nav-section="gods"
                     onclick="toggleFactionMenu(event)"
                 >
                     <span data-i18n="nav.gods">✦ Боги</span>
@@ -40,15 +43,15 @@
                 </div>
             </div>
 
-            <button onclick="showWorlds()">
+            <button data-nav-section="worlds" onclick="showWorlds()">
                 <span>🌌 Миры</span>
             </button>
 
-            <button onclick="showMagic()">
+            <button data-nav-section="magic" onclick="showMagic()">
                 <span data-i18n="nav.magic">✨ Магия</span>
             </button>
 
-            <button onclick="showSection('belonging', true)">
+            <button data-nav-section="belonging" onclick="showSection('belonging', true)">
                 <span data-i18n="nav.races">🧬 Расы</span>
             </button>
 
@@ -56,6 +59,7 @@
                 <button
                     type="button"
                     aria-expanded="false"
+                    data-nav-section="theocracy,hegemony,confederation"
                     onclick="toggleFactionMenu(event)"
                 >
                     <span data-i18n="nav.factions">⚔ Фракции</span>
@@ -76,15 +80,15 @@
                 </div>
             </div>
 
-            <button onclick="showChurch()">
+            <button data-nav-section="church,orders" onclick="showChurch()">
                 <span data-i18n="nav.church">⛪ Церковь</span>
             </button>
 
-            <button onclick="showSection('map', true)">
+            <button data-nav-section="map" onclick="showSection('map', true)">
                 <span data-i18n="nav.map">🗺 Карты</span>
             </button>
 
-            <button onclick="showSection('author', true)">
+            <button data-nav-section="author" onclick="showSection('author', true)">
                 <span data-i18n="nav.author">✍️ От автора</span>
             </button>
 

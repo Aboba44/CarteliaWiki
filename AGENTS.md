@@ -42,14 +42,20 @@ CarteliaWiki/
 │
 ├── index.html
 ├── script.js
+├── home.js
 ├── AGENTS.md
 ├── .gitignore
+├── serve-test.ps1
 │
 ├── style.css
 ├── style-components.css
 ├── style-gods.css
 ├── style-theme.css
 ├── style-responsive.css
+├── style-fonts.css
+├── style-animations.css
+│
+├── fonts/
 │
 ├── data/
 │   ├── church.js
@@ -64,11 +70,11 @@ CarteliaWiki/
 │
 └── images/
 
-Примечания к текущему состоянию (обновлено 2026-10-12):
+Примечания к текущему состоянию (обновлено 2026-10-14):
 
 - `factions.js` и `geography.js` пока не созданы; фракции (Теократия, Гегемония, Конфедерация) — секции-заглушки в `index.html`.
 - Вместо `assets/` используется папка `images/`.
-- CSS разделён по назначению: `style.css` (каркас), `style-components.css`, `style-gods.css`, `style-theme.css`, `style-responsive.css`.
+- CSS разделён по назначению: `style.css` (каркас и дизайн-токены), `style-components.css`, `style-gods.css`, `style-theme.css`, `style-responsive.css`, `style-fonts.css` (локальные шрифты), `style-animations.css` (все анимации сайта).
 - `data/dimensions.js` — измерения между мирами; `data/i18n.js` — переводы интерфейса RU/EN.
 - Проект находится под git (ветка main), в корне лежит `.gitignore`.
 
