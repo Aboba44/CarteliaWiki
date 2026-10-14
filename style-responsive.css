@@ -14,7 +14,8 @@
     }
 
     .sidebar h1 {
-        margin: 0 0 14px;
+        margin: 0 0 10px;
+        font-size: 24px;
     }
 
     .sidebar nav {
@@ -62,6 +63,10 @@
         text-align: center;
     }
 
+    .home-subtitle {
+        margin: 16px 0 0;
+    }
+
     .god-creator-columns {
         grid-template-columns: 1fr;
         gap: 0;
@@ -70,15 +75,5 @@
     .god-indigenous-grid {
         grid-template-columns: 1fr;
         gap: 0;
-    }
-}
-
-@media (max-width: 420px) {
-    .sidebar nav {
-        grid-template-columns: 1fr;
-    }
-
-    .menu-dropdown {
-        grid-column: auto;
     }
 }
