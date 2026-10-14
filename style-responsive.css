@@ -54,8 +54,12 @@
         font-size: 30px;
     }
 
-    #home {
-        min-height: 60vh;
+    .app.is-home #home {
+        min-height: 0;
+    }
+
+    .home-content {
+        text-align: center;
     }
 
     .god-creator-columns {

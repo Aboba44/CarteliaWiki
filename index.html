@@ -19,7 +19,7 @@
     <aside class="sidebar">
 
         <h1>
-            <a href="#home" onclick="showSection('home'); return false;">
+            <a href="#home" onclick="showSection('home', true); return false;">
                 Картелия
             </a>
         </h1>
@@ -118,6 +118,7 @@
                     class="language-button"
                     type="button"
                     data-language="en"
+                    data-i18n-title="controls.englishUnavailable"
                     onclick="setLanguage('en')"
                 >
                     EN
@@ -144,12 +145,12 @@
 
             <button
                 id="prank-button"
-                class="theme-toggle"
+                class="prank-button"
                 type="button"
                 aria-label="Не нажимать"
-                data-i18n-aria="controls.switchTheme"
+                data-i18n-aria="controls.prankButton"
                 title="Не нажимать"
-                data-i18n-title="controls.switchTheme"
+                data-i18n-title="controls.prankButton"
                 onclick="triggerPrank()"
             >
                 ☼

@@ -16,8 +16,9 @@ const i18n = {
         controls: {
             back: "Назад",
             interfaceLanguage: "Язык интерфейса",
+            englishUnavailable: "Перевод на английский пока недоступен",
             search: "Поиск",
-            switchTheme: "Не нажимать"
+            prankButton: "Не нажимать"
         },
         search: {
             inputLabel: "Поиск по Cartelia Wiki",
@@ -63,8 +64,9 @@ const i18n = {
         controls: {
             back: "Back",
             interfaceLanguage: "Interface language",
+            englishUnavailable: "English translation is not available yet",
             search: "Search",
-            switchTheme: "Do not press"
+            prankButton: "Do not press"
         },
         search: {
             inputLabel: "Search Cartelia Wiki",

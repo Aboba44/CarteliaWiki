@@ -16,33 +16,36 @@
     const reducedMotion = window.matchMedia &&
         window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const initialWorlds = [
-        { radius: 15, dark: [242, 234, 214], light: [232, 176, 57] },
-        { radius: 15, dark: [242, 234, 214], light: [232, 176, 57] },
-        { radius: 15, dark: [242, 234, 214], light: [232, 176, 57] },
-        { radius: 10, dark: [143, 195, 238], light: [48, 139, 232] },
-        { radius: 10, dark: [216, 225, 236], light: [116, 166, 218] },
-        { radius: 10, dark: [233, 202, 136], light: [239, 151, 43] }
+        { radius: 15, color: [242, 234, 214] },
+        { radius: 15, color: [242, 234, 214] },
+        { radius: 15, color: [242, 234, 214] },
+        { radius: 10, color: [143, 195, 238] },
+        { radius: 10, color: [216, 225, 236] },
+        { radius: 10, color: [233, 202, 136] }
     ];
     const decorativeStars = [
-        { radius: 9, dark: [190, 130, 255], light: [145, 61, 219] },
-        { radius: 12, dark: [255, 115, 125], light: [217, 55, 75] },
-        { radius: 8, dark: [255, 170, 110], light: [218, 104, 44] },
-        { radius: 11, dark: [120, 230, 185], light: [32, 153, 106] },
-        { radius: 10, dark: [255, 145, 205], light: [202, 65, 139] },
-        { radius: 8, dark: [125, 220, 255], light: [36, 145, 196] },
-        { radius: 13, dark: [198, 155, 255], light: [120, 77, 206] },
-        { radius: 9, dark: [255, 125, 95], light: [201, 68, 50] },
-        { radius: 11, dark: [245, 225, 120], light: [181, 147, 29] },
-        { radius: 8, dark: [145, 245, 210], light: [34, 156, 130] },
-        { radius: 12, dark: [255, 155, 155], light: [205, 77, 91] },
-        { radius: 9, dark: [160, 180, 255], light: [77, 100, 207] },
-        { radius: 10, dark: [255, 195, 120], light: [208, 126, 41] },
-        { radius: 8, dark: [220, 145, 255], light: [164, 68, 193] },
-        { radius: 12, dark: [140, 235, 255], light: [39, 145, 185] },
-        { radius: 9, dark: [255, 130, 175], light: [203, 56, 115] }
+        { radius: 9, color: [190, 130, 255] },
+        { radius: 12, color: [255, 115, 125] },
+        { radius: 8, color: [255, 170, 110] },
+        { radius: 11, color: [120, 230, 185] },
+        { radius: 10, color: [255, 145, 205] },
+        { radius: 8, color: [125, 220, 255] },
+        { radius: 13, color: [198, 155, 255] },
+        { radius: 9, color: [255, 125, 95] },
+        { radius: 11, color: [245, 225, 120] },
+        { radius: 8, color: [145, 245, 210] },
+        { radius: 12, color: [255, 155, 155] },
+        { radius: 9, color: [160, 180, 255] },
+        { radius: 10, color: [255, 195, 120] },
+        { radius: 8, color: [220, 145, 255] },
+        { radius: 12, color: [140, 235, 255] },
+        { radius: 9, color: [255, 130, 175] }
     ];
 
-    const worlds = initialWorlds.concat(decorativeStars).map(function (config) {
+    const visibleDecorativeStars = window.matchMedia("(max-width: 700px)").matches
+        ? decorativeStars.slice(0, 5)
+        : decorativeStars;
+    const worlds = initialWorlds.concat(visibleDecorativeStars).map(function (config) {
         return createStar(config, 12 + Math.random() * 14);
     });
     const backgroundStars = [];
@@ -60,7 +63,6 @@
     let frameId = null;
     let isInView = false;
     let isPageVisible = !document.hidden;
-    let isLightTheme = false;
     let backgroundColor = [140, 140, 140];
     let targetWorld = null;
     let nextHuntAt = null;
@@ -110,7 +112,6 @@
             ];
         }
 
-        isLightTheme = document.body.dataset.theme === "light";
     }
 
     function randomPosition(size, extent) {
@@ -326,7 +327,7 @@
         eater.eatingProgress = 0;
         targetWorld = null;
 
-        const color = isLightTheme ? world.config.light : world.config.dark;
+        const color = world.config.color;
         createBurst(world.x, world.y, color, 28, 185);
         scatterNearbyWorlds(world);
     }
@@ -450,7 +451,7 @@
             return;
         }
 
-        const color = isLightTheme ? config.light : config.dark;
+        const color = config.color;
         const absorptionProgress = star.state === "absorbing"
             ? Math.min(1, eater.eatingProgress)
             : 0;
@@ -473,7 +474,7 @@
 
         glow.addColorStop(
             0,
-            rgba(color, isLightTheme ? 0.16 + twinkle * 0.1 : 0.3 + twinkle * 0.25)
+            rgba(color, 0.3 + twinkle * 0.25)
         );
         glow.addColorStop(1, rgba(color, 0));
         context.globalAlpha = worldAlpha;
@@ -487,19 +488,6 @@
         context.arc(drawX, drawY, radius, 0, Math.PI * 2);
         context.fill();
 
-        if (isLightTheme) {
-            context.globalAlpha = 0.7 * worldAlpha;
-            context.fillStyle = "#ffffff";
-            context.beginPath();
-            context.arc(
-                drawX - radius * 0.28,
-                drawY - radius * 0.28,
-                radius * 0.28,
-                0,
-                Math.PI * 2
-            );
-            context.fill();
-        }
         context.globalAlpha = 1;
     }
 
@@ -703,15 +691,5 @@
         isPageVisible = !document.hidden;
         updateVisibility();
     });
-
-    if (typeof MutationObserver === "function") {
-        new MutationObserver(function () {
-            readBackgroundColor();
-            if (reducedMotion && isInView) draw(performance.now());
-        }).observe(document.body, {
-            attributes: true,
-            attributeFilter: ["data-theme"]
-        });
-    }
 
 })();

@@ -6,10 +6,11 @@ let currentGodPantheon = "indigenous";
 let lastResolvedHash = null;
 
 function setWikiRoute(route, replace = false) {
-    if (window.location.hash === route) return;
-
-    const method = replace ? "replaceState" : "pushState";
-    window.history[method]({ route }, "", route);
+    if (window.location.hash !== route) {
+        const method = replace ? "replaceState" : "pushState";
+        window.history[method]({ route }, "", route);
+    }
+    lastResolvedHash = route;
 }
 
 function setBreadcrumbs(items) {
@@ -109,6 +110,7 @@ function showGod(god) {
     if (data.image) {
         const imageElement = document.createElement("img");
         imageElement.src = data.image;
+        imageElement.decoding = "async";
         imageElement.alt = `Изображение ${data.name || god}`;
         image.appendChild(imageElement);
     } else {
@@ -251,6 +253,8 @@ function renderGods(pantheonId = currentGodPantheon) {
                 image.className = "god-button-image";
                 image.src = data.image;
                 image.alt = "";
+                image.loading = "lazy";
+                image.decoding = "async";
                 button.appendChild(image);
             } else {
                 const imagePlaceholder = document.createElement("span");
@@ -603,6 +607,9 @@ function showSection(section, setRootRoute = false, syncGodRoute = true, syncRou
 
     if (!selected) return;
 
+    document.querySelector(".app")?.classList.toggle("is-home", section === "home");
+    if (section === "home") window.scrollTo(0, 0);
+
     if (
         syncGodRoute &&
         currentSection === "gods" &&
@@ -631,7 +638,7 @@ function showSection(section, setRootRoute = false, syncGodRoute = true, syncRou
         item.style.display = "none";
     });
 
-    selected.style.display = "block";
+    selected.style.display = section === "home" ? "flex" : "block";
     if (sectionChanged) {
         selected.classList.remove("section-enter");
         void selected.offsetWidth;
@@ -719,26 +726,14 @@ function applyTranslations() {
     });
 }
 
-function getSavedLanguage() {
-    try {
-        return localStorage.getItem("cartelia-language");
-    } catch (error) {
-        return null;
-    }
-}
-
-function saveLanguage(language) {
-    try {
-        localStorage.setItem("cartelia-language", language);
-    } catch (error) {
+function setLanguage(language) {
+    if (language !== "ru") {
+        applyTranslations();
         return;
     }
-}
 
-function setLanguage(language) {
-    currentLanguage = language === "en" ? "en" : "ru";
+    currentLanguage = "ru";
     document.documentElement.lang = currentLanguage;
-    saveLanguage(currentLanguage);
     applyTranslations();
 
     if (searchIndex.length > 0) {
@@ -749,7 +744,7 @@ function setLanguage(language) {
 }
 
 /* =========================
-   КНОПКА «ПЕРЕКЛЮЧИТЬ ТЕМУ»
+   КНОПКА-РОЗЫГРЫШ
 
    Светлой темы больше нет — кнопка осталась как розыгрыш.
    Звук синтезируется через Web Audio API, без файлов.
@@ -882,16 +877,7 @@ function hidePrank() {
     if (overlay) overlay.hidden = true;
 }
 
-setLanguage(getSavedLanguage());
-
-const navigationEntry = performance.getEntriesByType("navigation")[0];
-if (navigationEntry?.type === "reload" && window.location.hash) {
-    window.history.replaceState(
-        window.history.state,
-        "",
-        `${window.location.pathname}${window.location.search}`
-    );
-}
+setLanguage("ru");
 
 showSection("home");
 handleWikiRoute();
@@ -977,24 +963,35 @@ function showWorlds() {
     }
 }
 
-function showWorld(worldId) {
+function showWorld(worldId, syncRoute = true) {
     const world = worlds[worldId];
     const info = document.getElementById("worlds-info");
 
     if (!world || !info) return;
 
+    if (syncRoute) setWikiRoute(`#worlds/world/${encodeURIComponent(worldId)}`);
+    setBreadcrumbs([
+        { label: "Миры", route: "#worlds" },
+        { label: world.name }
+    ]);
     info.innerHTML = `
         <h2>${world.name}</h2>
         <p>${world.description}</p>
     `;
 }
 
-function showDimension(dimensionId) {
+function showDimension(dimensionId, syncRoute = true) {
     const dimension = dimensions[dimensionId];
     const info = document.getElementById("worlds-info");
 
     if (!dimension || !info) return;
 
+    if (syncRoute) setWikiRoute(`#worlds/dimension/${encodeURIComponent(dimensionId)}`);
+    setBreadcrumbs([
+        { label: "Миры", route: "#worlds" },
+        { label: "Измерения", route: "#worlds" },
+        { label: dimension.name }
+    ]);
     info.innerHTML = `
         <h2>${dimension.name}</h2>
         <p>${dimension.description}</p>
@@ -1009,26 +1006,42 @@ function showMagic() {
     showSection("magic", true);
     renderMagicFoundations();
     renderMagicTypes();
+    document.getElementById("magic-foundation-info")?.replaceChildren();
+    document.getElementById("magic-type-info")?.replaceChildren();
 }
 
-function showMagicFoundation(topicId) {
+function showMagicFoundation(topicId, syncRoute = true) {
     const topic = magic.foundations.find(item => item.id === topicId);
     const info = document.getElementById("magic-foundation-info");
 
     if (!topic || !info) return;
 
+    if (syncRoute) setWikiRoute(`#magic/foundation/${encodeURIComponent(topicId)}`);
+    setBreadcrumbs([
+        { label: "Магия", route: "#magic" },
+        { label: "Основные темы", route: "#magic" },
+        { label: topic.title }
+    ]);
+    document.getElementById("magic-type-info")?.replaceChildren();
     info.innerHTML = `
         <h2>${topic.title}</h2>
         <p>${topic.description}</p>
     `;
 }
 
-function showMagicType(typeId) {
+function showMagicType(typeId, syncRoute = true) {
     const type = magic.types[typeId];
     const info = document.getElementById("magic-type-info");
 
     if (!type || !info) return;
 
+    if (syncRoute) setWikiRoute(`#magic/type/${encodeURIComponent(typeId)}`);
+    setBreadcrumbs([
+        { label: "Магия", route: "#magic" },
+        { label: "Виды магии", route: "#magic" },
+        { label: type.name }
+    ]);
+    document.getElementById("magic-foundation-info")?.replaceChildren();
     info.innerHTML = `
         <h2>${type.name}</h2>
         <p>${type.description}</p>
@@ -1159,6 +1172,8 @@ function showChurchBranch(branchId, syncRoute = true) {
 
 function showChurchChamber(branchId, chamberId, syncRoute = true) {
     const branch = church.branches[branchId];
+    if (!branch) return;
+
     const chamber = branch.chambers[chamberId];
 
     if (!chamber) return;
@@ -1250,9 +1265,9 @@ function openChurchTopic(branchId, chamberId, topicIndex, syncRoute = true) {
 
 }
 
-function handleWikiRoute() {
+function handleWikiRoute(force = false) {
     const hash = window.location.hash;
-    if (hash === lastResolvedHash) return;
+    if (!force && hash === lastResolvedHash) return;
     lastResolvedHash = hash;
 
     const parts = hash.replace(/^#/, "").split("/").filter(Boolean);
@@ -1303,9 +1318,24 @@ function handleWikiRoute() {
         }
     } else if (section === "worlds") {
         renderWorlds();
+        const [, detailType, detailId] = parts;
+        if (detailType === "world" && detailId) {
+            showWorld(decodeRoutePart(detailId), false);
+        } else if (detailType === "dimension" && detailId) {
+            showDimension(decodeRoutePart(detailId), false);
+        }
     } else if (section === "magic") {
         renderMagicFoundations();
         renderMagicTypes();
+        document.getElementById("magic-foundation-info")?.replaceChildren();
+        document.getElementById("magic-type-info")?.replaceChildren();
+
+        const [, detailType, detailId] = parts;
+        if (detailType === "foundation" && detailId) {
+            showMagicFoundation(decodeRoutePart(detailId), false);
+        } else if (detailType === "type" && detailId) {
+            showMagicType(decodeRoutePart(detailId), false);
+        }
     }
 
 }
@@ -1561,11 +1591,8 @@ function buildSearchIndex() {
             topic.title,
             getSearchSectionLabel("magic"),
             [topic.description],
+            `#magic/foundation/${encodeURIComponent(topic.id)}`,
             null,
-            () => {
-                showMagic();
-                showMagicFoundation(topic.id);
-            },
             ["Основные темы"]
         );
     });
@@ -1576,11 +1603,8 @@ function buildSearchIndex() {
             type.name,
             getSearchSectionLabel("magic"),
             [type.summary, type.description, type.focus, type.traits, type.principles, type.applications, type.limitations],
+            `#magic/type/${encodeURIComponent(typeId)}`,
             null,
-            () => {
-                showMagic();
-                showMagicType(typeId);
-            },
             ["Виды магии"]
         );
     });
@@ -1591,11 +1615,7 @@ function buildSearchIndex() {
             world.name,
             getSearchSectionLabel("worlds"),
             [world.description],
-            null,
-            () => {
-                showWorlds();
-                showWorld(worldId);
-            }
+            `#worlds/world/${encodeURIComponent(worldId)}`
         );
     });
 
@@ -1605,11 +1625,8 @@ function buildSearchIndex() {
             dimension.name,
             getSearchSectionLabel("worlds"),
             [dimension.description, dimension.summary, dimension.notes],
+            `#worlds/dimension/${encodeURIComponent(dimensionId)}`,
             null,
-            () => {
-                showWorlds();
-                showDimension(dimensionId);
-            },
             ["Измерения"]
         );
     });
@@ -1724,9 +1741,8 @@ function openSearchResult(entry) {
     }
 
     if (entry.route) {
-        lastResolvedHash = null;
         setWikiRoute(entry.route);
-        handleWikiRoute();
+        handleWikiRoute(true);
     }
 }
 

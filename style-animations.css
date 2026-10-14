@@ -375,7 +375,7 @@
    МЕЛКИЕ АКЦЕНТЫ
    ========================= */
 
-.theme-toggle:hover,
+.prank-button:hover,
 .search-toggle:hover,
 .language-button.is-active {
     border-color: var(--accent-border);

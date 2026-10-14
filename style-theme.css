@@ -1,7 +1,6 @@
 body {
     background-color: var(--page-bg);
     color: var(--text-primary);
-    transition: background-color 0.2s, color 0.2s;
 }
 
 .app {
@@ -54,6 +53,32 @@ body {
     border-top-left-radius: var(--panel-junction-radius);
 }
 
+.app.is-home {
+    height: 100vh;
+    height: 100dvh;
+    min-height: 0;
+    overflow: hidden;
+}
+
+.app.is-home .main-column {
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+}
+
+.app.is-home .content {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    min-height: 0;
+    overflow: hidden;
+    padding: 0;
+}
+
+.app.is-home .breadcrumbs {
+    display: none;
+}
+
 .church-article {
     max-width: 900px;
     margin: 0 auto;
@@ -75,7 +100,7 @@ body {
     border-bottom: none;
 }
 
-.theme-toggle {
+.prank-button {
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -92,7 +117,7 @@ body {
     cursor: pointer;
 }
 
-.theme-toggle:hover {
+.prank-button:hover {
     background-color: var(--surface-hover);
 }
 
