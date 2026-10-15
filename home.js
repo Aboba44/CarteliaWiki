@@ -67,6 +67,12 @@
     let targetWorld = null;
     let nextHuntAt = null;
     const particles = [];
+    const pointer = {
+        x: 0,
+        y: 0,
+        active: false
+    };
+    const pointerGlowRadius = 170;
     const eater = {
         x: 0,
         y: 0,
@@ -436,14 +442,25 @@
         return `rgba(${rgb[0]}, ${rgb[1]}, ${rgb[2]}, ${alpha})`;
     }
 
+    function pointerBoost(star) {
+        if (!pointer.active) return 0;
+
+        const distance = Math.hypot(
+            (Number.isFinite(star.displayX) ? star.displayX : star.x) - pointer.x,
+            (Number.isFinite(star.displayY) ? star.displayY : star.y) - pointer.y
+        );
+        return Math.max(0, 1 - distance / pointerGlowRadius);
+    }
+
     function drawStar(star, time) {
         const twinkle = reducedMotion
             ? 0.8
             : 0.65 + 0.35 * Math.sin(time * star.twinkleSpeed + star.phase);
+        const boost = pointerBoost(star);
         const config = star.config;
 
         if (config.background) {
-            context.globalAlpha = 0.16 + 0.34 * twinkle;
+            context.globalAlpha = Math.min(1, 0.16 + 0.34 * twinkle + boost * 0.5);
             context.fillStyle = rgba(backgroundColor, 1);
             context.beginPath();
             context.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
@@ -474,7 +491,7 @@
 
         glow.addColorStop(
             0,
-            rgba(color, 0.3 + twinkle * 0.25)
+            rgba(color, Math.min(1, 0.3 + twinkle * 0.25 + boost * 0.4))
         );
         glow.addColorStop(1, rgba(color, 0));
         context.globalAlpha = worldAlpha;
@@ -483,7 +500,7 @@
         context.arc(drawX, drawY, radius * 3.5, 0, Math.PI * 2);
         context.fill();
 
-        context.fillStyle = rgba(color, 0.65 + twinkle * 0.35);
+        context.fillStyle = rgba(color, Math.min(1, 0.65 + twinkle * 0.35 + boost * 0.3));
         context.beginPath();
         context.arc(drawX, drawY, radius, 0, Math.PI * 2);
         context.fill();
@@ -690,6 +707,21 @@
     document.addEventListener("visibilitychange", function () {
         isPageVisible = !document.hidden;
         updateVisibility();
+    });
+
+    home.addEventListener("pointermove", function (event) {
+        const rect = home.getBoundingClientRect();
+        pointer.x = event.clientX - rect.left;
+        pointer.y = event.clientY - rect.top;
+        pointer.active = true;
+
+        if (reducedMotion && isInView) draw(performance.now());
+    });
+
+    home.addEventListener("pointerleave", function () {
+        pointer.active = false;
+
+        if (reducedMotion && isInView) draw(performance.now());
     });
 
 })();

@@ -285,6 +285,46 @@
 
 
 /* =========================
+   ГЛАВНАЯ — ОРНАМЕНТ ПОД ЗАГОЛОВКОМ
+   ========================= */
+
+.home-ornament {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: fit-content;
+    margin-top: 26px;
+    animation: home-subtitle-enter 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) 0.7s backwards;
+}
+
+.home-ornament-line {
+    width: 90px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--accent));
+}
+
+.home-ornament-line:last-child {
+    background: linear-gradient(90deg, var(--accent), transparent);
+}
+
+.home-ornament-diamond {
+    flex: 0 0 auto;
+    width: 5px;
+    height: 5px;
+    background: var(--accent);
+    transform: rotate(45deg);
+    opacity: 0.75;
+}
+
+.home-ornament-diamond-main {
+    width: 9px;
+    height: 9px;
+    opacity: 1;
+    box-shadow: 0 0 12px rgb(200 167 107 / 45%);
+}
+
+
+/* =========================
    ХЛЕБНЫЕ КРОШКИ
    ========================= */
 
@@ -421,6 +461,7 @@
     .god-buttons > .god-button,
     .home-content h2,
     .home-subtitle,
+    .home-ornament,
     .breadcrumbs a,
     .breadcrumb-current {
         animation: none !important;
