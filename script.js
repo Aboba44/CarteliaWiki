@@ -93,16 +93,19 @@ function showGod(god) {
     const page = document.createElement("div");
     page.className = "god-page";
 
+    const copy = document.createElement("div");
+    copy.className = "god-page-copy";
+
     const title = document.createElement("h1");
     title.className = "god-page-title";
     title.textContent = data.name || god;
-    page.appendChild(title);
+    copy.appendChild(title);
 
     if (data.title) {
         const subtitle = document.createElement("p");
         subtitle.className = "god-subtitle";
         subtitle.textContent = data.title;
-        page.appendChild(subtitle);
+        copy.appendChild(subtitle);
     }
 
     const image = document.createElement("div");
@@ -116,7 +119,6 @@ function showGod(god) {
     } else {
         image.textContent = data.imagePlaceholder || `Изображение ${data.name || god}`;
     }
-    page.appendChild(image);
 
     const details = document.createElement("div");
     details.className = "god-details";
@@ -133,16 +135,18 @@ function showGod(god) {
     });
 
     if (details.childElementCount > 0) {
-        page.appendChild(details);
+        copy.appendChild(details);
     }
 
     const descriptionTitle = document.createElement("h3");
     descriptionTitle.textContent = "Описание";
-    page.appendChild(descriptionTitle);
+    copy.appendChild(descriptionTitle);
 
     const description = document.createElement("p");
     description.textContent = data.description || "Описание пока не добавлено.";
-    page.appendChild(description);
+    copy.appendChild(description);
+
+    page.append(copy, image);
 
     info.replaceChildren(page);
 }
@@ -192,36 +196,72 @@ function renderGods(pantheonId = currentGodPantheon) {
     const heraldColumns = document.createElement("div");
     heraldColumns.className = "god-herald-columns";
 
+    const heraldHeading = document.createElement("h3");
+    heraldHeading.className = "god-category god-herald-heading";
+
+    const heraldToggle = document.createElement("button");
+    heraldToggle.type = "button";
+    heraldToggle.className = "god-category-toggle";
+    heraldToggle.id = "god-herald-definition-toggle";
+    heraldToggle.textContent = "Вестники";
+    heraldToggle.setAttribute("aria-label", heraldToggle.textContent);
+    heraldToggle.setAttribute("aria-expanded", "false");
+
+    const sharedHeraldDefinition = document.createElement("div");
+    sharedHeraldDefinition.className = "god-category-definition";
+    sharedHeraldDefinition.id = "god-herald-definition";
+    sharedHeraldDefinition.setAttribute("role", "region");
+    sharedHeraldDefinition.setAttribute("aria-labelledby", heraldToggle.id);
+    sharedHeraldDefinition.textContent = heraldDefinition || "Определение пока не добавлено.";
+    sharedHeraldDefinition.hidden = true;
+
+    heraldToggle.setAttribute("aria-controls", sharedHeraldDefinition.id);
+    heraldToggle.addEventListener("click", function () {
+        const isExpanded = heraldToggle.getAttribute("aria-expanded") === "true";
+        heraldToggle.setAttribute("aria-expanded", String(!isExpanded));
+        sharedHeraldDefinition.hidden = isExpanded;
+    });
+    heraldHeading.appendChild(heraldToggle);
+
     categoryKeys.forEach(function (categoryKey, index) {
         const items = categories.get(categoryKey) || [];
         const category = pantheon.categories[categoryKey];
+        const isHeraldCategory = heraldCategories.includes(categoryKey);
         const heading = document.createElement("h3");
         heading.className = "god-category";
+        let definition = null;
 
-        const toggle = document.createElement("button");
-        toggle.type = "button";
-        toggle.className = "god-category-toggle";
-        toggle.id = `god-category-toggle-${index}`;
-        toggle.textContent = category?.name || (categoryKey === "uncategorized" ? "Без категории" : categoryKey);
-        toggle.setAttribute("aria-label", toggle.textContent);
-        toggle.setAttribute("aria-expanded", "false");
+        if (isHeraldCategory) {
+            const label = document.createElement("span");
+            label.className = "god-herald-category-label";
+            label.textContent = category?.name || categoryKey;
+            heading.appendChild(label);
+        } else {
+            const toggle = document.createElement("button");
+            toggle.type = "button";
+            toggle.className = "god-category-toggle";
+            toggle.id = `god-category-toggle-${index}`;
+            toggle.textContent = category?.name || (categoryKey === "uncategorized" ? "Без категории" : categoryKey);
+            toggle.setAttribute("aria-label", toggle.textContent);
+            toggle.setAttribute("aria-expanded", "false");
 
-        const definition = document.createElement("div");
-        definition.className = "god-category-definition";
-        definition.id = `god-category-definition-${index}`;
-        definition.setAttribute("role", "region");
-        definition.setAttribute("aria-labelledby", toggle.id);
-        definition.textContent = category?.definition || "Определение пока не добавлено.";
-        definition.hidden = true;
+            definition = document.createElement("div");
+            definition.className = "god-category-definition";
+            definition.id = `god-category-definition-${index}`;
+            definition.setAttribute("role", "region");
+            definition.setAttribute("aria-labelledby", toggle.id);
+            definition.textContent = category?.definition || "Определение пока не добавлено.";
+            definition.hidden = true;
 
-        toggle.setAttribute("aria-controls", definition.id);
-        toggle.addEventListener("click", function () {
-            const isExpanded = toggle.getAttribute("aria-expanded") === "true";
-            toggle.setAttribute("aria-expanded", String(!isExpanded));
-            definition.hidden = isExpanded;
-        });
+            toggle.setAttribute("aria-controls", definition.id);
+            toggle.addEventListener("click", function () {
+                const isExpanded = toggle.getAttribute("aria-expanded") === "true";
+                toggle.setAttribute("aria-expanded", String(!isExpanded));
+                definition.hidden = isExpanded;
+            });
 
-        heading.appendChild(toggle);
+            heading.appendChild(toggle);
+        }
 
         const categoryBlock = document.createElement("div");
         categoryBlock.className = "god-category-block";
@@ -313,10 +353,15 @@ function renderGods(pantheonId = currentGodPantheon) {
             group.appendChild(emptyState);
         }
 
-        categoryBlock.append(heading, definition, group);
+        categoryBlock.appendChild(heading);
+        if (!isHeraldCategory) {
+            categoryBlock.appendChild(definition);
+        }
+        categoryBlock.appendChild(group);
 
-        if (heraldCategories.includes(categoryKey)) {
+        if (isHeraldCategory) {
             if (!heraldColumns.isConnected) {
+                list.append(heraldHeading, sharedHeraldDefinition);
                 list.appendChild(heraldColumns);
             }
             heraldColumns.appendChild(categoryBlock);
