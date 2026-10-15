@@ -1,17 +1,17 @@
 const i18n = {
     ru: {
         nav: {
-            gods: "✦ Боги",
-            magic: "✨ Магия",
-            races: "🧬 Расы",
-            factions: "⚔ Фракции",
+            gods: "Боги",
+            magic: "Магия",
+            races: "Расы",
+            factions: "Фракции",
             theocracy: "Теократия",
             hegemony: "Гегемония",
             confederation: "Конфедерация",
-            church: "⛪ Церковь",
-            orders: "⚔ Ордена",
-            map: "🗺 Карты",
-            author: "✍️ От автора"
+            church: "Церковь",
+            orders: "Ордена",
+            map: "Карты",
+            author: "От автора"
         },
         controls: {
             back: "Назад",
@@ -49,17 +49,17 @@ const i18n = {
     },
     en: {
         nav: {
-            gods: "✦ Gods",
-            magic: "✨ Magic",
-            races: "🧬 Races",
-            factions: "⚔ Factions",
+            gods: "Gods",
+            magic: "Magic",
+            races: "Races",
+            factions: "Factions",
             theocracy: "Theocracy",
             hegemony: "Hegemony",
             confederation: "Confederation",
-            church: "⛪ Church",
-            orders: "⚔ Orders",
-            map: "🗺 Maps",
-            author: "✍️ From the Author"
+            church: "Church",
+            orders: "Orders",
+            map: "Maps",
+            author: "From the Author"
         },
         controls: {
             back: "Back",

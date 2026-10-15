@@ -65,7 +65,7 @@ const gods = {
         title: "Бог материи",
         pantheon: "indigenous",
         category: "senior",
-        image: "images/carts of gods/markart.png",
+        image: "images/gods/markart.jpg",
         description: "Здесь будет подробное описание Маркарта."
     },
 
@@ -74,7 +74,7 @@ const gods = {
         title: "Бог времени",
         pantheon: "indigenous",
         category: "senior",
-        image: "images/carts of gods/zirkif.png",
+        image: "images/gods/zirkif.jpg",
         description: "Здесь будет подробное описание Зиркифа."
     },
 
@@ -83,7 +83,7 @@ const gods = {
         title: "Бог пространства",
         pantheon: "indigenous",
         category: "senior",
-        image: "images/carts of gods/Garlas.png",
+        image: "images/gods/garlas.jpg",
         description: "Здесь будет подробное описание Гарласа."
     },
 
@@ -92,7 +92,7 @@ const gods = {
         title: "Богиня души",
         pantheon: "indigenous",
         category: "junior",
-        image: "images/carts of gods/Alimesa.png",
+        image: "images/gods/alimesa.jpg",
         description: "Здесь будет подробное описание Алимесы."
     },
 
@@ -101,7 +101,7 @@ const gods = {
         title: "Бог смерти",
         pantheon: "indigenous",
         category: "junior",
-        image: "images/carts of gods/Kitil.jpg",
+        image: "images/gods/kitil.jpg",
         description: "Здесь будет подробное описание Китиля."
     },
 
@@ -118,7 +118,7 @@ const gods = {
         title: "Праотец демонов",
         pantheon: "indigenous",
         category: "demigod",
-        image: "images/carts of gods/Keket.png",
+        image: "images/gods/keket.jpg",
         description: "Праотец демонов."
     },
 

@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Cartelia Wiki</title>
+    <link rel="icon" type="image/svg+xml" href="images/favicon.svg">
     <link rel="stylesheet" href="style-fonts.css">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="style-components.css">
@@ -34,7 +35,10 @@
                     data-nav-section="gods"
                     onclick="toggleFactionMenu(event)"
                 >
-                    <span data-i18n="nav.gods">✦ Боги</span>
+                    <svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                        <path d="M12 3.5c.7 4.6 3.9 7.8 8.5 8.5-4.6.7-7.8 3.9-8.5 8.5-.7-4.6-3.9-7.8-8.5-8.5 4.6-.7 7.8-3.9 8.5-8.5Z"/>
+                    </svg>
+                    <span data-i18n="nav.gods">Боги</span>
                 </button>
 
                 <div class="dropdown-content">
@@ -45,15 +49,28 @@
             </div>
 
             <button data-nav-section="worlds" onclick="showWorlds()">
-                <span>🌌 Миры</span>
+                <svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                    <circle cx="12" cy="12" r="5.25"/>
+                    <ellipse cx="12" cy="12" rx="10" ry="3.4" transform="rotate(-18 12 12)"/>
+                </svg>
+                <span>Миры</span>
             </button>
 
             <button data-nav-section="magic" onclick="showMagic()">
-                <span data-i18n="nav.magic">✨ Магия</span>
+                <svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                    <path d="M9.5 4c.55 3.6 3 6.05 6.6 6.6-3.6.55-6.05 3-6.6 6.6-.55-3.6-3-6.05-6.6-6.6 3.6-.55 6.05-3 6.6-6.6Z"/>
+                    <path d="M18.5 14.7c.25 1.65 1.5 2.9 3.15 3.15-1.65.25-2.9 1.5-3.15 3.15-.25-1.65-1.5-2.9-3.15-3.15 1.65-.25 2.9-1.5 3.15-3.15Z"/>
+                </svg>
+                <span data-i18n="nav.magic">Магия</span>
             </button>
 
             <button data-nav-section="belonging" onclick="showSection('belonging', true)">
-                <span data-i18n="nav.races">🧬 Расы</span>
+                <svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                    <path d="M8.5 3c0 4.8 7 4.8 7 9s-7 4.2-7 9"/>
+                    <path d="M15.5 3c0 4.8-7 4.8-7 9s7 4.2 7 9"/>
+                    <path d="M10 6.8h4M10 17.2h4"/>
+                </svg>
+                <span data-i18n="nav.races">Расы</span>
             </button>
 
             <div class="menu-dropdown">
@@ -63,7 +80,11 @@
                     data-nav-section="theocracy,hegemony,confederation"
                     onclick="toggleFactionMenu(event)"
                 >
-                    <span data-i18n="nav.factions">⚔ Фракции</span>
+                    <svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                        <path d="M6 3.5v17"/>
+                        <path d="M6 4.5h11.5L15 8l2.5 3.5H6"/>
+                    </svg>
+                    <span data-i18n="nav.factions">Фракции</span>
                 </button>
 
                 <div class="dropdown-content">
@@ -82,15 +103,30 @@
             </div>
 
             <button data-nav-section="church,orders" onclick="showChurch()">
-                <span data-i18n="nav.church">⛪ Церковь</span>
+                <svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                    <path d="M12 2v4.5M10.2 3.8h3.6"/>
+                    <path d="M5.5 21v-8.5l6.5-5 6.5 5V21"/>
+                    <path d="M3.5 21h17"/>
+                    <path d="M10 21v-3.2a2 2 0 0 1 4 0V21"/>
+                </svg>
+                <span data-i18n="nav.church">Церковь</span>
             </button>
 
             <button data-nav-section="map" onclick="showSection('map', true)">
-                <span data-i18n="nav.map">🗺 Карты</span>
+                <svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                    <path d="M9 4.5 3.5 6.5v13L9 17.5l6 2 5.5-2v-13l-5.5 2-6-2Z"/>
+                    <path d="M9 4.5v13M15 6.5v13"/>
+                </svg>
+                <span data-i18n="nav.map">Карты</span>
             </button>
 
             <button data-nav-section="author" onclick="showSection('author', true)">
-                <span data-i18n="nav.author">✍️ От автора</span>
+                <svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                    <path d="M20.24 12.24a6 6 0 0 0-8.49-8.49L5 10.5V19h8.5z"/>
+                    <path d="M16 8 2 22"/>
+                    <path d="M17.5 15H9"/>
+                </svg>
+                <span data-i18n="nav.author">От автора</span>
             </button>
 
         </nav>

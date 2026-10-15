@@ -88,6 +88,24 @@ h3 {
     background-color: var(--surface-bg);
 }
 
+.sidebar nav > button,
+.menu-dropdown > button {
+    align-items: center;
+    gap: 10px;
+}
+
+.nav-icon {
+    flex: 0 0 auto;
+    width: 18px;
+    height: 18px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    opacity: 0.9;
+}
+
 
 /* =========================
    ОСНОВНОЙ КОНТЕНТ
@@ -234,4 +252,28 @@ p {
 .wiki-card p {
     font-family: var(--font-body);
     font-size: 14px;
+}
+
+
+/* =========================
+   ПОЛОСА ПРОКРУТКИ
+   ========================= */
+
+::-webkit-scrollbar {
+    width: 11px;
+    height: 11px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--page-bg);
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: var(--border-strong);
+    border-radius: 6px;
+    border: 3px solid var(--page-bg);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background-color: var(--accent);
 }
