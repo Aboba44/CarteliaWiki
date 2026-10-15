@@ -27,6 +27,7 @@
     --mobile-gutter: 18px;
     --panel-junction-radius: 18px;
     --content-top-gutter: 42px;
+    --texture-image: url("images/textures/black-paper.png");
 }
 
 body {
@@ -34,7 +35,7 @@ body {
     background-color: var(--page-bg);
     background-image:
         linear-gradient(rgba(30, 30, 30, 0.78), rgba(30, 30, 30, 0.78)),
-        url("images/textures/black-paper.png");
+        var(--texture-image);
     color: var(--text-primary);
     font-family: var(--font-body);
 }
@@ -62,7 +63,7 @@ h3 {
     background-color: var(--sidebar-bg);
     background-image:
         linear-gradient(rgba(21, 21, 21, 0.78), rgba(21, 21, 21, 0.78)),
-        url("images/textures/black-paper.png");
+        var(--texture-image);
     border-right: 1px solid var(--border);
     padding: 25px 15px;
 }

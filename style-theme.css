@@ -12,6 +12,9 @@ body {
     flex: 1;
     min-width: 0;
     background-color: var(--sidebar-bg);
+    background-image:
+        linear-gradient(rgba(21, 21, 21, 0.78), rgba(21, 21, 21, 0.78)),
+        var(--texture-image);
 }
 
 .sidebar {
@@ -97,6 +100,9 @@ body {
     min-height: var(--topbar-height);
     padding: 0 16px;
     background-color: var(--sidebar-bg);
+    background-image:
+        linear-gradient(rgba(21, 21, 21, 0.78), rgba(21, 21, 21, 0.78)),
+        var(--texture-image);
     border-bottom: none;
 }
 
