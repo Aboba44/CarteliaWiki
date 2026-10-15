@@ -32,6 +32,9 @@
 body {
     margin: 0;
     background-color: var(--page-bg);
+    background-image:
+        linear-gradient(rgba(30, 30, 30, 0.78), rgba(30, 30, 30, 0.78)),
+        url("images/textures/black-paper.png");
     color: var(--text-primary);
     font-family: var(--font-body);
 }
@@ -57,6 +60,9 @@ h3 {
 .sidebar {
     width: 240px;
     background-color: var(--sidebar-bg);
+    background-image:
+        linear-gradient(rgba(21, 21, 21, 0.78), rgba(21, 21, 21, 0.78)),
+        url("images/textures/black-paper.png");
     border-right: 1px solid var(--border);
     padding: 25px 15px;
 }
