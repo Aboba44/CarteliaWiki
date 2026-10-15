@@ -28,6 +28,7 @@
     --panel-junction-radius: 18px;
     --content-top-gutter: 42px;
     --texture-image: url("images/textures/black-paper.png");
+    --texture-size: 560px;
 }
 
 body {
@@ -36,6 +37,7 @@ body {
     background-image:
         linear-gradient(rgba(30, 30, 30, 0.78), rgba(30, 30, 30, 0.78)),
         var(--texture-image);
+    background-size: var(--texture-size);
     color: var(--text-primary);
     font-family: var(--font-body);
 }
@@ -64,6 +66,7 @@ h3 {
     background-image:
         linear-gradient(rgba(21, 21, 21, 0.78), rgba(21, 21, 21, 0.78)),
         var(--texture-image);
+    background-size: var(--texture-size);
     border-right: 1px solid var(--border);
     padding: 25px 15px;
 }
