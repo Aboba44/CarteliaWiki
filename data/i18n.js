@@ -30,7 +30,13 @@ const i18n = {
         },
         home: {
             title: "Добро пожаловать в Мир Картелии",
-            subtitle: "Хранилище знаний о мире: боги, Церковь, магия, расы, миры и измерения."
+            subtitle: "Хранилище знаний о мире: боги, Церковь, магия, расы, миры и измерения.",
+            changelog: {
+                title: "Журнал изменений",
+                hide: "Скрыть журнал",
+                show: "Показать журнал",
+                empty: "Записей пока нет."
+            }
         },
         sections: {
             church: "Церковь",
@@ -78,7 +84,13 @@ const i18n = {
         },
         home: {
             title: "Welcome to the World of Cartelia",
-            subtitle: "A repository of the world's lore: gods, the Church, magic, races, worlds and dimensions."
+            subtitle: "A repository of the world's lore: gods, the Church, magic, races, worlds and dimensions.",
+            changelog: {
+                title: "Changelog",
+                hide: "Hide changelog",
+                show: "Show changelog",
+                empty: "There are no entries yet."
+            }
         },
         sections: {
             church: "Church",

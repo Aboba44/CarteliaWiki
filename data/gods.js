@@ -242,7 +242,7 @@ const gods = {
         name: "Этофир",
         pantheon: "foreign",
         standalone: true,
-        image: "",
+        image: "images/gods/Atopfier.png",
         imagePlaceholder: "Изображение пока не добавлено.",
         description: ""
     }

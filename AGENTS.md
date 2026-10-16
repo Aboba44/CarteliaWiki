@@ -21,12 +21,12 @@ CarteliaWiki — локальный сайт-вики для вымышленн�
 3. HTML-структуру.
 4. Стили.
 
-Не помещай большое количество информации о мире непосредственно в `index.html` или `script.js`.
+Не помещай большое количество информации о мире непосредственно в `index.html` или файлы логики сайта.
 
 По возможности:
 
 - данные мира хранятся в `data/*.js`;
-- `script.js` отвечает за общую логику и отображение;
+- `scripts/*.js` отвечают за общую логику и отображение;
 - `style.css` отвечает за внешний вид;
 - `index.html` содержит структуру сайта и основные контейнеры.
 
@@ -41,7 +41,6 @@ CarteliaWiki — локальный сайт-вики для вымышленн�
 CarteliaWiki/
 │
 ├── index.html
-├── script.js
 ├── home.js
 ├── AGENTS.md
 ├── .gitignore
@@ -68,6 +67,20 @@ CarteliaWiki/
 │   ├── dimensions.js
 │   └── i18n.js
 │
+├── scripts/
+│   ├── common.js
+│   ├── navigation.js
+│   ├── language.js
+│   ├── search.js
+│   ├── prank.js
+│   ├── app.js
+│   ├── godsSC.js
+│   ├── churchSC.js
+│   ├── racesSC.js
+│   ├── magicSC.js
+│   ├── worldsSC.js
+│   └── ordersSC.js
+│
 └── images/
 
 Примечания к текущему состоянию (обновлено 2026-10-14):
@@ -76,7 +89,7 @@ CarteliaWiki/
 - Вместо `assets/` используется папка `images/`.
 - CSS разделён по назначению: `style.css` (каркас и дизайн-токены), `style-components.css`, `style-gods.css`, `style-theme.css`, `style-responsive.css`, `style-fonts.css` (локальные шрифты), `style-animations.css` (все анимации сайта).
 - `data/dimensions.js` — измерения между мирами; `data/i18n.js` — переводы интерфейса RU/EN.
-- Светлой темы больше нет: кнопка переключения темы оставлена как розыгрыш (`script.js`: `triggerPrank`, звук синтезируется через Web Audio API).
+- Светлой темы больше нет: кнопка переключения темы оставлена как розыгрыш (`scripts/prank.js`: `triggerPrank`, звук синтезируется через Web Audio API).
 - Проект находится под git (ветка main), в корне лежит `.gitignore`.
 
 Не создавай новые крупные системы или файлы без необходимости.
@@ -453,7 +466,7 @@ const church = {
 - контейнеры разделов;
 - подключение CSS;
 - подключение файлов данных;
-- подключение `script.js`.
+- подключение файлов логики из `scripts/`.
 
 Не превращай `index.html` в огромный файл с полным лором мира.
 
@@ -469,13 +482,17 @@ const church = {
 
 # 19. JavaScript
 
-`script.js` отвечает за:
+Файлы в `scripts/` отвечают за:
 
 - навигацию;
 - переключение разделов;
 - открытие статей;
 - генерацию интерфейса;
 - работу с данными из `data/*.js`.
+
+Для системы с данными в `data/` файл отображения называется с суффиксом `SC`,
+например `data/gods.js` и `scripts/godsSC.js`. Данные и логику отображения не
+дублируй: содержимое мира остаётся в `data/`, функции рендера — в `scripts/`.
 
 Не создавай огромные конструкции вида:
 
@@ -529,14 +546,16 @@ const races = {
 
 # 21. Подключение файлов
 
-Если `script.js` использует переменную из другого JS-файла, файл с данными должен быть подключён раньше.
+Если файл из `scripts/` использует переменную из другого JS-файла, файл с данными должен быть подключён раньше.
 
 Например:
 
 <script src="data/gods.js"></script>
 <script src="data/church.js"></script>
 <script src="data/orders.js"></script>
-<script src="script.js"></script>
+<script src="scripts/common.js"></script>
+<script src="scripts/godsSC.js"></script>
+<script src="scripts/app.js"></script>
 
 Следи за порядком загрузки.
 
@@ -762,7 +781,7 @@ church-content
 Будут изменены:
 
 - `index.html`
-- `script.js`
+- `scripts/*.js`
 - `data/church.js`
 - `style.css`
 
@@ -823,7 +842,7 @@ church-content
 +
 дублирование информации
 +
-огромный `script.js`
+огромный файл логики
 +
 огромный `index.html`.
 

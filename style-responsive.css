@@ -67,6 +67,19 @@
         margin: 16px 0 0;
     }
 
+    .home-changelog {
+        width: min(100%, 520px);
+        margin: 14px auto 0;
+    }
+
+    .home-changelog-header h2 {
+        font-size: 17px;
+    }
+
+    .home-changelog-list {
+        padding: 0 9px;
+    }
+
     .god-creator-columns {
         grid-template-columns: 1fr;
         gap: 0;

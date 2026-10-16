@@ -297,3 +297,103 @@
     font-size: 15px;
     line-height: 1.6;
 }
+
+.home-changelog {
+    width: min(100%, 520px);
+    margin-top: 10px;
+    text-align: left;
+    pointer-events: auto;
+}
+
+.home-changelog-panel {
+    max-height: min(30vh, 240px);
+    overflow: hidden;
+    color: var(--text-primary);
+    text-shadow: none;
+    background: rgb(21 21 21 / 38%);
+    border: 1px solid rgb(200 167 107 / 28%);
+    border-radius: 7px;
+    backdrop-filter: blur(3px);
+}
+
+.home-changelog-panel[hidden] {
+    display: none;
+}
+
+.home-changelog-header {
+    display: flex;
+    flex: 0 0 auto;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 5px 10px;
+    border-bottom: 1px solid rgb(255 255 255 / 10%);
+}
+
+.home-changelog-header h2 {
+    margin: 0;
+    color: var(--accent-strong);
+    font-size: 18px;
+}
+
+.content .home-changelog-toggle {
+    flex: 0 0 auto;
+    padding: 5px 9px;
+    color: var(--text-secondary);
+    font-size: 12px;
+    background: rgb(21 21 21 / 32%);
+    border-color: rgb(200 167 107 / 30%);
+}
+
+.content .home-changelog-toggle:hover {
+    transform: none;
+    background: rgb(21 21 21 / 52%);
+}
+
+.home-changelog-list {
+    min-height: 0;
+    padding: 0 10px;
+    overflow: auto;
+}
+
+.home-changelog-empty {
+    margin: 8px 0;
+    color: var(--text-muted);
+    font-size: 13px;
+}
+
+.home-changelog-entry {
+    border-bottom: 1px solid rgb(255 255 255 / 10%);
+}
+
+.home-changelog-entry:last-child {
+    border-bottom: 0;
+}
+
+.home-changelog-entry summary {
+    display: flex;
+    align-items: baseline;
+    gap: 9px;
+    padding: 7px 0;
+    color: var(--text-secondary);
+    font-size: 13px;
+    cursor: pointer;
+}
+
+.home-changelog-date {
+    flex: 0 0 auto;
+    color: var(--accent-strong);
+    font-size: 12px;
+}
+
+.home-changelog-entry-title {
+    font-weight: 600;
+}
+
+.home-changelog-entry-content {
+    margin: -1px 0 9px;
+    color: var(--text-muted);
+    font-size: 13px;
+    line-height: 1.45;
+    white-space: pre-wrap;
+}

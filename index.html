@@ -232,6 +232,32 @@
                     Хранилище знаний о мире: боги, Церковь, магия, расы, миры и измерения.
                 </p>
 
+                <div class="home-changelog">
+                    <button
+                        id="home-changelog-toggle"
+                        class="home-changelog-toggle"
+                        type="button"
+                        aria-expanded="true"
+                        aria-controls="home-changelog-panel"
+                        data-i18n="home.changelog.hide"
+                    >Скрыть журнал</button>
+                    <div
+                        id="home-changelog-panel"
+                        class="home-changelog-panel"
+                        role="region"
+                        aria-labelledby="home-changelog-title"
+                    >
+                        <div class="home-changelog-header">
+                            <h2 id="home-changelog-title" data-i18n="home.changelog.title">Журнал изменений</h2>
+                        </div>
+                        <div id="home-changelog-list" class="home-changelog-list">
+                            <p class="home-changelog-empty" data-i18n="home.changelog.empty">
+                                Записей пока нет.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="home-ornament" aria-hidden="true">
                     <span class="home-ornament-line"></span>
                     <span class="home-ornament-diamond"></span>
@@ -423,7 +449,19 @@
 <script src="data/worlds.js"></script>
 <script src="data/dimensions.js"></script>
 <script src="data/i18n.js"></script>
-<script src="script.js"></script>
+<script src="data/changelog.js"></script>
+<script src="scripts/common.js"></script>
+<script src="scripts/navigation.js"></script>
+<script src="scripts/language.js"></script>
+<script src="scripts/prank.js"></script>
+<script src="scripts/godsSC.js"></script>
+<script src="scripts/racesSC.js"></script>
+<script src="scripts/worldsSC.js"></script>
+<script src="scripts/magicSC.js"></script>
+<script src="scripts/ordersSC.js"></script>
+<script src="scripts/churchSC.js"></script>
+<script src="scripts/search.js"></script>
+<script src="scripts/app.js"></script>
 <script src="home.js"></script>
 
 </body>

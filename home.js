@@ -725,3 +725,104 @@
     });
 
 })();
+
+(function () {
+    "use strict";
+
+    const toggle = document.getElementById("home-changelog-toggle");
+    const list = document.getElementById("home-changelog-list");
+    const panel = document.getElementById("home-changelog-panel");
+    if (!toggle || !list || !panel) return;
+
+    const storageKey = "cartelia-home-changelog-collapsed";
+    const entries = Array.isArray(changelogEntries) ? changelogEntries : [];
+
+    function isValidEntry(entry) {
+        if (
+            !entry ||
+            typeof entry.date !== "string" ||
+            !/^\d{4}-\d{2}-\d{2}$/.test(entry.date) ||
+            typeof entry.title !== "string" ||
+            !entry.title.trim() ||
+            typeof entry.content !== "string" ||
+            !entry.content.trim()
+        ) {
+            console.error("Invalid changelog entry; expected date, title, and content:", entry);
+            return false;
+        }
+
+        const parsedDate = new Date(entry.date + "T00:00:00Z");
+        if (
+            Number.isNaN(parsedDate.getTime()) ||
+            parsedDate.toISOString().slice(0, 10) !== entry.date
+        ) {
+            console.error("Invalid changelog date; expected a real YYYY-MM-DD date:", entry);
+            return false;
+        }
+
+        return true;
+    }
+
+    function renderEntry(entry, index) {
+        const details = document.createElement("details");
+        details.className = "home-changelog-entry";
+        details.open = index === 0;
+
+        const summary = document.createElement("summary");
+        const date = document.createElement("time");
+        date.className = "home-changelog-date";
+        date.dateTime = entry.date;
+        date.textContent = new Date(entry.date + "T00:00:00Z").toLocaleDateString(
+            currentLanguage === "en" ? "en-US" : "ru-RU",
+            { timeZone: "UTC" }
+        );
+
+        const title = document.createElement("span");
+        title.className = "home-changelog-entry-title";
+        title.textContent = entry.title;
+        summary.append(date, title);
+
+        const content = document.createElement("p");
+        content.className = "home-changelog-entry-content";
+        content.textContent = entry.content;
+
+        details.append(summary, content);
+        return details;
+    }
+
+    const validEntries = entries.filter(isValidEntry).sort(function (left, right) {
+        return right.date.localeCompare(left.date);
+    });
+
+    if (validEntries.length > 0) {
+        list.replaceChildren(...validEntries.map(renderEntry));
+    }
+
+    function setCollapsed(collapsed) {
+        panel.hidden = collapsed;
+        toggle.setAttribute("aria-expanded", String(!collapsed));
+        toggle.dataset.i18n = collapsed
+            ? "home.changelog.show"
+            : "home.changelog.hide";
+        toggle.textContent = t(toggle.dataset.i18n);
+    }
+
+    let isCollapsed = false;
+    try {
+        isCollapsed = localStorage.getItem(storageKey) === "true";
+    } catch (error) {
+        console.error("Could not read changelog visibility preference:", error);
+    }
+    setCollapsed(isCollapsed);
+
+    toggle.addEventListener("click", function () {
+        const collapsed = !panel.hidden;
+        setCollapsed(collapsed);
+
+        try {
+            localStorage.setItem(storageKey, String(collapsed));
+        } catch (error) {
+            console.error("Could not save changelog visibility preference:", error);
+        }
+    });
+})();
