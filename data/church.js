@@ -89,7 +89,7 @@ const church = {
                     topics: []
                 },
                 truth: {
-                    name: "Палата Истины",
+                    name: "Палата Идеала",
                     description: "Описание пока не добавлено.",
                     topics: []
                 }
