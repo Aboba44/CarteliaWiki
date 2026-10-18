@@ -31,6 +31,7 @@ const i18n = {
         home: {
             title: "Добро пожаловать в Мир Картелии",
             subtitle: "Хранилище знаний о мире: боги, Церковь, магия, расы, миры и измерения.",
+            randomArticle: "Открыть случайную статью",
             changelog: {
                 title: "Журнал изменений",
                 hide: "Скрыть журнал",
@@ -85,6 +86,7 @@ const i18n = {
         home: {
             title: "Welcome to the World of Cartelia",
             subtitle: "A repository of the world's lore: gods, the Church, magic, races, worlds and dimensions.",
+            randomArticle: "Open a random article",
             changelog: {
                 title: "Changelog",
                 hide: "Hide changelog",

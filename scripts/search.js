@@ -183,7 +183,7 @@ function buildSearchIndex() {
             branch.name,
             getSearchSectionLabel("church"),
             [branch.description],
-            `#church/${encodeURIComponent(branchId)}`
+            `#church/${encodeURIComponent(branchId)}/about`
         );
 
         Object.entries(branch.chambers).forEach(([chamberId, chamber]) => {
@@ -396,6 +396,25 @@ function openSearchResult(entry) {
         setWikiRoute(entry.route);
         handleWikiRoute(true);
     }
+}
+
+function openRandomArticle() {
+    const candidates = searchIndex.filter(entry =>
+        entry.route &&
+        entry.content &&
+        entry.route.slice(1).includes("/")
+    );
+
+    if (candidates.length === 0) {
+        console.error("Could not open a random article: no published article is available.");
+        return;
+    }
+
+    const currentRoute = window.location.hash;
+    const otherCandidates = candidates.filter(entry => entry.route !== currentRoute);
+    const pool = otherCandidates.length > 0 ? otherCandidates : candidates;
+    const entry = pool[Math.floor(Math.random() * pool.length)];
+    openSearchResult(entry);
 }
 
 function initializeSearch() {

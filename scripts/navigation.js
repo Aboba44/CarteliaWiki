@@ -128,19 +128,24 @@ function handleWikiRoute(force = false) {
     showSection(section, true, false, false);
 
     if (section === "church") {
-        renderChurchContent();
         const [, branchId, chamberId, type, topicId, detailType, detailId] = parts;
         if (branchId && church.branches[branchId]) {
-            showChurchBranch(branchId, false);
-            if (chamberId && church.branches[branchId].chambers[chamberId]) {
-                showChurchChamber(branchId, chamberId, false);
-                if (type === "topic" && /^\d+$/.test(topicId || "")) {
-                    openChurchTopic(branchId, chamberId, Number(topicId), false);
-                    if (detailType === "order" && detailId) {
-                        showOrder(decodeRoutePart(detailId), true, false);
+            if (chamberId === "about") {
+                showChurchBranchPage(branchId, false);
+            } else {
+                showChurchBranch(branchId, false);
+                if (chamberId && church.branches[branchId].chambers[chamberId]) {
+                    showChurchChamber(branchId, chamberId, false);
+                    if (type === "topic" && /^\d+$/.test(topicId || "")) {
+                        openChurchTopic(branchId, chamberId, Number(topicId), false);
+                        if (detailType === "order" && detailId) {
+                            showOrder(decodeRoutePart(detailId), true, false);
+                        }
                     }
                 }
             }
+        } else {
+            renderChurchContent();
         }
     } else if (section === "belonging") {
         renderBelongingRoot();

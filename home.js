@@ -794,9 +794,14 @@
         return right.date.localeCompare(left.date);
     });
 
-    if (validEntries.length > 0) {
-        list.replaceChildren(...validEntries.map(renderEntry));
+    if (validEntries.length === 0) {
+        toggle.hidden = true;
+        panel.hidden = true;
+        return;
     }
+
+    list.replaceChildren(...validEntries.map(renderEntry));
+    toggle.hidden = false;
 
     function setCollapsed(collapsed) {
         panel.hidden = collapsed;

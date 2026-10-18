@@ -232,11 +232,23 @@
                     Хранилище знаний о мире: боги, Церковь, магия, расы, миры и измерения.
                 </p>
 
+                <div class="home-actions">
+                    <button
+                        class="home-random-button"
+                        type="button"
+                        onclick="openRandomArticle()"
+                    >
+                        <span aria-hidden="true">✦</span>
+                        <span data-i18n="home.randomArticle">Открыть случайную статью</span>
+                    </button>
+                </div>
+
                 <div class="home-changelog">
                     <button
                         id="home-changelog-toggle"
                         class="home-changelog-toggle"
                         type="button"
+                        hidden
                         aria-expanded="true"
                         aria-controls="home-changelog-panel"
                         data-i18n="home.changelog.hide"
@@ -244,6 +256,7 @@
                     <div
                         id="home-changelog-panel"
                         class="home-changelog-panel"
+                        hidden
                         role="region"
                         aria-labelledby="home-changelog-title"
                     >

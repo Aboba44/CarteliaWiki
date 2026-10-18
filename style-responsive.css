@@ -55,8 +55,25 @@
         font-size: 30px;
     }
 
+    .church-branch-grid {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
     .app.is-home #home {
         min-height: 0;
+    }
+
+    .church-branch-hero {
+        min-height: 280px;
+    }
+
+    .church-branch-hero-content {
+        padding: 24px;
+    }
+
+    .church-branch-description,
+    .church-branch-chambers {
+        margin: 28px auto;
     }
 
     .home-content {

@@ -49,14 +49,51 @@ const church = {
 
         gold: {
             name: "Золотая ветвь",
-            description: "Здесь будет описание Золотой ветви.",
-            chambers: {}
+            description: "Описание пока не добавлено.",
+            chambers: {
+                mercy: {
+                    name: "Палата Милосердия",
+                    description: "Описание пока не добавлено.",
+                    topics: []
+                },
+                good: {
+                    name: "Палата Блага",
+                    description: "Описание пока не добавлено.",
+                    topics: []
+                },
+                vocation: {
+                    name: "Палата Призвания",
+                    description: "Описание пока не добавлено.",
+                    topics: []
+                },
+                abundance: {
+                    name: "Палата Изобилия",
+                    description: "Описание пока не добавлено.",
+                    topics: []
+                }
+            }
         },
 
         azure: {
             name: "Лазурная ветвь",
-            description: "Здесь будет описание Лазурной ветви.",
-            chambers: {}
+            description: "Описание пока не добавлено.",
+            chambers: {
+                enlightenment: {
+                    name: "Палата Просвещения",
+                    description: "Описание пока не добавлено.",
+                    topics: []
+                },
+                piety: {
+                    name: "Палата Благочестия",
+                    description: "Описание пока не добавлено.",
+                    topics: []
+                },
+                truth: {
+                    name: "Палата Истины",
+                    description: "Описание пока не добавлено.",
+                    topics: []
+                }
+            }
         }
     }
 };

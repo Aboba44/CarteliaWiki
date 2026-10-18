@@ -179,6 +179,296 @@
     margin-bottom: 0;
 }
 
+.church-branch-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 281.25px), 281.25px));
+    align-items: stretch;
+    justify-content: center;
+}
+
+.church-branch-item {
+    display: flex;
+    width: min(100%, 281.25px);
+    flex-direction: column;
+    align-items: stretch;
+    justify-self: center;
+    gap: 10px;
+}
+
+.church-branch-item--silver {
+    --branch-color: 174 192 210;
+}
+
+.church-branch-item--gold {
+    --branch-color: 200 167 107;
+}
+
+.church-branch-item--azure {
+    --branch-color: 99 166 199;
+}
+
+.content .church-branch-card {
+    position: relative;
+    display: flex;
+    width: min(100%, 281.25px);
+    height: auto;
+    min-height: 0;
+    aspect-ratio: 9 / 16;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    justify-self: center;
+    overflow: hidden;
+    padding: 20px 20px 48px;
+}
+
+.church-branch-image {
+    position: absolute;
+    inset: 0 0 120px;
+    border-radius: inherit;
+    color: var(--branch-emblem-color);
+}
+
+.content .church-branch-card h2 {
+    position: relative;
+    z-index: 1;
+    font-size: 26px;
+}
+
+.content .church-branch-card p {
+    position: relative;
+    z-index: 1;
+}
+
+.content .church-branch-card--silver {
+    --branch-emblem-color: rgb(var(--branch-color));
+    background: linear-gradient(145deg, rgb(141 157 174 / 26%), var(--surface-bg) 78%);
+    border-color: rgb(174 192 210 / 55%);
+}
+
+.content .church-branch-card--gold {
+    --branch-emblem-color: rgb(var(--branch-color));
+    background: linear-gradient(145deg, rgb(176 137 66 / 30%), var(--surface-bg) 78%);
+    border-color: rgb(200 167 107 / 65%);
+}
+
+.content .church-branch-card--azure {
+    --branch-emblem-color: rgb(var(--branch-color));
+    background: linear-gradient(145deg, rgb(54 116 150 / 32%), var(--surface-bg) 78%);
+    border-color: rgb(99 166 199 / 58%);
+}
+
+.content .church-branch-card:hover,
+.content .church-branch-card.is-selected {
+    transform: translateY(-3px);
+    background-color: var(--surface-hover);
+}
+
+.church-branch-card--silver:hover,
+.church-branch-card--silver.is-selected {
+    box-shadow: inset 0 0 0 1px rgb(174 192 210 / 28%);
+}
+
+.content .church-branch-card--silver:hover,
+.content .church-branch-card--silver.is-selected {
+    background: linear-gradient(145deg, rgb(141 157 174 / 32%), var(--surface-hover) 78%);
+}
+
+.church-branch-card--gold:hover,
+.church-branch-card--gold.is-selected {
+    box-shadow: inset 0 0 0 1px rgb(200 167 107 / 35%);
+}
+
+.content .church-branch-card--gold:hover,
+.content .church-branch-card--gold.is-selected {
+    background: linear-gradient(145deg, rgb(176 137 66 / 36%), var(--surface-hover) 78%);
+}
+
+.church-branch-card--azure:hover,
+.church-branch-card--azure.is-selected {
+    box-shadow: inset 0 0 0 1px rgb(99 166 199 / 32%);
+}
+
+.content .church-branch-card--azure:hover,
+.content .church-branch-card--azure.is-selected {
+    background: linear-gradient(145deg, rgb(54 116 150 / 38%), var(--surface-hover) 78%);
+}
+
+.church-branch-chevron {
+    position: absolute;
+    bottom: 15px;
+    left: 50%;
+    color: var(--text-muted);
+    font-size: 24px;
+    line-height: 1;
+    transform: translateX(-50%);
+    transition: transform 0.2s ease;
+}
+
+.church-branch-card[aria-expanded="true"] .church-branch-chevron {
+    transform: translateX(-50%) rotate(180deg);
+}
+
+.church-chamber-panel {
+    grid-column: 1 / -1;
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transform: translateY(-8px);
+    transition: max-height 0.3s ease, opacity 0.2s ease, transform 0.3s ease;
+}
+
+.church-chamber-panel[hidden] {
+    display: none;
+}
+
+.church-chamber-panel.is-open {
+    max-height: 900px;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.church-chamber-panel-inner {
+    padding: 26px 12px 10px;
+    text-align: center;
+}
+
+.church-chamber-panel-inner > h2 {
+    margin: 0;
+    color: var(--accent-strong);
+    font-size: 27px;
+}
+
+.church-chamber-panel .wiki-cards {
+    margin-top: 18px;
+}
+
+.content .church-chamber-card {
+    min-height: 190px;
+}
+
+.content .church-chamber-card--silver {
+    background: linear-gradient(145deg, rgb(141 157 174 / 26%), var(--surface-bg) 78%);
+    border-color: rgb(174 192 210 / 55%);
+}
+
+.content .church-chamber-card--gold {
+    background: linear-gradient(145deg, rgb(176 137 66 / 30%), var(--surface-bg) 78%);
+    border-color: rgb(200 167 107 / 65%);
+}
+
+.content .church-chamber-card--azure {
+    background: linear-gradient(145deg, rgb(54 116 150 / 32%), var(--surface-bg) 78%);
+    border-color: rgb(99 166 199 / 58%);
+}
+
+.church-chamber-card h3 {
+    margin-top: 0;
+    font-size: 22px;
+}
+
+.church-chambers-empty {
+    margin: 18px 0 8px;
+    color: var(--text-muted);
+}
+
+.content .church-branch-details-link {
+    width: 100%;
+    padding: 10px 12px;
+    color: rgb(var(--branch-color));
+    background: rgb(var(--branch-color) / 12%);
+    border-color: rgb(var(--branch-color) / 55%);
+    font-size: 14px;
+}
+
+.content .church-branch-details-link:hover {
+    transform: translateY(-2px);
+    background: rgb(var(--branch-color) / 20%);
+}
+
+.church-branch-page {
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.church-branch-hero {
+    position: relative;
+    display: flex;
+    min-height: clamp(280px, 40vw, 440px);
+    align-items: flex-end;
+    overflow: hidden;
+    background-color: var(--panel-bg);
+    border: 1px solid var(--border-strong);
+    border-radius: 12px;
+}
+
+.church-chamber-hero {
+    min-height: clamp(260px, 32vw, 360px);
+}
+
+.church-branch-hero-image {
+    position: absolute;
+    inset: 0;
+    background-position: center;
+    background-size: cover;
+}
+
+.church-branch-page--silver .church-branch-hero-image {
+    background-image: linear-gradient(160deg, rgb(174 192 210 / 40%), rgb(21 24 28 / 82%));
+}
+
+.church-branch-page--gold .church-branch-hero-image {
+    background-image: linear-gradient(160deg, rgb(200 167 107 / 44%), rgb(30 24 15 / 84%));
+}
+
+.church-branch-page--azure .church-branch-hero-image {
+    background-image: linear-gradient(160deg, rgb(99 166 199 / 46%), rgb(15 26 32 / 84%));
+}
+
+.church-branch-hero-content {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    padding: clamp(24px, 5vw, 56px);
+    background: linear-gradient(transparent, rgb(10 10 10 / 78%));
+}
+
+.content .church-branch-eyebrow {
+    margin: 0 0 6px;
+    color: var(--accent-strong);
+    font-family: var(--font-body);
+    font-size: 13px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+}
+
+.content .church-branch-hero h1 {
+    margin: 0;
+    font-size: clamp(38px, 6vw, 68px);
+}
+
+.church-branch-description,
+.church-branch-chambers {
+    max-width: 850px;
+    margin: 36px auto;
+}
+
+.church-branch-description h2,
+.church-branch-chambers > h2 {
+    margin: 0 0 12px;
+    color: var(--accent-strong);
+    font-size: 30px;
+}
+
+.church-branch-description p {
+    margin: 0;
+    color: var(--text-secondary);
+}
+
+.church-branch-chambers .wiki-cards {
+    margin-top: 20px;
+}
+
 /* =========================
    ПРИНАДЛЕЖНОСТЬ
    ========================= */
@@ -296,6 +586,27 @@
     color: var(--text-muted);
     font-size: 15px;
     line-height: 1.6;
+}
+
+.home-actions {
+    margin-top: 16px;
+    pointer-events: auto;
+}
+
+.content .home-random-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    padding: 10px 15px;
+    color: var(--accent-strong);
+    text-shadow: none;
+    background: rgb(21 21 21 / 50%);
+    border-color: var(--accent-border);
+    font-size: 14px;
+}
+
+.content .home-random-button:hover {
+    background: rgb(200 167 107 / 18%);
 }
 
 .home-changelog {
