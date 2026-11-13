@@ -55,8 +55,32 @@
         font-size: 30px;
     }
 
+    .church-branch-switcher {
+        display: grid;
+        grid-template-columns: 38px minmax(0, 1fr) 38px;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .content .church-branch-arrow {
+        display: inline-flex;
+    }
+
     .church-branch-grid {
         grid-template-columns: minmax(0, 1fr);
+        justify-items: center;
+        min-width: 0;
+        margin: 0;
+        padding: 0;
+    }
+
+    .church-branch-item,
+    .church-branch-item.is-current {
+        width: min(100%, 281.25px);
+    }
+
+    .church-branch-item:not(.is-current) {
+        display: none;
     }
 
     .app.is-home #home {

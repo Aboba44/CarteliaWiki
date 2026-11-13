@@ -4,52 +4,104 @@ function renderChurchContent() {
     if (!content) return;
 
     setBreadcrumbs([{ label: "Церковь" }]);
+    const branchEntries = Object.entries(church.branches);
 
     content.innerHTML = `
         <h1>Церковь</h1>
         <p>Выберите ветвь Церкви.</p>
-        <div class="wiki-cards church-branch-grid">
-            ${Object.entries(church.branches).map(([id, branch]) => `
-                <div class="church-branch-item church-branch-item--${id}">
-                    <button
-                        class="wiki-card church-branch-card church-branch-card--${id}"
-                        type="button"
-                        data-branch-id="${id}"
-                        aria-expanded="false"
-                        aria-controls="church-branch-chambers"
-                        onclick="toggleChurchBranch('${id}', this)"
-                    >
-                        <svg class="church-branch-image" viewBox="0 0 1024 1024" aria-hidden="true">
-                            <defs>
-                                <mask id="church-emblem-mask-${id}" mask-type="alpha">
-                                    <image href="images/Other/flower.png" width="1024" height="1024"></image>
-                                </mask>
-                            </defs>
-                            <rect width="1024" height="1024" fill="currentColor" mask="url(#church-emblem-mask-${id})"></rect>
-                        </svg>
-                        <h2>${branch.name}</h2>
-                        <p>${branch.description}</p>
-                        <span class="church-branch-chevron" aria-hidden="true">⌄</span>
-                    </button>
-                    <button
-                        class="church-branch-details-link"
-                        type="button"
-                        onclick="showChurchBranchPage('${id}')"
-                    >
-                        Подробнее о ветви
-                    </button>
-                </div>
-            `).join("")}
-            <div
-                id="church-branch-chambers"
-                class="church-chamber-panel"
-                aria-label="Палаты выбранной ветви"
-                hidden
-            >
-                <div class="church-chamber-panel-inner"></div>
+        <div class="church-branch-switcher">
+            <button
+                class="church-branch-arrow church-branch-arrow--previous"
+                type="button"
+                aria-label="Предыдущая ветвь"
+                onclick="changeChurchBranch(-1)"
+            >‹</button>
+            <div class="wiki-cards church-branch-grid" role="group" aria-label="Ветви Церкви">
+                ${branchEntries.map(([id, branch], index) => `
+                    <div class="church-branch-item church-branch-item--${id}${index === 0 ? " is-current" : ""}">
+                        <button
+                            class="wiki-card church-branch-card church-branch-card--${id}"
+                            type="button"
+                            data-branch-id="${id}"
+                            aria-expanded="false"
+                            aria-current="${index === 0 ? "true" : "false"}"
+                            aria-controls="church-branch-chambers"
+                            onclick="toggleChurchBranch('${id}', this)"
+                        >
+                            <svg class="church-branch-image" viewBox="0 0 1024 1024" aria-hidden="true">
+                                <defs>
+                                    <mask id="church-emblem-mask-${id}" mask-type="alpha">
+                                        <image href="images/Other/flower.png" width="1024" height="1024"></image>
+                                    </mask>
+                                </defs>
+                                <rect width="1024" height="1024" fill="currentColor" mask="url(#church-emblem-mask-${id})"></rect>
+                            </svg>
+                            <h2>${branch.name}</h2>
+                            <p>${branch.description}</p>
+                            <span class="church-branch-chevron" aria-hidden="true">⌄</span>
+                        </button>
+                        <button
+                            class="church-branch-details-link"
+                            type="button"
+                            onclick="showChurchBranchPage('${id}')"
+                        >
+                            Подробнее о ветви
+                        </button>
+                    </div>
+                `).join("")}
             </div>
+            <button
+                class="church-branch-arrow church-branch-arrow--next"
+                type="button"
+                aria-label="Следующая ветвь"
+                onclick="changeChurchBranch(1)"
+            >›</button>
+        </div>
+        <div
+            id="church-branch-chambers"
+            class="church-chamber-panel"
+            aria-label="Палаты выбранной ветви"
+            hidden
+        >
+            <div class="church-chamber-panel-inner"></div>
         </div>
     `;
+}
+
+function setCurrentChurchBranch(branchId) {
+    const items = Array.from(document.querySelectorAll(".church-branch-item"));
+    const currentIndex = items.findIndex(item =>
+        item.querySelector(".church-branch-card")?.dataset.branchId === branchId
+    );
+
+    if (currentIndex < 0) return;
+
+    items.forEach((item, index) => {
+        item.classList.toggle("is-current", index === currentIndex);
+        item.querySelector(".church-branch-card")?.setAttribute(
+            "aria-current",
+            index === currentIndex ? "true" : "false"
+        );
+    });
+}
+
+function changeChurchBranch(direction) {
+    const items = Array.from(document.querySelectorAll(".church-branch-item"));
+    const currentIndex = items.findIndex(item => item.classList.contains("is-current"));
+    if (!items.length || currentIndex < 0) return;
+
+    const nextIndex = (currentIndex + direction + items.length) % items.length;
+    const nextItem = items[nextIndex];
+    const nextCard = nextItem?.querySelector(".church-branch-card");
+
+    if (!nextCard) return;
+
+    setCurrentChurchBranch(nextCard.dataset.branchId);
+
+    const panel = document.getElementById("church-branch-chambers");
+    if (panel?.classList.contains("is-open")) {
+        toggleChurchBranch(nextCard.dataset.branchId, nextCard);
+    }
 }
 
 function showChurch() {
@@ -68,6 +120,7 @@ function toggleChurchBranch(branchId, button, syncRoute = true) {
         card.setAttribute("aria-expanded", "false");
         card.classList.remove("is-selected");
     });
+    setCurrentChurchBranch(branchId);
 
     if (wasOpen) {
         panel.classList.remove("is-open");
@@ -102,6 +155,11 @@ function toggleChurchBranch(branchId, button, syncRoute = true) {
     void panel.offsetHeight;
     panel.classList.add("is-open");
     if (syncRoute) setWikiRoute(`#church/${encodeURIComponent(branchId)}`);
+    window.setTimeout(() => {
+        if (panel.classList.contains("is-open")) {
+            panel.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+    }, 300);
 }
 
 
