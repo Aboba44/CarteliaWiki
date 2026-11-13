@@ -22,7 +22,7 @@
 
         <h1>
             <a href="#home" onclick="showSection('home', true); return false;">
-                Картелия
+                <img src="images/Other/KARTELIA.png" alt="Картелия">
             </a>
         </h1>
 
@@ -217,6 +217,9 @@
         </header>
 
         <main class="content">
+        <div id="ambient-sky" class="ambient-sky" aria-hidden="true">
+            <canvas id="ambient-stars"></canvas>
+        </div>
         <nav id="breadcrumbs" class="breadcrumbs" aria-label="Хлебные крошки"></nav>
 
 
@@ -475,6 +478,7 @@
 <script src="scripts/churchSC.js"></script>
 <script src="scripts/search.js"></script>
 <script src="scripts/app.js"></script>
+<script src="scripts/ambientSky.js"></script>
 <script src="home.js"></script>
 
 </body>

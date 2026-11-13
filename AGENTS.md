@@ -74,6 +74,7 @@ CarteliaWiki/
 │   ├── search.js
 │   ├── prank.js
 │   ├── app.js
+│   ├── ambientSky.js
 │   ├── godsSC.js
 │   ├── churchSC.js
 │   ├── racesSC.js
@@ -87,7 +88,8 @@ CarteliaWiki/
 
 - `factions.js` и `geography.js` пока не созданы; фракции (Теократия, Гегемония, Конфедерация) — секции-заглушки в `index.html`.
 - Вместо `assets/` используется папка `images/`.
-- CSS разделён по назначению: `style.css` (каркас и дизайн-токены), `style-components.css`, `style-gods.css`, `style-theme.css`, `style-responsive.css`, `style-fonts.css` (локальные шрифты), `style-animations.css` (все анимации сайта).
+- CSS разделён по назначению: `style.css` (каркас и дизайн-токены), `style-components.css`, `style-gods.css`, `style-theme.css`, `style-responsive.css`, `style-fonts.css` (локальные шрифты), `style-animations.css` (CSS-анимации сайта).
+- `home.js` содержит анимацию главной страницы; `scripts/ambientSky.js` — лёгкое движущееся звёздное небо на остальных страницах.
 - `data/dimensions.js` — измерения между мирами; `data/i18n.js` — переводы интерфейса RU/EN.
 - Светлой темы больше нет: кнопка переключения темы оставлена как розыгрыш (`scripts/prank.js`: `triggerPrank`, звук синтезируется через Web Audio API).
 - Проект находится под git (ветка main), в корне лежит `.gitignore`.
@@ -182,7 +184,7 @@ CarteliaWiki/
 
 Известные палаты Серебряной ветви:
 
-- Палаты Упокоения
+- Палата Упокоения
 - Палата Доблести
 - Палата Истины
 
@@ -215,7 +217,7 @@ const church = {
 
             chambers: {
                 rest: {
-                    name: "Палаты Упокоения",
+                    name: "Палата Упокоения",
                     description: "...",
                     topics: []
                 },
@@ -258,12 +260,12 @@ const church = {
 
 Известные ордена:
 
-- Серебряные Крылья-Журавли
-- Багровое Сердце
+- Сереброкрылые Журавли
+- Багровые Сердца
 - Плакальщики
-- Шепчущие Сороконожки
+- Шепчущие Сколопендры
 - Дети Тибероса
-- Хвататели из Бездны
+- Утаскивающие в Бездну
 
 Все подробности об орденах хранятся в:
 
