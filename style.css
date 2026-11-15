@@ -11,10 +11,11 @@
     --surface-hover: #353535;
     --border: #444444;
     --border-strong: #555555;
-    --text-primary: #eeeeee;
-    --text-secondary: #dddddd;
+    --text-primary: #dce5ef;
+    --text-secondary: #c2cfdd;
     --text-muted: #aaaaaa;
     --text-placeholder: #666666;
+    --highlight-light: #eeeeee;
     --font-heading: "EB Garamond", Georgia, "Times New Roman", serif;
     --font-body: "PT Sans", "Segoe UI", Arial, sans-serif;
     --accent: #c8a76b;
@@ -108,12 +109,17 @@ h3 {
     flex: 0 0 auto;
     width: 18px;
     height: 18px;
+    color: var(--accent);
     fill: none;
     stroke: currentColor;
     stroke-width: 1.5;
     stroke-linecap: round;
     stroke-linejoin: round;
     opacity: 0.9;
+}
+
+.sidebar button:hover .nav-icon {
+    color: #aebcd2;
 }
 
 
@@ -133,7 +139,7 @@ h3 {
     gap: 8px;
     min-height: 20px;
     margin: -18px 0 18px;
-    color: var(--text-muted);
+    color: var(--accent);
     font-size: 14px;
 }
 
@@ -142,7 +148,7 @@ h3 {
 }
 
 .breadcrumbs a {
-    color: var(--text-muted);
+    color: var(--accent);
     text-decoration: none;
     transition: color 0.2s;
 }
@@ -153,11 +159,11 @@ h3 {
 }
 
 .breadcrumb-separator {
-    color: var(--text-placeholder);
+    color: var(--accent-border);
 }
 
 .breadcrumb-current {
-    color: var(--text-secondary);
+    color: var(--accent);
 }
 
 .content > section > h2,

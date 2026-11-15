@@ -113,6 +113,12 @@ function handleWikiRoute(force = false) {
 
     const parts = hash.replace(/^#/, "").split("/").filter(Boolean);
     const section = parts[0] === "races" ? "belonging" : (parts[0] || "home");
+    if (section === "church" && parts[1] === "hierarchy") {
+        showChurchHierarchy(false);
+        return;
+    }
+
+    hideChurchHierarchyScreen();
     const selected = document.getElementById(section);
 
     if (!selected) {

@@ -48,6 +48,7 @@ CarteliaWiki/
 │
 ├── style.css
 ├── style-components.css
+├── style-church-hierarchy.css
 ├── style-gods.css
 ├── style-theme.css
 ├── style-responsive.css
@@ -58,6 +59,7 @@ CarteliaWiki/
 │
 ├── data/
 │   ├── church.js
+│   ├── churchHierarchy.js
 │   ├── orders.js
 │   ├── races.js
 │   ├── peoples.js
@@ -77,6 +79,7 @@ CarteliaWiki/
 │   ├── ambientSky.js
 │   ├── godsSC.js
 │   ├── churchSC.js
+│   ├── churchHierarchySC.js
 │   ├── racesSC.js
 │   ├── magicSC.js
 │   ├── worldsSC.js
@@ -165,6 +168,14 @@ CarteliaWiki/
 3. выбрать палату;
 4. выбрать тему;
 5. открыть соответствующую статью.
+
+Схема власти Церкви хранится отдельно от структуры ветвей и палат:
+
+- `data/churchHierarchy.js` — должности, связи подчинения, принадлежность к организациям и краткие описания;
+- `scripts/churchHierarchySC.js` — отображение схемы и полноэкранный маршрут `#church/hierarchy`;
+- `style-church-hierarchy.css` — полноэкранное оформление схемы, подсказок и управления масштабом.
+
+Для должностей, связанных с палатами, используй ссылки по ID, чтобы не дублировать названия из `church.js`. Магистры святых орденов формируются по записям из `orders.js`; организации и Инквизиция визуально выделяются отдельно от линий подчинения. Описания должностей показываются при наведении и фокусе; все уровни дерева отображаются сразу. Полноэкранную схему можно перемещать перетаскиванием и масштабировать колёсиком мыши или кнопками управления.
 
 ---
 

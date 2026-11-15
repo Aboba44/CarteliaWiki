@@ -308,7 +308,7 @@
     overflow: hidden;
     padding: 0;
     background: var(--panel-bg);
-    color: #fff;
+    color: var(--text-primary);
     border: 1px solid var(--border-strong);
     border-radius: 8px;
     text-align: left;
@@ -362,7 +362,7 @@
 }
 
 .god-button-name {
-    color: #fff;
+    color: var(--text-primary);
     font-size: 24px;
     line-height: 1.2;
 }
@@ -379,7 +379,7 @@
 }
 
 .content .god-button:focus-visible {
-    outline: 2px solid var(--text-primary);
+    outline: 2px solid var(--highlight-light);
     outline-offset: 3px;
 }
 
@@ -391,18 +391,18 @@
 }
 
 .god-button-title {
-    color: rgb(255 255 255 / 82%);
+    color: rgb(220 229 239 / 82%);
     font-size: 15px;
 }
 
 .god-button-description {
-    color: rgb(255 255 255 / 88%);
+    color: rgb(220 229 239 / 88%);
     font-size: 14px;
 }
 
 .content .god-button.is-tap-ready {
-    background: var(--text-primary);
-    border-color: var(--text-primary);
+    background: var(--highlight-light);
+    border-color: var(--highlight-light);
     color: var(--page-bg);
     box-shadow: 0 0 0 3px var(--border);
     animation: god-button-tap 0.65s ease-in-out;
@@ -415,12 +415,12 @@
 
 .content .god-button.is-tap-ready.god-button-has-image {
     background: transparent;
-    color: #fff;
+    color: var(--text-primary);
 }
 
 .content .god-button.is-tap-ready.god-button-has-image .god-button-title,
 .content .god-button.is-tap-ready.god-button-has-image .god-button-description {
-    color: rgb(255 255 255 / 88%);
+    color: rgb(220 229 239 / 88%);
 }
 
 @keyframes god-button-tap {

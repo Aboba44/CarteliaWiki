@@ -1,0 +1,414 @@
+.church-hierarchy-launcher {
+    position: relative;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 6px 20px;
+    width: min(100%, 1100px);
+    margin: 30px auto 38px;
+    padding: 24px 28px;
+    color: var(--text-primary);
+    background:
+        linear-gradient(110deg, rgb(200 167 107 / 16%), transparent 58%),
+        var(--panel-bg);
+    border: 1px solid var(--accent-border);
+    border-radius: 12px;
+    text-align: left;
+    cursor: pointer;
+    transition: transform 0.2s ease, border-color 0.2s ease, background-color 0.2s ease;
+}
+
+.church-hierarchy-launcher:hover,
+.church-hierarchy-launcher:focus-visible {
+    transform: translateY(-2px);
+    border-color: var(--accent-strong);
+    outline: none;
+}
+
+.church-hierarchy-launcher-title,
+.church-hierarchy-launcher-description {
+    grid-column: 1;
+}
+
+.church-hierarchy-launcher-title {
+    color: var(--accent-strong);
+    font-family: var(--font-heading);
+    font-size: clamp(25px, 3vw, 34px);
+}
+
+.church-hierarchy-launcher-description {
+    color: var(--text-secondary);
+    font-size: 15px;
+}
+
+.church-hierarchy-launcher-arrow {
+    grid-column: 2;
+    grid-row: 1 / span 2;
+    color: var(--accent-strong);
+    font-size: 36px;
+    transition: transform 0.2s ease;
+}
+
+.church-hierarchy-launcher:hover .church-hierarchy-launcher-arrow {
+    transform: translateX(5px);
+}
+
+.church-hierarchy-screen {
+    position: fixed;
+    z-index: 1000;
+    inset: 0;
+    width: 100vw;
+    height: 100vh;
+    min-height: 100vh;
+    overflow: hidden;
+    padding: 0;
+}
+
+.app[hidden],
+.church-hierarchy-screen[hidden] {
+    display: none !important;
+}
+
+.church-hierarchy-page {
+    position: relative;
+    height: 100%;
+    width: 100%;
+}
+
+.church-hierarchy-back {
+    position: absolute;
+    z-index: 4;
+    top: 14px;
+    left: 14px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    min-height: 32px;
+    padding: 5px 9px;
+    color: var(--text-secondary);
+    background: var(--panel-bg);
+    border: 1px solid var(--border-strong);
+    border-radius: 6px;
+    font: inherit;
+    font-size: 13px;
+    line-height: 1.2;
+    cursor: pointer;
+    transition: color 0.2s ease, border-color 0.2s ease, background-color 0.2s ease;
+}
+
+.church-hierarchy-back:hover,
+.church-hierarchy-back:focus-visible {
+    color: var(--accent-strong);
+    background: var(--surface-hover);
+    border-color: var(--accent-border);
+    outline: none;
+}
+
+.church-hierarchy-back span {
+    font-size: 16px;
+    line-height: 1;
+}
+
+.church-hierarchy-page > h1 {
+    position: absolute;
+    z-index: 3;
+    top: 12px;
+    left: 50%;
+    margin: 0;
+    padding: 5px 14px;
+    color: var(--accent-strong);
+    background: rgb(12 12 12 / 68%);
+    border-radius: 999px;
+    font-size: clamp(18px, 2.4vw, 30px);
+    line-height: 1.25;
+    white-space: nowrap;
+    text-align: center;
+    text-shadow: 0 2px 8px rgb(0 0 0 / 70%);
+    transform: translateX(-50%);
+    pointer-events: none;
+}
+
+.church-hierarchy-pan-viewport {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    cursor: grab;
+    touch-action: none;
+    user-select: none;
+}
+
+.church-hierarchy-pan-viewport.is-dragging,
+.church-hierarchy-pan-viewport.is-dragging * {
+    cursor: grabbing !important;
+}
+
+.church-hierarchy-pan-hint {
+    position: absolute;
+    z-index: 3;
+    right: 14px;
+    bottom: 68px;
+    margin: 0;
+    padding: 8px 11px;
+    color: var(--text-secondary);
+    background: var(--panel-bg);
+    border: 1px solid var(--border-strong);
+    border-radius: 999px;
+    font-size: 12px;
+    pointer-events: none;
+}
+
+.church-hierarchy-zoom-controls {
+    position: absolute;
+    z-index: 4;
+    right: 14px;
+    bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 5px;
+    background: var(--panel-bg);
+    border: 1px solid var(--border-strong);
+    border-radius: 8px;
+    box-shadow: 0 4px 16px rgb(0 0 0 / 28%);
+}
+
+.church-hierarchy-zoom-controls button {
+    display: inline-grid;
+    width: 32px;
+    height: 32px;
+    place-items: center;
+    padding: 0;
+    color: var(--text-primary);
+    background: transparent;
+    border: 1px solid transparent;
+    border-radius: 5px;
+    font: inherit;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.church-hierarchy-zoom-controls button:hover,
+.church-hierarchy-zoom-controls button:focus-visible {
+    color: var(--accent-strong);
+    background: var(--surface-hover);
+    border-color: var(--accent-border);
+    outline: none;
+}
+
+.church-hierarchy-zoom-level {
+    min-width: 46px;
+    color: var(--text-secondary);
+    font-size: 12px;
+    text-align: center;
+}
+
+.church-hierarchy-canvas {
+    position: absolute;
+    top: 48px;
+    left: 50%;
+    transform: translate3d(calc(-50% + var(--pan-x, 0px)), var(--pan-y, 0px), 0) scale(var(--zoom, 1));
+    transform-origin: top left;
+    will-change: transform;
+}
+
+.church-hierarchy-organization {
+    position: absolute;
+    z-index: 0;
+    border: 1px solid;
+    border-radius: 14px;
+    pointer-events: none;
+}
+
+.church-hierarchy-organization--orders {
+    background: linear-gradient(180deg, rgb(174 192 210 / 9%), transparent 58%);
+    border-color: rgb(174 192 210 / 72%);
+}
+
+.church-hierarchy-organization--inquisition {
+    background: linear-gradient(180deg, rgb(142 88 122 / 12%), transparent 58%);
+    border-color: rgb(175 119 153 / 78%);
+}
+
+.church-hierarchy-organization-title {
+    position: absolute;
+    top: 7px;
+    left: 12px;
+    padding: 3px 9px;
+    background: var(--page-bg);
+    border: 1px solid var(--border-strong);
+    border-radius: 999px;
+    font-family: var(--font-body);
+    font-size: 13px;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.church-hierarchy-organization--orders .church-hierarchy-organization-title {
+    color: rgb(196 211 226);
+    border-color: rgb(174 192 210 / 60%);
+}
+
+.church-hierarchy-organization--inquisition .church-hierarchy-organization-title {
+    color: rgb(219 166 193);
+    border-color: rgb(175 119 153 / 68%);
+}
+
+.church-hierarchy-connectors {
+    position: absolute;
+    z-index: 1;
+    inset: 0;
+    overflow: visible;
+    pointer-events: none;
+}
+
+.church-hierarchy-connector {
+    fill: none;
+    stroke: var(--accent-border);
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.church-hierarchy-connector--silver {
+    stroke: rgb(174 192 210 / 78%);
+}
+
+.church-hierarchy-connector--gold {
+    stroke: rgb(200 167 107 / 82%);
+}
+
+.church-hierarchy-connector--azure {
+    stroke: rgb(99 166 199 / 82%);
+}
+
+.church-hierarchy-position {
+    position: absolute;
+    z-index: 2;
+    display: flex;
+    min-height: 72px;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 6px;
+    padding: 12px 14px;
+    color: var(--text-primary);
+    background: var(--panel-bg);
+    border: 1px solid var(--border-strong);
+    border-radius: 9px;
+    font-family: var(--font-heading);
+    font-size: 18px;
+    font-weight: 600;
+    text-align: center;
+    cursor: grab;
+}
+
+.church-hierarchy-position--head {
+    min-height: 62px;
+    color: var(--accent-strong);
+    background: linear-gradient(135deg, rgb(200 167 107 / 20%), var(--panel-bg));
+    border-color: var(--accent-border);
+    font-size: 22px;
+}
+
+.church-hierarchy-position--silver {
+    border-color: rgb(174 192 210 / 60%);
+}
+
+.church-hierarchy-position--gold {
+    border-color: rgb(200 167 107 / 68%);
+}
+
+.church-hierarchy-position--azure {
+    border-color: rgb(99 166 199 / 62%);
+}
+
+.church-hierarchy-position--organization-inquisition {
+    background: linear-gradient(135deg, rgb(142 88 122 / 12%), var(--panel-bg) 70%);
+    border-color: rgb(175 119 153 / 78%);
+}
+
+.church-hierarchy-position--bishop {
+    min-height: 58px;
+    font-family: var(--font-body);
+    font-size: 15px;
+}
+
+.church-hierarchy-position small {
+    color: var(--text-muted);
+    font-family: var(--font-body);
+    font-size: 12px;
+    font-weight: 400;
+}
+
+.church-hierarchy-position:hover,
+.church-hierarchy-position:focus-visible {
+    background-color: var(--surface-hover);
+    outline: 2px solid var(--accent-border);
+    outline-offset: 2px;
+}
+
+.church-hierarchy-tooltip {
+    position: absolute;
+    z-index: 20;
+    top: calc(100% + 8px);
+    left: 50%;
+    width: max-content;
+    max-width: min(320px, calc(100vw - 48px));
+    padding: 9px 12px;
+    color: var(--text-primary);
+    background: #111111;
+    border: 1px solid var(--accent-border);
+    border-radius: 6px;
+    box-shadow: 0 8px 24px rgb(0 0 0 / 45%);
+    font-family: var(--font-body);
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 1.45;
+    text-align: left;
+    opacity: 0;
+    visibility: hidden;
+    transform: translate(-50%, -4px);
+    transition: opacity 0.15s ease, transform 0.15s ease, visibility 0.15s ease;
+    pointer-events: none;
+}
+
+.church-hierarchy-position:hover .church-hierarchy-tooltip,
+.church-hierarchy-position:focus .church-hierarchy-tooltip {
+    opacity: 1;
+    visibility: visible;
+    transform: translate(-50%, 0);
+}
+
+@media (max-width: 700px) {
+    .church-hierarchy-launcher {
+        padding: 20px;
+    }
+
+    .church-hierarchy-page > h1 {
+        top: 52px;
+        font-size: 18px;
+    }
+
+    .church-hierarchy-canvas {
+        top: 82px;
+    }
+
+    .church-hierarchy-back {
+        top: 12px;
+        left: 12px;
+        min-height: 30px;
+        padding: 4px 7px;
+        font-size: 12px;
+    }
+
+    .church-hierarchy-pan-hint {
+        right: 12px;
+        bottom: 64px;
+        font-size: 11px;
+    }
+
+    .church-hierarchy-zoom-controls {
+        right: 12px;
+        bottom: 12px;
+    }
+}

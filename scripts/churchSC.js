@@ -9,6 +9,11 @@ function renderChurchContent() {
     content.innerHTML = `
         <h1>Церковь</h1>
         <p>Выберите ветвь Церкви.</p>
+        <button class="church-hierarchy-launcher" type="button" onclick="showChurchHierarchy()">
+            <span class="church-hierarchy-launcher-title">Иерархия церкви</span>
+            <span class="church-hierarchy-launcher-description">Посмотреть устройство власти и подчинения</span>
+            <span class="church-hierarchy-launcher-arrow" aria-hidden="true">→</span>
+        </button>
         <div class="church-branch-switcher">
             <button
                 class="church-branch-arrow church-branch-arrow--previous"

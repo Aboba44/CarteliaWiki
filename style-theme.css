@@ -1,6 +1,36 @@
 body {
     background-color: var(--page-bg);
     color: var(--text-primary);
+    cursor: url("images/cursors/cur.webp") 2 2, auto;
+}
+
+body :is(
+    button,
+    a[href],
+    [role="button"],
+    select,
+    summary,
+    label[for],
+    input[type="button"],
+    input[type="submit"],
+    input[type="reset"]
+):not(:disabled) {
+    cursor: url("images/cursors/cur.webp") 2 2, pointer;
+}
+
+body :is(
+    input:not([type]),
+    input[type="text"],
+    input[type="search"],
+    input[type="email"],
+    input[type="password"],
+    input[type="url"],
+    input[type="number"],
+    input[type="tel"],
+    textarea,
+    [contenteditable="true"]
+):not(:disabled) {
+    cursor: text;
 }
 
 .app {
@@ -154,7 +184,7 @@ body {
     height: 34px;
     padding: 0;
     background-color: var(--surface-bg);
-    color: var(--text-primary);
+    color: var(--accent);
     border: 1px solid var(--border-strong);
     border-radius: 50%;
     font-size: 18px;
@@ -164,6 +194,7 @@ body {
 
 .prank-button:hover {
     background-color: var(--surface-hover);
+    color: #aebcd2;
 }
 
 .language-switcher {
@@ -238,7 +269,7 @@ body {
 
 .content .god-button.is-tap-ready,
 .content .god-button.is-tap-ready:hover {
-    background-color: var(--text-primary);
+    background-color: var(--highlight-light);
     color: var(--page-bg);
-    border-color: var(--text-primary);
+    border-color: var(--highlight-light);
 }
