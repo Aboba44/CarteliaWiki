@@ -24,6 +24,7 @@ function countBelongingRaces(belonging) {
 function renderBelongingCard(belongingId, belonging) {
     const categoriesCount = Object.keys(belonging.categories || {}).length;
     const racesCount = countBelongingRaces(belonging);
+    const monogram = Array.from(belonging.name.trim())[0]?.toUpperCase() || "?";
     const meta = categoriesCount
         ? [
             `${categoriesCount} ${pluralizeRu(categoriesCount, "категория", "категории", "категорий")}`,
@@ -37,14 +38,9 @@ function renderBelongingCard(belongingId, belonging) {
             type="button"
             onclick="showBelonging('${belongingId}')"
         >
-            <svg class="races-belonging-emblem" viewBox="0 0 1024 1024" aria-hidden="true">
-                <defs>
-                    <mask id="races-belonging-mask-${belongingId}" mask-type="alpha">
-                        <image href="images/Other/flower.png" width="1024" height="1024"></image>
-                    </mask>
-                </defs>
-                <rect width="1024" height="1024" fill="currentColor" mask="url(#races-belonging-mask-${belongingId})"></rect>
-            </svg>
+            <span class="races-belonging-emblem" aria-hidden="true">
+                <span class="races-belonging-monogram">${escapeHtml(monogram)}</span>
+            </span>
             <span class="races-belonging-name">${escapeHtml(belonging.name)}</span>
             <span class="races-belonging-meta">${meta}</span>
         </button>
@@ -219,7 +215,6 @@ function showRace(raceId, categoryId = "sentient", syncRoute = true) {
     ]);
 
     const peopleGroup = race.peoples ? peoples[race.peoples] : null;
-    const peopleCategories = peopleGroup ? Object.keys(peopleGroup.categories || {}).length : 0;
 
     container.innerHTML = `
         <article class="races-page">
@@ -229,28 +224,7 @@ function showRace(raceId, categoryId = "sentient", syncRoute = true) {
                 race.description
             )}
             ${race.notes ? `<p class="page-note">${escapeHtml(race.notes)}</p>` : ""}
-            ${peopleGroup ? `
-                <section class="races-section">
-                    <h2 class="races-section-title">Народы</h2>
-                    <div class="wiki-cards races-tiles">
-                        <button
-                            class="wiki-card races-tile"
-                            type="button"
-                            onclick="showPeoples('${raceId}', '${categoryId}')"
-                        >
-                            <span class="races-tile-title">${escapeHtml(peopleGroup.name)}</span>
-                            <span class="races-tile-meta${peopleCategories ? "" : " races-tile-meta--muted"}">${
-                                peopleCategories
-                                    ? `${peopleCategories} ${pluralizeRu(peopleCategories, "категория", "категории", "категорий")}`
-                                    : "Народы пока не добавлены"
-                            }</span>
-                            ${peopleGroup.description && !isPlaceholderText(peopleGroup.description)
-                                ? `<span class="races-tile-text">${escapeHtml(peopleGroup.description)}</span>`
-                                : ""}
-                        </button>
-                    </div>
-                </section>
-            ` : ""}
+            ${peopleGroup ? renderRacePeoplesSection(raceId, categoryId) : ""}
         </article>
     `;
 }

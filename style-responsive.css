@@ -133,7 +133,7 @@
     }
 
     .page-header {
-        margin-bottom: 26px;
+        margin-bottom: 28px;
     }
 
     .page-lead {
@@ -141,10 +141,19 @@
     }
 
     .content .races-belonging-card {
-        width: min(100%, 320px);
+        width: min(100%, 340px);
+        min-height: 340px;
     }
 
     .content .races-tile {
         width: min(100%, 360px);
+    }
+
+    .races-section {
+        margin-top: 36px;
+    }
+
+    .races-group {
+        margin-top: 28px;
     }
 }

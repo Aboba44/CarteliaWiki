@@ -1,6 +1,8 @@
-// Народы расы: группа народов → категория → отдельный народ.
+// Народы расы: категории народов и отдельный народ.
 // Данные лежат в data/peoples.js, ссылка на группу — в поле peoples записи расы.
 // Маршрут: #belonging/<принадлежность>/<категория>/<раса>/peoples[/<категория>[/<народ>]].
+// Категории народов не являются отдельными страницами: они показываются
+// заголовками на странице расы, чтобы до народа можно было дойти за один клик.
 
 function getRaceRoute(raceId, categoryId) {
     const race = races[raceId];
@@ -28,45 +30,6 @@ function getRaceContext(raceId, categoryId) {
     return { race, belonging, category, group };
 }
 
-function setPeopleBreadcrumbs(raceId, categoryId, extra = []) {
-    const context = getRaceContext(raceId, categoryId);
-
-    if (!context) return;
-
-    setBreadcrumbs([
-        { label: "Расы", route: "#races" },
-        { label: "Принадлежность", route: "#belonging" },
-        { label: context.belonging.name, route: `#belonging/${encodeURIComponent(context.race.belonging)}` },
-        { label: context.category.name, route: `#belonging/${encodeURIComponent(context.race.belonging)}/${encodeURIComponent(categoryId)}` },
-        { label: context.race.name, route: getRaceRoute(raceId, categoryId) },
-        ...extra
-    ]);
-}
-
-function renderPeopleCategoryTile(raceId, categoryId, peopleCategoryId, peopleCategory) {
-    const peopleCount = Object.keys(peopleCategory.entries || {}).length;
-    const meta = peopleCount
-        ? `${peopleCount} ${pluralizeRu(peopleCount, "народ", "народа", "народов")}`
-        : "Народы пока не добавлены";
-    const metaClass = peopleCount
-        ? "races-tile-meta"
-        : "races-tile-meta races-tile-meta--muted";
-
-    return `
-        <button
-            class="wiki-card races-tile"
-            type="button"
-            onclick="showPeopleCategory('${raceId}', '${categoryId}', '${peopleCategoryId}')"
-        >
-            <span class="races-tile-title">${escapeHtml(peopleCategory.name)}</span>
-            <span class="${metaClass}">${meta}</span>
-            ${peopleCategory.description && !isPlaceholderText(peopleCategory.description)
-                ? `<span class="races-tile-text">${escapeHtml(peopleCategory.description)}</span>`
-                : ""}
-        </button>
-    `;
-}
-
 function renderPeopleTile(raceId, categoryId, peopleCategoryId, peopleId, people) {
     return `
         <button
@@ -82,68 +45,41 @@ function renderPeopleTile(raceId, categoryId, peopleCategoryId, peopleId, people
     `;
 }
 
-function showPeoples(raceId, categoryId, syncRoute = true) {
-    const container = getRacesContainer();
+function renderRacePeoplesSection(raceId, categoryId) {
+    // Секция народов на странице расы: категории — заголовки, народы — карточки.
     const context = getRaceContext(raceId, categoryId);
+    if (!context) return "";
 
-    if (!container || !context) return;
+    const peopleCategories = Object.entries(context.group.categories || {});
 
-    if (syncRoute) setWikiRoute(getPeoplesRoute(raceId, categoryId));
-    setPeopleBreadcrumbs(raceId, categoryId, [{ label: "Народы" }]);
-
-    const categories = Object.entries(context.group.categories || {});
-
-    container.innerHTML = `
-        <article class="races-page">
-            ${renderPageHeader(
-                `${context.belonging.name} · ${context.category.name} · ${context.race.name}`,
-                context.group.name,
-                context.group.description
-            )}
-            ${categories.length
-                ? `<div class="wiki-cards races-tiles">
-                    ${categories.map(([peopleCategoryId, peopleCategory]) =>
-                        renderPeopleCategoryTile(raceId, categoryId, peopleCategoryId, peopleCategory)
-                    ).join("")}
-                </div>`
+    return `
+        <section class="races-section races-people">
+            ${peopleCategories.length
+                ? peopleCategories.map(([peopleCategoryId, peopleCategory]) => {
+                    const entries = Object.entries(peopleCategory.entries || {});
+                    return `
+                        <div class="races-group" id="races-people-${peopleCategoryId}">
+                            <h2 class="races-group-title">${escapeHtml(peopleCategory.name)}</h2>
+                            ${entries.length
+                                ? `<div class="wiki-cards races-tiles">
+                                    ${entries.map(([peopleId, people]) =>
+                                        renderPeopleTile(raceId, categoryId, peopleCategoryId, peopleId, people)
+                                    ).join("")}
+                                </div>`
+                                : `<p class="races-group-empty">Народы пока не добавлены.</p>`
+                            }
+                        </div>
+                    `;
+                }).join("")
                 : `<p class="page-empty">Категории народов пока не добавлены.</p>`
             }
-        </article>
+        </section>
     `;
 }
 
-function showPeopleCategory(raceId, categoryId, peopleCategoryId, syncRoute = true) {
-    const container = getRacesContainer();
-    const context = getRaceContext(raceId, categoryId);
-    const peopleCategory = context && context.group.categories[peopleCategoryId];
-
-    if (!container || !context || !peopleCategory) return;
-
-    if (syncRoute) setWikiRoute(getPeoplesRoute(raceId, categoryId, peopleCategoryId));
-    setPeopleBreadcrumbs(raceId, categoryId, [
-        { label: "Народы", route: getPeoplesRoute(raceId, categoryId) },
-        { label: peopleCategory.name }
-    ]);
-
-    const entries = Object.entries(peopleCategory.entries || {});
-
-    container.innerHTML = `
-        <article class="races-page">
-            ${renderPageHeader(
-                context.group.name,
-                peopleCategory.name,
-                peopleCategory.description
-            )}
-            ${entries.length
-                ? `<div class="wiki-cards races-tiles">
-                    ${entries.map(([peopleId, people]) =>
-                        renderPeopleTile(raceId, categoryId, peopleCategoryId, peopleId, people)
-                    ).join("")}
-                </div>`
-                : `<p class="page-empty">Народы пока не добавлены.</p>`
-            }
-        </article>
-    `;
+function scrollToRacePeopleGroup(peopleCategoryId) {
+    const target = document.getElementById(`races-people-${peopleCategoryId}`);
+    if (target) target.scrollIntoView({ block: "start" });
 }
 
 function showPeople(raceId, categoryId, peopleCategoryId, peopleId, syncRoute = true) {
@@ -155,8 +91,12 @@ function showPeople(raceId, categoryId, peopleCategoryId, peopleId, syncRoute = 
     if (!container || !context || !peopleCategory || !people) return;
 
     if (syncRoute) setWikiRoute(getPeoplesRoute(raceId, categoryId, peopleCategoryId, peopleId));
-    setPeopleBreadcrumbs(raceId, categoryId, [
-        { label: "Народы", route: getPeoplesRoute(raceId, categoryId) },
+    setBreadcrumbs([
+        { label: "Расы", route: "#races" },
+        { label: "Принадлежность", route: "#belonging" },
+        { label: context.belonging.name, route: `#belonging/${encodeURIComponent(context.race.belonging)}` },
+        { label: context.category.name, route: `#belonging/${encodeURIComponent(context.race.belonging)}/${encodeURIComponent(categoryId)}` },
+        { label: context.race.name, route: getRaceRoute(raceId, categoryId) },
         { label: peopleCategory.name, route: getPeoplesRoute(raceId, categoryId, peopleCategoryId) },
         { label: people.name }
     ]);
@@ -164,7 +104,7 @@ function showPeople(raceId, categoryId, peopleCategoryId, peopleId, syncRoute = 
     container.innerHTML = `
         <article class="races-page">
             ${renderPageHeader(
-                `${context.group.name} · ${peopleCategory.name}`,
+                `${context.belonging.name} · ${context.category.name} · ${peopleCategory.name}`,
                 people.name,
                 people.description || "Описание пока не добавлено."
             )}

@@ -177,14 +177,16 @@ function handleWikiRoute(force = false) {
             if (categoryId && raceBelongings[belongingId].categories[categoryId]) {
                 showCreatureCategory(belongingId, categoryId, false);
                 if (raceId && races[raceId]) {
-                    showRace(raceId, categoryId, false);
-                    if (peopleView === "peoples" && races[raceId].peoples) {
-                        showPeoples(raceId, categoryId, false);
-                        if (peopleCategoryId && peoples[races[raceId].peoples]?.categories[peopleCategoryId]) {
-                            showPeopleCategory(raceId, categoryId, peopleCategoryId, false);
-                            if (peopleId) {
-                                showPeople(raceId, categoryId, peopleCategoryId, peopleId, false);
-                            }
+                    const peopleGroup = races[raceId].peoples ? peoples[races[raceId].peoples] : null;
+                    const peopleCategory = peopleGroup && peopleGroup.categories[peopleCategoryId];
+                    const people = peopleCategory && peopleCategory.entries && peopleCategory.entries[peopleId];
+
+                    if (peopleView === "peoples" && people) {
+                        showPeople(raceId, categoryId, peopleCategoryId, peopleId, false);
+                    } else {
+                        showRace(raceId, categoryId, false);
+                        if (peopleView === "peoples" && peopleCategory) {
+                            scrollToRacePeopleGroup(peopleCategoryId);
                         }
                     }
                 }

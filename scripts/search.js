@@ -191,7 +191,7 @@ function buildSearchIndex() {
             group.name,
             getSearchSectionLabel("races"),
             [group.description],
-            groupRoute,
+            `#belonging/${encodeURIComponent(race.belonging)}/${encodeURIComponent(categoryId)}/${encodeURIComponent(raceId)}`,
             null,
             [belonging?.name, race.name, "Народы"]
         );
