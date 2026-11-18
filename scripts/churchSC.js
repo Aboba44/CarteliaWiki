@@ -8,13 +8,17 @@ function renderChurchContent() {
     const branchEntries = Object.entries(church.branches);
 
     content.innerHTML = `
-        <h1>Церковь</h1>
-        <p>Выберите ветвь Церкви.</p>
-        <button class="church-hierarchy-launcher" type="button" onclick="showChurchHierarchy()">
-            <span class="church-hierarchy-launcher-title">Иерархия церкви</span>
-            <span class="church-hierarchy-launcher-description">Посмотреть устройство власти и подчинения</span>
-            <span class="church-hierarchy-launcher-arrow" aria-hidden="true">→</span>
-        </button>
+        <article class="wiki-page">
+            ${renderPageHeader(
+                "Мир Картелии",
+                "Церковь",
+                "Выберите ветвь Церкви, чтобы открыть её палаты и темы."
+            )}
+            <button class="church-hierarchy-launcher" type="button" onclick="showChurchHierarchy()">
+                <span class="church-hierarchy-launcher-title">Иерархия церкви</span>
+                <span class="church-hierarchy-launcher-description">Посмотреть устройство власти и подчинения</span>
+                <span class="church-hierarchy-launcher-arrow" aria-hidden="true">→</span>
+            </button>
         <div class="church-branch-switcher">
             <button
                 class="church-branch-arrow church-branch-arrow--previous"
@@ -71,6 +75,7 @@ function renderChurchContent() {
         >
             <div class="church-chamber-panel-inner"></div>
         </div>
+        </article>
     `;
 }
 
@@ -197,34 +202,26 @@ function showChurchBranchPage(branchId, syncRoute = true) {
 
     const chambers = Object.entries(branch.chambers);
     content.innerHTML = `
-        <article class="church-branch-page church-branch-page--${branchId}">
+        <article class="wiki-page church-branch-page church-branch-page--${branchId}">
             <header class="church-branch-hero">
                 <div class="church-branch-hero-image" aria-hidden="true"></div>
                 <div class="church-branch-hero-content">
-                    <p class="church-branch-eyebrow">Церковь</p>
-                    <h1>${escapeHtml(branch.name)}</h1>
+                    ${renderPageHeader("Церковь", branch.name, branch.description)}
                 </div>
             </header>
-            <section class="church-branch-description">
-                <h2>О ветви</h2>
-                <p>${escapeHtml(branch.description)}</p>
-            </section>
-            <section class="church-branch-chambers">
-                <h2>Палаты ветви</h2>
-                ${chambers.length
-                    ? renderWikiCards(chambers, ([chamberId, chamber]) => `
-                        <button
-                            class="wiki-card church-chamber-card church-chamber-card--${branchId}"
-                            type="button"
-                            onclick="showChurchChamber('${branchId}', '${chamberId}')"
-                        >
-                            <h3>${escapeHtml(chamber.name)}</h3>
-                            <p>${escapeHtml(chamber.description)}</p>
-                        </button>
-                    `)
-                    : `<p class="church-chambers-empty">Палаты пока не добавлены.</p>`
-                }
-            </section>
+            ${renderWikiSection("Палаты ветви", chambers.length
+                ? renderWikiCards(chambers, ([chamberId, chamber]) => `
+                    <button
+                        class="wiki-card church-chamber-card church-chamber-card--${branchId}"
+                        type="button"
+                        onclick="showChurchChamber('${branchId}', '${chamberId}')"
+                    >
+                        <h3>${escapeHtml(chamber.name)}</h3>
+                        <p>${escapeHtml(chamber.description)}</p>
+                    </button>
+                `)
+                : `<p class="church-chambers-empty">Палаты пока не добавлены.</p>`
+            )}
         </article>
     `;
 }
@@ -250,34 +247,26 @@ function showChurchChamber(branchId, chamberId, syncRoute = true) {
     const content = document.getElementById("church-content");
 
     content.innerHTML = `
-        <article class="church-branch-page church-chamber-page church-branch-page--${branchId}">
+        <article class="wiki-page church-branch-page church-chamber-page church-branch-page--${branchId}">
             <header class="church-branch-hero church-chamber-hero">
                 <div class="church-branch-hero-image" aria-hidden="true"></div>
                 <div class="church-branch-hero-content">
-                    <p class="church-branch-eyebrow">${escapeHtml(branch.name)}</p>
-                    <h1>${escapeHtml(chamber.name)}</h1>
+                    ${renderPageHeader(branch.name, chamber.name, chamber.description)}
                 </div>
             </header>
-            <section class="church-branch-description">
-                <h2>О палате</h2>
-                <p>${escapeHtml(chamber.description)}</p>
-            </section>
-            <section class="church-branch-chambers church-chamber-topics">
-                <h2>Темы</h2>
-                ${chamber.topics.length
-                    ? renderWikiCards(chamber.topics, (topic, topicIndex) => `
-                        <button
-                            class="wiki-card church-chamber-card church-chamber-card--${branchId}"
-                            type="button"
-                            onclick="openChurchTopic('${branchId}', '${chamberId}', '${topicIndex}')"
-                        >
-                            <h3>${escapeHtml(topic.name)}</h3>
-                            ${topic.description ? `<p>${escapeHtml(topic.description)}</p>` : ""}
-                        </button>
-                    `)
-                    : `<p class="church-chambers-empty">Темы пока не добавлены.</p>`
-                }
-            </section>
+            ${renderWikiSection("Темы", chamber.topics.length
+                ? renderWikiCards(chamber.topics, (topic, topicIndex) => `
+                    <button
+                        class="wiki-card church-chamber-card church-chamber-card--${branchId}"
+                        type="button"
+                        onclick="openChurchTopic('${branchId}', '${chamberId}', '${topicIndex}')"
+                    >
+                        <h3>${escapeHtml(topic.name)}</h3>
+                        ${topic.description ? `<p>${escapeHtml(topic.description)}</p>` : ""}
+                    </button>
+                `)
+                : `<p class="church-chambers-empty">Темы пока не добавлены.</p>`
+            )}
         </article>
     `;
 
@@ -464,11 +453,12 @@ function openChurchTopic(branchId, chamberId, topicIndex, syncRoute = true) {
 
     const content = document.getElementById("church-content");
     const article = document.createElement("article");
-    article.className = "church-article";
-
-    const title = document.createElement("h1");
-    title.textContent = topic.name;
-    article.appendChild(title);
+    article.className = "wiki-page church-article";
+    article.innerHTML = renderPageHeader(
+        `${branch.name} · ${chamber.name}`,
+        topic.name,
+        topic.description || ""
+    );
 
     const body = document.createElement("div");
     body.className = "church-article-body";

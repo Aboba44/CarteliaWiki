@@ -7,17 +7,18 @@ function renderOrders(targetId = "orders-content") {
     if (!content) return;
 
     if (targetId === "church-content") {
-        content.innerHTML = `
-            <h1>Святые ордена</h1>
-            <p>Выберите орден, чтобы открыть его описание.</p>
-            ${renderWikiCards(Object.entries(orders), ([id, order]) => `
+        content.innerHTML = renderWikiPage(
+            "Церковь · Святые ордена",
+            "Святые ордена",
+            "Выберите орден, чтобы открыть его описание.",
+            renderWikiCards(Object.entries(orders), ([id, order]) => `
                 <button class="wiki-card"
                         onclick="showOrder('${id}', '${targetId === 'church-content'}')">
                     <h2>${escapeHtml(order.name)}</h2>
                     <p>${escapeHtml(order.description)}</p>
                 </button>
-            `)}
-        `;
+            `)
+        );
         return;
     }
 
@@ -71,10 +72,14 @@ function showOrder(orderId, fromChurchContext = false, syncRoute = true) {
             }
         }
 
-        content.innerHTML = `
-            <h1>${escapeHtml(order.name)}</h1>
-            <p>${escapeHtml(order.description)}</p>
-        `;
+        const hasDescription = order.description && !isPlaceholderText(order.description);
+
+        content.innerHTML = renderWikiPage(
+            "Церковь · Святые ордена",
+            order.name,
+            hasDescription ? order.description : "",
+            hasDescription ? "" : `<p class="page-empty">Описание пока не добавлено.</p>`
+        );
         return;
     }
 
