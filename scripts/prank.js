@@ -1,3 +1,4 @@
+// Обработчик кнопки-розыгрыша: показывает оверлей и синтезирует короткий звук через Web Audio API.
 let prankHideTimeout = null;
 
 function ensurePrankOverlay() {

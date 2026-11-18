@@ -1,3 +1,4 @@
+// Применяет переводы из data/i18n.js к интерфейсным элементам с data-i18n-*.
 let currentLanguage = "ru";
 
 

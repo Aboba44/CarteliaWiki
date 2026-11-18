@@ -1,4 +1,5 @@
 $root = $PSScriptRoot
+# Простой локальный HTTP-сервер для проверки сайта и загрузки Markdown-статей.
 $listener = New-Object System.Net.HttpListener
 $listener.Prefixes.Add('http://127.0.0.1:8137/')
 $listener.Start()

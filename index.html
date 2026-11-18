@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<!-- Каркас приложения: разделы остаются в HTML, а их содержимое формируют скрипты. -->
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
@@ -128,6 +129,15 @@
                     <path d="M17.5 15H9"/>
                 </svg>
                 <span data-i18n="nav.author">От автора</span>
+            </button>
+
+            <button data-nav-section="reading" onclick="showSection('reading', true)">
+                <svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                    <path d="M20.24 12.24a6 6 0 0 0-8.49-8.49L5 10.5V19h8.5z"/>
+                    <path d="M16 8 2 22"/>
+                    <path d="M17.5 15H9"/>
+                </svg>
+                <span data-i18n="nav.reading">Чтиво</span>
             </button>
 
         </nav>
@@ -344,6 +354,20 @@
 
         </section>
 
+        <section id="reading">
+
+            <h2 data-i18n="sections.reading">Чтиво</h2>
+
+            <p class="section-description" data-i18n="reading.description">
+                Бесплатные книги автора в электронном формате.
+            </p>
+
+            <p data-i18n="reading.empty">
+                Книги пока не добавлены.
+            </p>
+
+        </section>
+
 
         <!-- МАГИЯ -->
 
@@ -462,6 +486,7 @@
 
 <main id="church-hierarchy-screen" class="church-hierarchy-screen" hidden></main>
 
+<!-- Сначала загружаются данные: последующие скрипты используют объявленные здесь объекты. -->
 <script src="data/church.js"></script>
 <script src="data/gods.js"></script>
 <script src="data/races.js"></script>
@@ -472,6 +497,7 @@
 <script src="data/dimensions.js"></script>
 <script src="data/i18n.js"></script>
 <script src="data/changelog.js"></script>
+<!-- Общие функции и затем логика разделов; порядок важен из-за обычных script-тегов. -->
 <script src="scripts/common.js"></script>
 <script src="scripts/navigation.js"></script>
 <script src="scripts/language.js"></script>

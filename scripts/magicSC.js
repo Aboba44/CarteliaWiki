@@ -1,3 +1,4 @@
+// Формирует списки основ магии и её видов и показывает выбранное описание.
 function renderMagicFoundations() {
     const content = document.getElementById("magic-foundations");
 

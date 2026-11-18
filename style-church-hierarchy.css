@@ -1,3 +1,4 @@
+/* Оформление полноэкранной схемы церковной иерархии и элементов управления. */
 .church-hierarchy-launcher {
     position: relative;
     display: grid;

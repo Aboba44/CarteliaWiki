@@ -1,3 +1,4 @@
+// Строит схему церковных должностей и управляет её перемещением и масштабом.
 function escapeChurchHierarchyText(value) {
     return String(value).replace(/[&<>"']/g, character => ({
         "&": "&amp;",

@@ -1,3 +1,4 @@
+// Список орденов и их описание; функции поддерживают показ как отдельно, так и внутри Церкви.
 function renderOrders(targetId = "orders-content") {
     const content = document.getElementById(targetId);
 

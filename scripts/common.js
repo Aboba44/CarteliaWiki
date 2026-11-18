@@ -1,3 +1,4 @@
+// Небольшие общие помощники: URL-маршруты, хлебные крошки и разметка карточек.
 let lastResolvedHash = null;
 
 function setWikiRoute(route, replace = false) {
@@ -51,7 +52,8 @@ function getSectionLabel(section) {
         hegemony: "Гегемония",
         confederation: "Конфедерация",
         map: "Карта",
-        author: "От автора"
+        author: "От автора",
+        reading: "Чтиво"
     };
 
     return labels[section] || section;

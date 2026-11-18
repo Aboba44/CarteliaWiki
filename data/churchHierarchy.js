@@ -1,3 +1,4 @@
+// Должности и связи подчинения. Магистры орденов создаются по данным из orders.js.
 const churchHierarchyOrderEntries = Object.entries(orders)
     .filter(([, order]) => order.branch === "silver");
 

@@ -1,3 +1,4 @@
+// Общая навигация: переключение секций, меню и восстановление страниц по URL-хешу.
 let currentSection = "home";
 
 function updateActiveNav(section) {
@@ -17,6 +18,7 @@ function updateActiveNav(section) {
 }
 
 function showSection(section, setRootRoute = false, syncGodRoute = true, syncRoute = true) {
+    // Показывает одну секцию и синхронизирует активный пункт меню и основной маршрут.
     const sections = document.querySelectorAll(".content section");
     const selected = document.getElementById(section);
 
@@ -107,6 +109,7 @@ document.addEventListener("keydown", function (event) {
 
 
 function handleWikiRoute(force = false) {
+    // Разбирает адрес вида #church/... и вызывает нужный рендерер раздела или статьи.
     const hash = window.location.hash;
     if (!force && hash === lastResolvedHash) return;
     lastResolvedHash = hash;

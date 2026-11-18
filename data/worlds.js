@@ -1,3 +1,4 @@
+// Список миров. Межмировые области описаны отдельно в dimensions.js.
 const worlds = {
     nikrason: {
         name: "Никрасон",

@@ -1,3 +1,4 @@
+// Точка запуска: применяет язык, открывает маршрут из адреса и включает поиск.
 setLanguage("ru");
 showSection("home");
 handleWikiRoute();

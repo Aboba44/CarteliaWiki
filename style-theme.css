@@ -1,3 +1,4 @@
+/* Внешний вид оболочки и особые визуальные состояния интерфейса. */
 body {
     background-color: var(--page-bg);
     color: var(--text-primary);
@@ -158,6 +159,25 @@ body :is(
 .church-article-body {
     color: var(--text-secondary);
     line-height: 1.75;
+}
+
+.church-article-body img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    margin: 20px auto;
+    border-radius: 8px;
+}
+
+.church-article-body blockquote {
+    margin: 20px 0;
+    padding: 4px 18px;
+    border-left: 3px solid var(--accent);
+    background: rgba(255, 255, 255, 0.04);
+}
+
+.church-article-error {
+    color: var(--text-primary);
 }
 
 .topbar {

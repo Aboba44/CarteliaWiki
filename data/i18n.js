@@ -1,3 +1,4 @@
+// Переводы элементов интерфейса, на которые ссылаются атрибуты data-i18n в HTML.
 const i18n = {
     ru: {
         nav: {
@@ -11,7 +12,8 @@ const i18n = {
             church: "Церковь",
             orders: "Ордена",
             map: "Карты",
-            author: "От автора"
+            author: "От автора",
+            reading: "Чтиво"
         },
         controls: {
             back: "Назад",
@@ -51,7 +53,12 @@ const i18n = {
             hegemony: "Гегемония",
             confederation: "Конфедерация",
             worlds: "Миры",
-            races: "Расы"
+            races: "Расы",
+            reading: "Чтиво"
+        },
+        reading: {
+            description: "Бесплатные книги автора в электронном формате.",
+            empty: "Книги пока не добавлены."
         }
     },
     en: {
@@ -66,7 +73,8 @@ const i18n = {
             church: "Church",
             orders: "Orders",
             map: "Maps",
-            author: "From the Author"
+            author: "From the Author",
+            reading: "Reading"
         },
         controls: {
             back: "Back",
@@ -104,7 +112,12 @@ const i18n = {
             orders: "Holy Orders",
             theocracy: "Theocracy of Otland",
             hegemony: "Hegemony",
-            confederation: "Confederation"
+            confederation: "Confederation",
+            reading: "Reading"
+        },
+        reading: {
+            description: "The author's free books in electronic format.",
+            empty: "No books have been added yet."
         }
     }
 };

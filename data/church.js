@@ -1,3 +1,4 @@
+// Ветви, палаты и темы Церкви; большие статьи подключаются отдельно через contentFile.
 const church = {
     branches: {
         silver: {
@@ -21,7 +22,8 @@ const church = {
                         },
                         {
                             name: "Регулярная армия",
-                            type: "text"
+                            type: "text",
+                            contentFile: "data/articles/church/regular-army.md"
                         }
                     ]
                 },

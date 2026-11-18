@@ -1,3 +1,4 @@
+// Рендер списка миров и измерений, а также страницы выбранной записи.
 function renderWorlds() {
     const content = document.getElementById("worlds-content");
 
