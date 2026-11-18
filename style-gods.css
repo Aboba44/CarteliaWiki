@@ -1,47 +1,4 @@
-/* Стили категорий, карточек и страниц богов, включая мобильную раскладку. */
-/* =========================
-   КАТЕГОРИИ СУЩЕСТВ
-   ========================= */
-
-.creature-category-list {
-    display: flex;
-
-    justify-content: center;
-
-    gap: 20px;
-
-    flex-wrap: wrap;
-
-    margin-top: 30px;
-}
-
-.creature-category-button {
-    width: 220px;
-
-    padding: 22px;
-
-    background-color: var(--surface-bg);
-
-    color: var(--text-primary);
-
-    border: 1px solid var(--border-strong);
-
-    border-radius: 10px;
-
-    font-size: 18px;
-
-    cursor: pointer;
-
-    transition: 0.2s;
-}
-
-.creature-category-button:hover {
-    transform: translateY(-5px);
-
-    background-color: var(--surface-hover);
-}
-
-
+/* Стили карточек и страниц богов, включая мобильную раскладку. */
 /* =========================
    БОГИ
    ========================= */

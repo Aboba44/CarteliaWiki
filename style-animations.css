@@ -165,35 +165,23 @@
 }
 
 .wiki-cards > .wiki-card,
-.belonging-list > .belonging-button,
-.creature-category-list > .creature-category-button,
 .god-buttons > .god-button {
     animation: card-enter 0.5s cubic-bezier(0.2, 0.7, 0.2, 1) backwards;
 }
 
 .wiki-cards > .wiki-card:nth-child(2),
-.belonging-list > .belonging-button:nth-child(2),
-.creature-category-list > .creature-category-button:nth-child(2),
 .god-buttons > .god-button:nth-child(2) { animation-delay: 0.05s; }
 
 .wiki-cards > .wiki-card:nth-child(3),
-.belonging-list > .belonging-button:nth-child(3),
-.creature-category-list > .creature-category-button:nth-child(3),
 .god-buttons > .god-button:nth-child(3) { animation-delay: 0.10s; }
 
 .wiki-cards > .wiki-card:nth-child(4),
-.belonging-list > .belonging-button:nth-child(4),
-.creature-category-list > .creature-category-button:nth-child(4),
 .god-buttons > .god-button:nth-child(4) { animation-delay: 0.15s; }
 
 .wiki-cards > .wiki-card:nth-child(5),
-.belonging-list > .belonging-button:nth-child(5),
-.creature-category-list > .creature-category-button:nth-child(5),
 .god-buttons > .god-button:nth-child(5) { animation-delay: 0.20s; }
 
 .wiki-cards > .wiki-card:nth-child(n + 6),
-.belonging-list > .belonging-button:nth-child(n + 6),
-.creature-category-list > .creature-category-button:nth-child(n + 6),
 .god-buttons > .god-button:nth-child(n + 6) { animation-delay: 0.25s; }
 
 
@@ -202,9 +190,7 @@
    ========================= */
 
 .content button:not(.search-result):not(.god-category-toggle):hover,
-.content .wiki-card:hover,
-.content .belonging-button:hover,
-.content .creature-category-button:hover {
+.content .wiki-card:hover {
     transform: translateY(-3px);
     border-color: var(--accent-border);
     box-shadow: 0 10px 24px rgba(0, 0, 0, 0.16);
@@ -216,9 +202,7 @@
 }
 
 .content button:not(.search-result):not(.god-category-toggle):focus-visible,
-.content .wiki-card:focus-visible,
-.content .belonging-button:focus-visible,
-.content .creature-category-button:focus-visible {
+.content .wiki-card:focus-visible {
     border-color: var(--accent-border);
 }
 
@@ -462,8 +446,6 @@
     .dropdown-content button,
     .content > section.section-enter,
     .wiki-cards > .wiki-card,
-    .belonging-list > .belonging-button,
-    .creature-category-list > .creature-category-button,
     .god-buttons > .god-button,
     .home-content h2,
     .home-subtitle,

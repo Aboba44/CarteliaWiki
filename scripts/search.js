@@ -69,7 +69,7 @@ function buildSearchIndex() {
     const entries = [];
     const dynamicContent = [
         "#church-content",
-        "#belonging-info",
+        "#races-content",
         "#god-list",
         "#god-info",
         "#worlds-content",

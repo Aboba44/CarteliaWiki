@@ -131,4 +131,20 @@
         grid-template-columns: 1fr;
         gap: 0;
     }
+
+    .page-header {
+        margin-bottom: 26px;
+    }
+
+    .page-lead {
+        font-size: 17px;
+    }
+
+    .content .races-belonging-card {
+        width: min(100%, 320px);
+    }
+
+    .content .races-tile {
+        width: min(100%, 360px);
+    }
 }
