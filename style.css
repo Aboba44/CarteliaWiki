@@ -17,8 +17,12 @@
     --text-muted: #aaaaaa;
     --text-placeholder: #666666;
     --highlight-light: #eeeeee;
-    --font-heading: "EB Garamond", Georgia, "Times New Roman", serif;
-    --font-body: "PT Sans", "Segoe UI", Arial, sans-serif;
+    /* Три роли шрифтов: заголовки, текст статей, интерфейс. */
+    --font-display: "Prata", "EB Garamond", Georgia, "Times New Roman", serif;
+    --font-text: "Alegreya", "EB Garamond", Georgia, "Times New Roman", serif;
+    --font-ui: "Golos Text", "PT Sans", "Segoe UI", Arial, sans-serif;
+    --font-heading: var(--font-display);
+    --font-body: var(--font-ui);
     --accent: #c8a76b;
     --accent-strong: #e6c988;
     --accent-soft: rgba(200, 167, 107, 0.12);
@@ -48,7 +52,8 @@ h1,
 h2,
 h3 {
     font-family: var(--font-heading);
-    font-weight: 600;
+    /* У Prata одно начертание — 400, иначе браузер утолщает буквы искусственно. */
+    font-weight: 400;
     line-height: 1.2;
 }
 
@@ -237,9 +242,8 @@ h3 {
 /* =========================
    ТИПОГРАФИКА
 
-   Заголовки — EB Garamond, интерфейс — PT Sans.
-   Основной текст разделов (--prose-font) — книжный EB Garamond,
-   мелкие подписи и карточки остаются на PT Sans.
+   Заголовки — Prata, основной текст статей — Alegreya,
+   интерфейс, карточки и подписи — Golos Text.
    ========================= */
 
 button,
@@ -256,12 +260,12 @@ textarea {
 }
 
 .content > section {
-    --prose-font: var(--font-heading);
+    --prose-font: var(--font-text);
     --prose-size: 18px;
 }
 
 p {
-    font-family: var(--prose-font, var(--font-body));
+    font-family: var(--prose-font, var(--font-text));
     font-size: var(--prose-size, 16px);
     line-height: 1.65;
 }

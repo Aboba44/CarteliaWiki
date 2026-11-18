@@ -1,0 +1,574 @@
+/* Раздел «Магия»: хаб, цепочка основ, школы и Markdown-статьи. */
+
+.magic-page {
+    position: relative;
+}
+
+.magic-hero {
+    position: relative;
+}
+
+.magic-hero-mark {
+    position: absolute;
+    top: 50%;
+    right: 0;
+    width: 190px;
+    height: 190px;
+    color: var(--accent);
+    opacity: 0.1;
+    transform: translateY(-50%);
+    pointer-events: none;
+}
+
+.magic-hero-mark .magic-sigil {
+    width: 100%;
+    height: 100%;
+}
+
+.magic-sigil {
+    display: block;
+    width: 100%;
+    height: 100%;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.4;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.magic-intro {
+    max-width: 760px;
+    margin: -10px auto 0;
+    color: var(--text-muted);
+    font-family: var(--font-body);
+    font-size: 14px;
+    line-height: 1.65;
+    text-align: center;
+}
+
+.magic-intro p {
+    margin: 0 0 8px;
+    font-family: inherit;
+    font-size: inherit;
+}
+
+.magic-intro p:last-child {
+    margin-bottom: 0;
+}
+
+.magic-hub {
+    display: grid;
+    grid-template-columns: minmax(0, 380px) minmax(0, 1fr);
+    gap: 48px;
+    align-items: start;
+    max-width: 1040px;
+    margin: 42px auto 0;
+}
+
+.magic-hub-column {
+    min-width: 0;
+}
+
+.magic-column-title {
+    position: relative;
+    margin: 0 0 16px;
+    padding-bottom: 10px;
+    color: var(--accent-strong);
+    font-size: 26px;
+    line-height: 1.2;
+    text-align: left;
+}
+
+.magic-column-title::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 56px;
+    height: 1px;
+    background: linear-gradient(90deg, var(--accent), transparent);
+}
+
+/* Цепочка основ */
+
+.magic-spine {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.magic-spine::before {
+    content: "";
+    position: absolute;
+    top: 20px;
+    bottom: 20px;
+    left: 23px;
+    width: 1px;
+    background: linear-gradient(180deg, transparent, var(--accent-border) 12%, var(--accent-border) 88%, transparent);
+}
+
+.magic-spine-item {
+    position: relative;
+}
+
+.magic-spine-link {
+    display: grid;
+    grid-template-columns: 46px minmax(0, 1fr) 18px;
+    align-items: center;
+    gap: 12px;
+    padding: 6px 8px 6px 0;
+    color: var(--text-primary);
+    text-decoration: none;
+    border-radius: 8px;
+    transition: background-color 0.25s ease;
+}
+
+.magic-spine-link:hover {
+    background-color: rgb(200 167 107 / 6%);
+}
+
+.magic-spine-link:focus-visible {
+    outline: 2px solid var(--accent-strong);
+    outline-offset: 3px;
+}
+
+.magic-spine-marker {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    margin-left: 6px;
+    color: var(--accent-strong);
+    background: var(--page-bg);
+    border: 1px solid var(--accent-border);
+    border-radius: 50%;
+    font-family: var(--font-heading);
+    font-size: 13px;
+    line-height: 1;
+    transition: border-color 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease;
+}
+
+.magic-spine-link:hover .magic-spine-marker {
+    border-color: var(--accent-strong);
+    box-shadow: 0 0 18px rgb(200 167 107 / 22%);
+    transform: scale(1.04);
+}
+
+.magic-spine-title {
+    display: block;
+    font-family: var(--font-heading);
+    font-size: 19px;
+    line-height: 1.2;
+}
+
+.magic-spine-summary {
+    display: block;
+    margin-top: 2px;
+    color: var(--text-muted);
+    font-family: var(--font-body);
+    font-size: 12px;
+    line-height: 1.4;
+}
+
+.magic-spine-arrow {
+    color: var(--accent);
+    font-size: 16px;
+    opacity: 0;
+    transform: translateX(-4px);
+    transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+.magic-spine-link:hover .magic-spine-arrow,
+.magic-spine-link:focus-visible .magic-spine-arrow {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+/* Школы магии */
+
+.magic-schools {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 14px;
+}
+
+.magic-school-card {
+    position: relative;
+    display: flex;
+    flex: 0 1 calc((100% - 28px) / 3);
+    min-width: 150px;
+    min-height: 158px;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    padding: 16px 12px 12px;
+    color: var(--text-primary);
+    text-align: center;
+    text-decoration: none;
+    background: linear-gradient(165deg, rgb(200 167 107 / 10%), var(--surface-bg) 72%);
+    border: 1px solid var(--border-strong);
+    border-radius: 10px;
+    overflow: hidden;
+    transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.magic-school-card:hover {
+    border-color: var(--accent-border);
+    box-shadow: 0 14px 32px rgb(0 0 0 / 30%), 0 0 24px rgb(200 167 107 / 10%);
+    transform: translateY(-3px);
+}
+
+.magic-school-card:focus-visible {
+    outline: 2px solid var(--accent-strong);
+    outline-offset: 3px;
+}
+
+.magic-school-sigil {
+    width: 46px;
+    height: 46px;
+    color: var(--accent-strong);
+    filter: drop-shadow(0 0 8px rgb(200 167 107 / 20%));
+}
+
+.magic-school-name {
+    font-family: var(--font-heading);
+    font-size: 18px;
+    line-height: 1.15;
+}
+
+.magic-school-summary {
+    color: var(--text-muted);
+    font-family: var(--font-body);
+    font-size: 12px;
+    line-height: 1.4;
+}
+
+.magic-school-open {
+    margin-top: auto;
+    color: var(--accent);
+    font-size: 16px;
+    line-height: 1;
+    opacity: 0.65;
+    transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+.magic-school-card:hover .magic-school-open {
+    opacity: 1;
+    transform: translateX(3px);
+}
+
+/* Страница статьи */
+
+.magic-article-header {
+    position: relative;
+}
+
+.magic-article-sigil {
+    position: absolute;
+    top: 4px;
+    right: 0;
+    width: 84px;
+    height: 84px;
+    color: var(--accent);
+    opacity: 0.55;
+    pointer-events: none;
+}
+
+.magic-article-badges {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 14px;
+}
+
+.magic-badge {
+    padding: 5px 10px;
+    color: var(--accent-strong);
+    background: var(--surface-bg);
+    border: 1px solid var(--accent-border);
+    border-radius: 999px;
+    font-family: var(--font-body);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+}
+
+.magic-badge--muted {
+    color: var(--text-muted);
+    border-color: var(--border-strong);
+}
+
+.magic-article-layout {
+    max-width: 760px;
+    margin: 30px auto 0;
+}
+
+.magic-article-layout.has-toc {
+    display: grid;
+    grid-template-columns: 190px minmax(0, 760px);
+    gap: 40px;
+    max-width: 990px;
+    align-items: start;
+}
+
+.magic-article-toc {
+    position: sticky;
+    top: 30px;
+}
+
+.magic-toc {
+    padding-left: 14px;
+    border-left: 1px solid var(--border);
+}
+
+.magic-toc summary {
+    display: none;
+}
+
+.magic-toc ul {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.magic-toc-link {
+    padding: 0;
+    color: var(--text-muted);
+    background: none;
+    border: 0;
+    font-family: var(--font-body);
+    font-size: 13px;
+    line-height: 1.35;
+    text-align: left;
+    cursor: pointer;
+    transition: color 0.2s ease;
+}
+
+.magic-toc-link:hover,
+.magic-toc-link:focus-visible {
+    color: var(--accent-strong);
+    outline: none;
+}
+
+.magic-toc-item--3 {
+    padding-left: 12px;
+    font-size: 12px;
+}
+
+.magic-article-content {
+    min-width: 0;
+}
+
+.magic-article-body {
+    color: var(--text-secondary);
+    line-height: 1.75;
+}
+
+.magic-article-body > *:first-child {
+    margin-top: 0;
+}
+
+.magic-article-body h2 {
+    margin: 30px 0 10px;
+    color: var(--accent-strong);
+    font-size: 24px;
+    scroll-margin-top: 24px;
+}
+
+.magic-article-body h3 {
+    margin: 23px 0 8px;
+    font-size: 19px;
+    scroll-margin-top: 24px;
+}
+
+.magic-article-body p {
+    margin: 0 0 14px;
+}
+
+.magic-article-body ul,
+.magic-article-body ol {
+    margin: 0 0 16px;
+    padding-left: 24px;
+}
+
+.magic-article-body li {
+    margin-bottom: 6px;
+}
+
+.magic-article-body li > ul,
+.magic-article-body li > ol {
+    margin-top: 6px;
+    margin-bottom: 0;
+}
+
+.magic-article-body table {
+    width: 100%;
+    margin: 18px 0;
+    border-collapse: collapse;
+    font-family: var(--font-body);
+    font-size: 14px;
+}
+
+.magic-article-body th,
+.magic-article-body td {
+    padding: 8px 10px;
+    border: 1px solid var(--border);
+    text-align: left;
+    vertical-align: top;
+}
+
+.magic-article-body th {
+    color: var(--accent-strong);
+    background: var(--surface-bg);
+}
+
+.magic-article-body hr {
+    height: 1px;
+    margin: 26px 0;
+    background: linear-gradient(90deg, transparent, var(--accent-border), transparent);
+    border: 0;
+}
+
+.magic-article-body img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    margin: 18px auto;
+    border-radius: 8px;
+}
+
+.magic-article-body blockquote {
+    margin: 18px 0;
+    padding: 4px 18px;
+    background: rgb(255 255 255 / 4%);
+    border-left: 3px solid var(--accent);
+}
+
+.magic-article-body blockquote p {
+    margin: 6px 0;
+}
+
+.magic-article-body code {
+    padding: 1px 5px;
+    color: var(--accent-strong);
+    background: rgb(255 255 255 / 6%);
+    border-radius: 4px;
+    font-size: 0.9em;
+}
+
+/* Адаптив */
+
+@media (max-width: 1200px) {
+    .magic-hub {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 36px;
+        margin-top: 34px;
+    }
+
+    .magic-column-title {
+        font-size: 24px;
+    }
+}
+
+@media (max-width: 900px) {
+    .magic-hero-mark {
+        width: 130px;
+        height: 130px;
+        opacity: 0.08;
+    }
+
+    .magic-article-sigil {
+        display: none;
+    }
+
+    .magic-article-layout.has-toc {
+        display: block;
+        max-width: 760px;
+    }
+
+    .magic-article-toc {
+        position: static;
+        margin-bottom: 24px;
+    }
+
+    .magic-toc {
+        padding: 10px 14px;
+        background: var(--surface-bg);
+        border: 1px solid var(--border);
+        border-radius: 9px;
+    }
+
+    .magic-toc summary {
+        display: block;
+        color: var(--accent-strong);
+        font-family: var(--font-heading);
+        font-size: 18px;
+        cursor: pointer;
+    }
+
+    .magic-toc[open] summary {
+        margin-bottom: 10px;
+    }
+}
+
+@media (max-width: 700px) {
+    .magic-hero-mark {
+        display: none;
+    }
+
+    .magic-column-title {
+        font-size: 22px;
+    }
+
+    .magic-spine-link {
+        grid-template-columns: 42px minmax(0, 1fr) 16px;
+        gap: 10px;
+    }
+
+    .magic-spine::before {
+        left: 21px;
+    }
+
+    .magic-spine-marker {
+        width: 32px;
+        height: 32px;
+        margin-left: 5px;
+        font-size: 12px;
+    }
+
+    .magic-spine-title {
+        font-size: 18px;
+    }
+
+    .magic-schools {
+        gap: 12px;
+    }
+
+    .magic-school-card {
+        flex-basis: calc((100% - 12px) / 2);
+        min-height: 148px;
+        padding: 14px 10px 10px;
+    }
+
+    .magic-school-sigil {
+        width: 42px;
+        height: 42px;
+    }
+
+    .magic-school-name {
+        font-size: 17px;
+    }
+}

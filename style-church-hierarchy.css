@@ -296,7 +296,7 @@
     background: var(--panel-bg);
     border: 1px solid var(--border-strong);
     border-radius: 9px;
-    font-family: var(--font-heading);
+    font-family: var(--font-text);
     font-size: 18px;
     font-weight: 600;
     text-align: center;

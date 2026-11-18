@@ -356,7 +356,7 @@
 .prank-text {
     font-family: var(--font-heading);
     font-size: clamp(64px, 16vw, 240px);
-    font-weight: 800;
+    font-weight: 400;
     line-height: 1;
     color: #e01616;
     letter-spacing: 0.02em;

@@ -179,6 +179,34 @@ body :is(
     background: rgba(255, 255, 255, 0.04);
 }
 
+.church-article-body table {
+    width: 100%;
+    margin: 18px 0;
+    border-collapse: collapse;
+    font-family: var(--font-body);
+    font-size: 14px;
+}
+
+.church-article-body th,
+.church-article-body td {
+    padding: 8px 10px;
+    border: 1px solid var(--border);
+    text-align: left;
+    vertical-align: top;
+}
+
+.church-article-body th {
+    color: var(--accent-strong);
+    background: var(--surface-bg);
+}
+
+.church-article-body hr {
+    height: 1px;
+    margin: 26px 0;
+    background: linear-gradient(90deg, transparent, var(--accent-border), transparent);
+    border: 0;
+}
+
 .church-article-error {
     color: var(--text-primary);
 }

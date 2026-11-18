@@ -673,6 +673,46 @@
     --belonging-color: 168 158 146;
 }
 
+/* Бездна — чёрно-белая; Звёзды — золото и белый в общей манере карточек. */
+
+.content .races-belonging-card--abyss {
+    --belonging-color: 236 236 236;
+    background:
+        radial-gradient(ellipse at 50% 118%, rgb(255 255 255 / 7%), transparent 62%),
+        linear-gradient(165deg, #050505 0%, #0d0d0d 58%, #030303 100%);
+    border-color: rgb(var(--belonging-color) / 42%);
+}
+
+.content .races-belonging-card--abyss .races-belonging-name {
+    color: #f5f5f5;
+}
+
+.content .races-belonging-card--abyss .races-belonging-meta {
+    color: #bdbdbd;
+}
+
+.content .races-belonging-card--stars {
+    --belonging-color: 246 224 160;
+    position: relative;
+    overflow: hidden;
+}
+
+.races-belonging-card--stars::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+        radial-gradient(circle at 16% 18%, rgb(255 255 255 / 75%) 0 1px, transparent 1.5px),
+        radial-gradient(circle at 78% 13%, rgb(255 255 255 / 60%) 0 0.9px, transparent 1.4px),
+        radial-gradient(circle at 86% 39%, rgb(255 236 180 / 75%) 0 1px, transparent 1.5px),
+        radial-gradient(circle at 24% 52%, rgb(255 255 255 / 55%) 0 0.8px, transparent 1.3px),
+        radial-gradient(circle at 66% 68%, rgb(255 236 180 / 65%) 0 1px, transparent 1.5px),
+        radial-gradient(circle at 12% 82%, rgb(255 255 255 / 55%) 0 0.9px, transparent 1.4px),
+        radial-gradient(circle at 88% 88%, rgb(255 255 255 / 50%) 0 1.1px, transparent 1.6px);
+    opacity: 0.6;
+    pointer-events: none;
+}
+
 .races-belonging-emblem {
     display: flex;
     width: 148px;
@@ -897,7 +937,9 @@
 .home-changelog-header h2 {
     margin: 0;
     color: var(--accent-strong);
+    font-family: var(--font-text);
     font-size: 18px;
+    font-weight: 700;
 }
 
 .content .home-changelog-toggle {

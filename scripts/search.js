@@ -282,10 +282,10 @@ function buildSearchIndex() {
             entries,
             topic.title,
             getSearchSectionLabel("magic"),
-            [topic.description],
+            [topic.description, topic.summary],
             `#magic/foundation/${encodeURIComponent(topic.id)}`,
             null,
-            ["Основные темы"]
+            ["Основы"]
         );
     });
 
@@ -301,13 +301,25 @@ function buildSearchIndex() {
         );
     });
 
+    addSearchEntry(
+        entries,
+        worldBubble.name,
+        getSearchSectionLabel("worlds"),
+        [worldBubble.summary, worldBubble.description],
+        "#worlds",
+        null,
+        ["Карта"]
+    );
+
     Object.entries(worlds).forEach(([worldId, world]) => {
         addSearchEntry(
             entries,
             world.name,
             getSearchSectionLabel("worlds"),
-            [world.description],
-            `#worlds/world/${encodeURIComponent(worldId)}`
+            [world.description, world.summary],
+            `#worlds/world/${encodeURIComponent(worldId)}`,
+            null,
+            [worldBubble.name]
         );
     });
 
@@ -457,6 +469,48 @@ function openRandomArticle() {
     openSearchResult(entry);
 }
 
+async function loadMagicArticleSearchTexts() {
+    // Догружает тексты статей в поисковый индекс после старта, не блокируя интерфейс.
+    const sources = [];
+
+    magic.foundations.forEach(topic => {
+        if (topic.contentFile) {
+            sources.push({
+                route: `#magic/foundation/${encodeURIComponent(topic.id)}`,
+                file: topic.contentFile
+            });
+        }
+    });
+
+    Object.entries(magic.types).forEach(([typeId, type]) => {
+        if (type.contentFile) {
+            sources.push({
+                route: `#magic/type/${encodeURIComponent(typeId)}`,
+                file: type.contentFile
+            });
+        }
+    });
+
+    await Promise.all(sources.map(async source => {
+        try {
+            const url = new URL(source.file, document.baseURI);
+            const response = await fetch(url);
+            if (!response.ok) return;
+
+            const text = markdownToPlainText(await response.text());
+            if (!text) return;
+
+            const entry = searchIndex.find(item => item.route === source.route);
+            if (!entry) return;
+
+            entry.content = [entry.content, text].filter(Boolean).join(" ");
+            entry.searchable = normalizeSearchText([entry.title, entry.context, entry.content].join(" "));
+        } catch (error) {
+            // Статья недоступна — поиск продолжает работать по описанию.
+        }
+    }));
+}
+
 function initializeSearch() {
     const input = document.getElementById("site-search-input");
     const panel = document.getElementById("search-panel");
@@ -464,6 +518,9 @@ function initializeSearch() {
     if (!input || !panel || !toggle) return;
 
     searchIndex = buildSearchIndex();
+    loadMagicArticleSearchTexts().then(() => {
+        if (input.value.trim()) renderSearchResults(input.value);
+    });
     input.addEventListener("input", () => renderSearchResults(input.value));
     input.addEventListener("keydown", event => {
         if (event.key === "Enter") {

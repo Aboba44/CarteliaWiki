@@ -48,6 +48,18 @@ const raceBelongings = {
         name: "Пепел",
         description: "Существа, принадлежащие Пеплу.",
         categories: {}
+    },
+
+    abyss: {
+        name: "Бездна",
+        description: "Описание пока не добавлено.",
+        categories: {}
+    },
+
+    stars: {
+        name: "Звёзды",
+        description: "Описание пока не добавлено.",
+        categories: {}
     }
 };
 

@@ -1,0 +1,368 @@
+/* Интерактивная карта Пузыря Бигель и страницы пространств раздела «Миры». */
+
+.worlds-bubble {
+    position: relative;
+    max-width: 1040px;
+    margin: 4px auto 6px;
+    perspective: 1400px;
+}
+
+.worlds-bubble-scroll {
+    width: 100%;
+}
+
+.worlds-scroll-hint {
+    display: none;
+    margin: 8px 0 0;
+    font-family: var(--font-body);
+    font-size: 12px;
+    color: var(--text-muted);
+    text-align: center;
+}
+
+.worlds-bubble-stage {
+    position: relative;
+    aspect-ratio: 1120 / 680;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    background: #05070b;
+    box-shadow: 0 24px 70px rgb(0 0 0 / 50%);
+    transform: rotateX(var(--tilt-x, 0deg)) rotateY(var(--tilt-y, 0deg));
+    transition: transform 0.4s cubic-bezier(0.2, 0.7, 0.2, 1);
+    will-change: transform;
+}
+
+.worlds-bubble-art {
+    position: absolute;
+    inset: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+.worlds-dust {
+    fill: #dfe9f5;
+    animation: worlds-dust-twinkle 5s ease-in-out infinite;
+}
+
+.worlds-dust:nth-of-type(2n) { animation-delay: 1.3s; }
+.worlds-dust:nth-of-type(3n) { animation-delay: 2.4s; }
+.worlds-dust:nth-of-type(4n) { animation-delay: 3.1s; }
+
+.worlds-bubble-rim {
+    animation: worlds-rim-breathe 7s ease-in-out infinite;
+}
+
+.worlds-bubble-nodes {
+    position: absolute;
+    inset: 0;
+}
+
+.content .worlds-node {
+    position: absolute;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    padding: 0 !important;
+    background: transparent !important;
+    color: var(--text-primary);
+    border: 0 !important;
+    border-radius: 0 !important;
+    font: inherit !important;
+    cursor: pointer;
+    transform: translate(-50%, -50%);
+    transition: opacity 0.3s ease;
+    animation: worlds-node-float 7s ease-in-out infinite alternate;
+}
+
+.content .worlds-node:nth-of-type(2n) { animation-duration: 8.4s; animation-delay: 0.8s; }
+.content .worlds-node:nth-of-type(3n) { animation-duration: 6.6s; animation-delay: 1.6s; }
+
+.content .worlds-node:hover {
+    background: transparent !important;
+    border-color: transparent !important;
+    box-shadow: none !important;
+    transform: translate(-50%, -50%) !important;
+}
+
+.worlds-node:focus-visible {
+    outline: 2px solid var(--accent-strong);
+    outline-offset: 7px;
+}
+
+.worlds-bubble-nodes:hover .worlds-node:not(:hover) {
+    opacity: 0.5;
+}
+
+.worlds-node-orb {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: var(--node-w, 88px);
+    height: var(--node-h, 88px);
+    border-radius: 50%;
+    transform: rotate(var(--tumor-rotate, 0deg));
+    transition: transform 0.35s ease, filter 0.35s ease, box-shadow 0.35s ease;
+    pointer-events: none;
+}
+
+.worlds-node:hover .worlds-node-orb,
+.worlds-node:focus-visible .worlds-node-orb {
+    transform: rotate(var(--tumor-rotate, 0deg)) scale(1.06);
+    filter: brightness(1.07);
+}
+
+.worlds-node-monogram {
+    font-family: var(--font-heading);
+    font-weight: 400;
+    font-size: var(--mono-size, 30px);
+    line-height: 1;
+    user-select: none;
+}
+
+.worlds-node-name {
+    font-family: var(--font-body);
+    font-size: 13px;
+    line-height: 1.2;
+    color: var(--text-primary);
+    white-space: nowrap;
+    text-shadow: 0 1px 6px rgb(0 0 0 / 90%);
+    pointer-events: none;
+}
+
+/* Размеры и цвета узлов */
+
+.worlds-node--elder { --node-w: 70px; --node-h: 70px; --mono-size: 24px; }
+.worlds-node--garden { --node-w: 88px; --node-h: 88px; --mono-size: 28px; }
+.worlds-node--mortal { --node-w: 150px; --node-h: 150px; --mono-size: 46px; }
+.worlds-node--tumor { --node-w: 190px; --node-h: 150px; --mono-size: 32px; }
+
+.worlds-node--doGat { --worlds-accent: 174 192 210; }
+.worlds-node--soGat { --worlds-accent: 200 167 107; }
+.worlds-node--roGat { --worlds-accent: 99 166 199; }
+
+.worlds-node--abyss { --tumor-rotate: -7deg; }
+.worlds-node--zlatograd { --tumor-rotate: 6deg; }
+
+.worlds-node--elder .worlds-node-orb {
+    background: radial-gradient(circle at 38% 30%, #eef1f5 0%, #b6c0cd 55%, #4f5967 100%);
+    box-shadow: 0 0 18px rgb(190 200 215 / 20%), inset 0 0 14px rgb(255 255 255 / 22%);
+    color: #141a22;
+}
+
+.worlds-node--garden .worlds-node-orb {
+    background: radial-gradient(circle at 32% 28%, rgb(var(--worlds-accent) / 95%) 0%, rgb(var(--worlds-accent) / 42%) 55%, rgb(var(--worlds-accent) / 14%) 100%);
+    box-shadow: 0 0 26px rgb(var(--worlds-accent) / 30%), inset 0 0 16px rgb(255 255 255 / 20%);
+    color: rgb(9 13 19 / 85%);
+}
+
+.worlds-node--mortal .worlds-node-orb {
+    background: radial-gradient(circle at 35% 30%, #fff8e6 0%, #e6c988 45%, #8a6f3f 78%, #46341c 100%);
+    box-shadow: 0 0 46px rgb(230 201 136 / 34%), 0 0 90px rgb(200 167 107 / 16%), inset 0 0 26px rgb(255 255 255 / 35%);
+    color: #2c2413;
+}
+
+.worlds-node--tumor .worlds-node-orb {
+    border-radius: 42% 58% 56% 44% / 58% 46% 54% 42%;
+}
+
+.worlds-node--abyss .worlds-node-orb {
+    background: radial-gradient(circle at 30% 28%, #2b2b30 0%, #0b0b0d 55%, #000 100%);
+    border: 1px solid rgb(235 235 235 / 42%);
+    box-shadow: 0 0 30px rgb(0 0 0 / 85%), 0 0 44px rgb(120 120 135 / 14%), inset 0 0 26px rgb(255 255 255 / 6%);
+    color: #d7d7dc;
+}
+
+.worlds-node--zlatograd .worlds-node-orb {
+    background: radial-gradient(circle at 32% 28%, #f4df9a 0%, #c8a76b 45%, #4c3a1c 76%, #14100a 100%);
+    border: 1px solid rgb(240 214 120 / 55%);
+    box-shadow: 0 0 36px rgb(220 183 96 / 35%), 0 0 72px rgb(180 140 60 / 15%), inset 0 0 28px rgb(255 240 190 / 25%);
+    color: #1c1509;
+}
+
+/* Панель описания и легенда */
+
+.worlds-bubble-status {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3px;
+    max-width: 640px;
+    margin: 14px auto 0;
+    padding: 10px 16px;
+    background: rgb(11 14 20 / 70%);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    text-align: center;
+}
+
+.worlds-bubble-status-name {
+    font-family: var(--font-heading);
+    font-size: 20px;
+    color: var(--accent-strong);
+}
+
+.worlds-bubble-status-meta {
+    font-family: var(--font-body);
+    font-size: 13px;
+    color: var(--text-secondary);
+}
+
+.worlds-legend {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 18px;
+    margin-top: 12px;
+    font-family: var(--font-body);
+    font-size: 12px;
+    color: var(--text-muted);
+}
+
+.worlds-legend-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+}
+
+.worlds-legend-dot {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+}
+
+.worlds-legend-dot--inside {
+    background: #c8a76b;
+    box-shadow: 0 0 8px rgb(200 167 107 / 60%);
+}
+
+.worlds-legend-dot--outside {
+    background: #141414;
+    border: 1px solid #7a7a82;
+}
+
+/* Страница пространства */
+
+.worlds-page-meta {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+    margin: 4px 0 20px;
+}
+
+.worlds-zone-badge,
+.worlds-page-kind,
+.worlds-page-owner {
+    padding: 5px 10px;
+    font-family: var(--font-body);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+    background: var(--surface-bg);
+    border: 1px solid var(--border-strong);
+    border-radius: 999px;
+}
+
+.worlds-zone-badge--inside {
+    color: var(--accent-strong);
+    border-color: var(--accent-border);
+}
+
+.worlds-zone-badge--outside {
+    color: #d7d7dc;
+    border-color: #7a7a82;
+}
+
+.worlds-page-owner {
+    color: var(--accent-strong);
+}
+
+.worlds-map {
+    max-width: 760px;
+    margin: 26px auto 0;
+    text-align: center;
+}
+
+.worlds-map img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border: 1px solid var(--border-strong);
+    border-radius: 10px;
+}
+
+.worlds-map figcaption {
+    margin-top: 8px;
+    font-family: var(--font-body);
+    font-size: 13px;
+    color: var(--text-muted);
+}
+
+/* Анимации */
+
+@keyframes worlds-dust-twinkle {
+    0%, 100% { opacity: 0.25; }
+    50% { opacity: 0.75; }
+}
+
+@keyframes worlds-rim-breathe {
+    0%, 100% { opacity: 0.7; }
+    50% { opacity: 1; }
+}
+
+@keyframes worlds-node-float {
+    from { transform: translate(-50%, -50%) translateY(-2px); }
+    to { transform: translate(-50%, -50%) translateY(3px); }
+}
+
+/* Узкие экраны: подписи скрываем, узлы уменьшаем — под картой всё равно есть карточки. */
+
+/* Уже 900 px карта сохраняет композицию и прокручивается по горизонтали. */
+
+@media (max-width: 900px) {
+    .worlds-bubble-scroll {
+        overflow-x: auto;
+        overflow-y: hidden;
+        padding-bottom: 6px;
+        scrollbar-width: thin;
+    }
+
+    .worlds-bubble-stage {
+        min-width: 900px;
+        border-radius: 12px;
+    }
+
+    .worlds-scroll-hint {
+        display: block;
+    }
+}
+
+@media (max-width: 700px) {
+    .worlds-bubble-status-name {
+        font-size: 17px;
+    }
+
+    .worlds-bubble-status-meta {
+        font-size: 12px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .worlds-node,
+    .worlds-dust,
+    .worlds-bubble-rim {
+        animation: none !important;
+    }
+
+    .worlds-bubble-stage {
+        transition: none;
+        transform: none !important;
+    }
+}
