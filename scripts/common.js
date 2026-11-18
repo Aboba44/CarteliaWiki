@@ -60,6 +60,19 @@ function getSectionLabel(section) {
 }
 
 
+function escapeHtml(value) {
+    // Экранирует текст перед вставкой в innerHTML-шаблоны.
+    return String(value ?? "").replace(/[&<>"']/g, function (character) {
+        return {
+            "&": "&amp;",
+            "<": "&lt;",
+            ">": "&gt;",
+            "\"": "&quot;",
+            "'": "&#39;"
+        }[character];
+    });
+}
+
 function renderWikiCards(items, renderItem) {
     return `
         <div class="wiki-cards">

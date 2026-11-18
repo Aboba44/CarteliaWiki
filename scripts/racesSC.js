@@ -1,4 +1,5 @@
 // Навигация по принадлежностям и категориям существ до страницы выбранной расы.
+// Ссылка на народы расы ведёт в отдельную систему peoples (scripts/peoplesSC.js).
 /* =========================
    ПРИНАДЛЕЖНОСТЬ
    ========================= */
@@ -13,6 +14,12 @@ function renderBelongingRoot() {
         { label: "Расы", route: "#races" },
         { label: "Принадлежность" }
     ]);
+}
+
+function showRaces() {
+    // Возвращает раздел «Расы» к списку принадлежностей, даже если открыта раса.
+    showSection("belonging", true);
+    renderBelongingRoot();
 }
 
 function showBelonging(belongingId, syncRoute = true) {
@@ -31,15 +38,16 @@ function showBelonging(belongingId, syncRoute = true) {
     const categoryButtons = Object.entries(belonging.categories).map(([id, category]) => `
         <button
             class="creature-category-button"
+            type="button"
             onclick="showCreatureCategory('${belongingId}', '${id}')"
         >
-            ${category.name}
+            ${escapeHtml(category.name)}
         </button>
     `).join("");
 
     info.innerHTML = `
-        <h2>${belonging.name}</h2>
-        <p>${belonging.description}</p>
+        <h2>${escapeHtml(belonging.name)}</h2>
+        <p>${escapeHtml(belonging.description)}</p>
 
         <div class="creature-category-list">
             ${categoryButtons || "<p>Категории существ пока не определены.</p>"}
@@ -76,16 +84,17 @@ function showCreatureCategory(belongingId, categoryId, syncRoute = true) {
         return `
             <button
                 class="creature-category-button"
+                type="button"
                 onclick="showRace('${raceId}', '${categoryId}')"
             >
-                ${race.name}
+                ${escapeHtml(race.name)}
             </button>
         `;
     }).join("");
 
     info.innerHTML = `
-        <h2>${belonging.name} — ${category.name}</h2>
-        <p>${category.description}</p>
+        <h2>${escapeHtml(belonging.name)} — ${escapeHtml(category.name)}</h2>
+        <p>${escapeHtml(category.description)}</p>
 
         <div class="creature-category-list">
             ${raceButtons || "<p>Категория пока не проработана.</p>"}
@@ -118,10 +127,27 @@ function showRace(raceId, categoryId = "sentient", syncRoute = true) {
         { label: race.name }
     ]);
 
+    const peopleGroup = race.peoples ? peoples[race.peoples] : null;
+
     info.innerHTML = `
-        <h2>${race.name}</h2>
-        <p>${race.description}</p>
-        ${race.notes ? `<p>${race.notes}</p>` : ""}
+        <h2>${escapeHtml(race.name)}</h2>
+        <p>${escapeHtml(race.description)}</p>
+        ${race.notes ? `<p>${escapeHtml(race.notes)}</p>` : ""}
+        ${peopleGroup ? `
+            <section class="race-peoples">
+                <h3>Народы</h3>
+                <div class="wiki-cards">
+                    <button
+                        class="wiki-card"
+                        type="button"
+                        onclick="showPeoples('${raceId}', '${categoryId}')"
+                    >
+                        <h3>${escapeHtml(peopleGroup.name)}</h3>
+                        ${peopleGroup.description ? `<p>${escapeHtml(peopleGroup.description)}</p>` : ""}
+                    </button>
+                </div>
+            </section>
+        ` : ""}
     `;
 
 }

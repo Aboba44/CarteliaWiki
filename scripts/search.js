@@ -178,6 +178,50 @@ function buildSearchIndex() {
         );
     });
 
+    Object.entries(races).forEach(([raceId, race]) => {
+        if (!race.peoples || !peoples[race.peoples]) return;
+
+        const group = peoples[race.peoples];
+        const belonging = raceBelongings[race.belonging];
+        const categoryId = raceLocations.get(raceId)?.categoryId || "sentient";
+        const groupRoute = `#belonging/${encodeURIComponent(race.belonging)}/${encodeURIComponent(categoryId)}/${encodeURIComponent(raceId)}/peoples`;
+
+        addSearchEntry(
+            entries,
+            group.name,
+            getSearchSectionLabel("races"),
+            [group.description],
+            groupRoute,
+            null,
+            [belonging?.name, race.name, "Народы"]
+        );
+
+        Object.entries(group.categories || {}).forEach(([peopleCategoryId, peopleCategory]) => {
+            const categoryRoute = `${groupRoute}/${encodeURIComponent(peopleCategoryId)}`;
+            addSearchEntry(
+                entries,
+                peopleCategory.name,
+                getSearchSectionLabel("races"),
+                [peopleCategory.description],
+                categoryRoute,
+                null,
+                [group.name, race.name]
+            );
+
+            Object.entries(peopleCategory.entries || {}).forEach(([peopleId, people]) => {
+                addSearchEntry(
+                    entries,
+                    people.name,
+                    getSearchSectionLabel("races"),
+                    [people.description],
+                    `${categoryRoute}/${encodeURIComponent(peopleId)}`,
+                    null,
+                    [peopleCategory.name, group.name]
+                );
+            });
+        });
+    });
+
     Object.entries(church.branches).forEach(([branchId, branch]) => {
         addSearchEntry(
             entries,

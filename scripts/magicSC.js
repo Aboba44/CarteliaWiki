@@ -9,8 +9,8 @@ function renderMagicFoundations() {
         ${renderWikiCards(magic.foundations, topic => `
             <button class="wiki-card"
                     onclick="showMagicFoundation('${topic.id}')">
-                <h2>${topic.title}</h2>
-                <p>${topic.description}</p>
+                <h2>${escapeHtml(topic.title)}</h2>
+                <p>${escapeHtml(topic.description)}</p>
             </button>
         `)}
     `;
@@ -26,8 +26,8 @@ function renderMagicTypes() {
         ${renderWikiCards(Object.entries(magic.types), ([id, type]) => `
             <button class="wiki-card"
                     onclick="showMagicType('${id}')">
-                <h2>${type.name}</h2>
-                <p>${type.summary}</p>
+                <h2>${escapeHtml(type.name)}</h2>
+                <p>${escapeHtml(type.summary)}</p>
             </button>
         `)}
     `;
@@ -56,8 +56,8 @@ function showMagicFoundation(topicId, syncRoute = true) {
     ]);
     document.getElementById("magic-type-info")?.replaceChildren();
     info.innerHTML = `
-        <h2>${topic.title}</h2>
-        <p>${topic.description}</p>
+        <h2>${escapeHtml(topic.title)}</h2>
+        <p>${escapeHtml(topic.description)}</p>
     `;
 }
 
@@ -75,7 +75,7 @@ function showMagicType(typeId, syncRoute = true) {
     ]);
     document.getElementById("magic-foundation-info")?.replaceChildren();
     info.innerHTML = `
-        <h2>${type.name}</h2>
-        <p>${type.description}</p>
+        <h2>${escapeHtml(type.name)}</h2>
+        <p>${escapeHtml(type.description)}</p>
     `;
 }

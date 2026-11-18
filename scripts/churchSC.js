@@ -42,8 +42,8 @@ function renderChurchContent() {
                                 </defs>
                                 <rect width="1024" height="1024" fill="currentColor" mask="url(#church-emblem-mask-${id})"></rect>
                             </svg>
-                            <h2>${branch.name}</h2>
-                            <p>${branch.description}</p>
+                            <h2>${escapeHtml(branch.name)}</h2>
+                            <p>${escapeHtml(branch.description)}</p>
                             <span class="church-branch-chevron" aria-hidden="true">⌄</span>
                         </button>
                         <button
@@ -139,7 +139,7 @@ function toggleChurchBranch(branchId, button, syncRoute = true) {
 
     const chambers = Object.entries(branch.chambers);
     panelContent.innerHTML = `
-        <h2>${branch.name}: палаты</h2>
+        <h2>${escapeHtml(branch.name)}: палаты</h2>
         ${chambers.length
             ? renderWikiCards(chambers, ([chamberId, chamber]) => `
                 <button
@@ -147,8 +147,8 @@ function toggleChurchBranch(branchId, button, syncRoute = true) {
                     type="button"
                     onclick="showChurchChamber('${branchId}', '${chamberId}')"
                 >
-                    <h3>${chamber.name}</h3>
-                    <p>${chamber.description}</p>
+                    <h3>${escapeHtml(chamber.name)}</h3>
+                    <p>${escapeHtml(chamber.description)}</p>
                 </button>
             `)
             : `<p class="church-chambers-empty">Палаты пока не добавлены.</p>`
@@ -202,12 +202,12 @@ function showChurchBranchPage(branchId, syncRoute = true) {
                 <div class="church-branch-hero-image" aria-hidden="true"></div>
                 <div class="church-branch-hero-content">
                     <p class="church-branch-eyebrow">Церковь</p>
-                    <h1>${branch.name}</h1>
+                    <h1>${escapeHtml(branch.name)}</h1>
                 </div>
             </header>
             <section class="church-branch-description">
                 <h2>О ветви</h2>
-                <p>${branch.description}</p>
+                <p>${escapeHtml(branch.description)}</p>
             </section>
             <section class="church-branch-chambers">
                 <h2>Палаты ветви</h2>
@@ -218,8 +218,8 @@ function showChurchBranchPage(branchId, syncRoute = true) {
                             type="button"
                             onclick="showChurchChamber('${branchId}', '${chamberId}')"
                         >
-                            <h3>${chamber.name}</h3>
-                            <p>${chamber.description}</p>
+                            <h3>${escapeHtml(chamber.name)}</h3>
+                            <p>${escapeHtml(chamber.description)}</p>
                         </button>
                     `)
                     : `<p class="church-chambers-empty">Палаты пока не добавлены.</p>`
@@ -254,13 +254,13 @@ function showChurchChamber(branchId, chamberId, syncRoute = true) {
             <header class="church-branch-hero church-chamber-hero">
                 <div class="church-branch-hero-image" aria-hidden="true"></div>
                 <div class="church-branch-hero-content">
-                    <p class="church-branch-eyebrow">${branch.name}</p>
-                    <h1>${chamber.name}</h1>
+                    <p class="church-branch-eyebrow">${escapeHtml(branch.name)}</p>
+                    <h1>${escapeHtml(chamber.name)}</h1>
                 </div>
             </header>
             <section class="church-branch-description">
                 <h2>О палате</h2>
-                <p>${chamber.description}</p>
+                <p>${escapeHtml(chamber.description)}</p>
             </section>
             <section class="church-branch-chambers church-chamber-topics">
                 <h2>Темы</h2>
@@ -271,8 +271,8 @@ function showChurchChamber(branchId, chamberId, syncRoute = true) {
                             type="button"
                             onclick="openChurchTopic('${branchId}', '${chamberId}', '${topicIndex}')"
                         >
-                            <h3>${topic.name}</h3>
-                            ${topic.description ? `<p>${topic.description}</p>` : ""}
+                            <h3>${escapeHtml(topic.name)}</h3>
+                            ${topic.description ? `<p>${escapeHtml(topic.description)}</p>` : ""}
                         </button>
                     `)
                     : `<p class="church-chambers-empty">Темы пока не добавлены.</p>`

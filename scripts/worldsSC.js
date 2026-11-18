@@ -12,8 +12,8 @@ function renderWorlds() {
         ${renderWikiCards(Object.entries(dimensions), ([id, dimension]) => `
             <button class="wiki-card"
                     onclick="showDimension('${id}')">
-                <h2>${dimension.name}</h2>
-                <p>${dimension.summary}</p>
+                <h2>${escapeHtml(dimension.name)}</h2>
+                <p>${escapeHtml(dimension.summary)}</p>
             </button>
         `)}
 
@@ -21,8 +21,8 @@ function renderWorlds() {
         ${renderWikiCards(Object.entries(worlds), ([id, world]) => `
             <button class="wiki-card"
                     onclick="showWorld('${id}')">
-                <h2>${world.name}</h2>
-                <p>${world.description}</p>
+                <h2>${escapeHtml(world.name)}</h2>
+                <p>${escapeHtml(world.description)}</p>
             </button>
         `)}
     `;
@@ -50,8 +50,8 @@ function showWorld(worldId, syncRoute = true) {
         { label: world.name }
     ]);
     info.innerHTML = `
-        <h2>${world.name}</h2>
-        <p>${world.description}</p>
+        <h2>${escapeHtml(world.name)}</h2>
+        <p>${escapeHtml(world.description)}</p>
     `;
 }
 
@@ -68,11 +68,11 @@ function showDimension(dimensionId, syncRoute = true) {
         { label: dimension.name }
     ]);
     info.innerHTML = `
-        <h2>${dimension.name}</h2>
-        <p>${dimension.description}</p>
-        <p>${dimension.summary}</p>
+        <h2>${escapeHtml(dimension.name)}</h2>
+        <p>${escapeHtml(dimension.description)}</p>
+        <p>${escapeHtml(dimension.summary)}</p>
         <ul>
-            ${dimension.notes.map(note => `<li>${note}</li>`).join("") || "<li>Описание пока не добавлено.</li>"}
+            ${dimension.notes.map(note => `<li>${escapeHtml(note)}</li>`).join("") || "<li>Описание пока не добавлено.</li>"}
         </ul>
     `;
 }

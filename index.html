@@ -55,7 +55,7 @@
                     <circle cx="12" cy="12" r="5.25"/>
                     <ellipse cx="12" cy="12" rx="10" ry="3.4" transform="rotate(-18 12 12)"/>
                 </svg>
-                <span>Миры</span>
+                <span data-i18n="nav.worlds">Миры</span>
             </button>
 
             <button data-nav-section="magic" onclick="showMagic()">
@@ -66,7 +66,7 @@
                 <span data-i18n="nav.magic">Магия</span>
             </button>
 
-            <button data-nav-section="belonging" onclick="showSection('belonging', true)">
+            <button data-nav-section="belonging" onclick="showRaces()">
                 <svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
                     <path d="M8.5 3c0 4.8 7 4.8 7 9s-7 4.2-7 9"/>
                     <path d="M15.5 3c0 4.8-7 4.8-7 9s7 4.2 7 9"/>
@@ -161,15 +161,6 @@
                     onclick="setLanguage('ru')"
                 >
                     RU
-                </button>
-                <button
-                    class="language-button"
-                    type="button"
-                    data-language="en"
-                    data-i18n-title="controls.englishUnavailable"
-                    onclick="setLanguage('en')"
-                >
-                    EN
                 </button>
             </div>
 
@@ -490,6 +481,7 @@
 <script src="data/church.js"></script>
 <script src="data/gods.js"></script>
 <script src="data/races.js"></script>
+<script src="data/peoples.js"></script>
 <script src="data/magic.js"></script>
 <script src="data/orders.js"></script>
 <script src="data/churchHierarchy.js"></script>
@@ -504,6 +496,7 @@
 <script src="scripts/prank.js"></script>
 <script src="scripts/godsSC.js"></script>
 <script src="scripts/racesSC.js"></script>
+<script src="scripts/peoplesSC.js"></script>
 <script src="scripts/worldsSC.js"></script>
 <script src="scripts/magicSC.js"></script>
 <script src="scripts/ordersSC.js"></script>

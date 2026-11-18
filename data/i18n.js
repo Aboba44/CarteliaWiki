@@ -5,6 +5,7 @@ const i18n = {
             gods: "Боги",
             magic: "Магия",
             races: "Расы",
+            worlds: "Миры",
             factions: "Фракции",
             theocracy: "Теократия",
             hegemony: "Гегемония",
@@ -66,6 +67,7 @@ const i18n = {
             gods: "Gods",
             magic: "Magic",
             races: "Races",
+            worlds: "Worlds",
             factions: "Factions",
             theocracy: "Theocracy",
             hegemony: "Hegemony",
@@ -113,6 +115,7 @@ const i18n = {
             theocracy: "Theocracy of Otland",
             hegemony: "Hegemony",
             confederation: "Confederation",
+            worlds: "Worlds",
             reading: "Reading"
         },
         reading: {

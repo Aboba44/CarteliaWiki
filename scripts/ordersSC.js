@@ -14,8 +14,8 @@ function renderOrders(targetId = "orders-content") {
         ${renderWikiCards(Object.entries(orders), ([id, order]) => `
             <button class="wiki-card"
                     onclick="showOrder('${id}', '${targetId === 'church-content'}')">
-                <h2>${order.name}</h2>
-                <p>${order.description}</p>
+                <h2>${escapeHtml(order.name)}</h2>
+                <p>${escapeHtml(order.description)}</p>
             </button>
         `)}
     `;
@@ -58,7 +58,7 @@ function showOrder(orderId, fromChurchContext = false, syncRoute = true) {
     }
 
     content.innerHTML = `
-        <h1>${order.name}</h1>
-        <p>${order.description}</p>
+        <h1>${escapeHtml(order.name)}</h1>
+        <p>${escapeHtml(order.description)}</p>
     `;
 }

@@ -24,8 +24,10 @@ function showSection(section, setRootRoute = false, syncGodRoute = true, syncRou
 
     if (!selected) return;
 
+    const sectionChanged = currentSection !== section;
+
     document.querySelector(".app")?.classList.toggle("is-home", section === "home");
-    if (section === "home") window.scrollTo(0, 0);
+    if (section === "home" || sectionChanged) window.scrollTo(0, 0);
 
     if (
         syncGodRoute &&
@@ -36,7 +38,6 @@ function showSection(section, setRootRoute = false, syncGodRoute = true, syncRou
         window.history.replaceState({ route: section }, "", `#${section}`);
     }
 
-    const sectionChanged = currentSection !== section;
     currentSection = section;
     if (setRootRoute || sectionChanged) {
         setBreadcrumbs(section === "belonging"
@@ -102,6 +103,18 @@ document.addEventListener("keydown", function (event) {
     }
 });
 
+document.addEventListener("pointerdown", function (event) {
+    if (!event.target.closest?.(".menu-dropdown")) {
+        closeFactionMenu();
+    }
+});
+
+document.addEventListener("click", function (event) {
+    if (event.target.closest?.(".dropdown-content button")) {
+        closeFactionMenu();
+    }
+});
+
 
 /* =========================
    СТАРТОВАЯ СТРАНИЦА
@@ -158,12 +171,23 @@ function handleWikiRoute(force = false) {
         }
     } else if (section === "belonging") {
         renderBelongingRoot();
-        const [, belongingId, categoryId, raceId] = parts;
+        const [, belongingId, categoryId, raceId, peopleView, peopleCategoryId, peopleId] = parts;
         if (belongingId && raceBelongings[belongingId]) {
             showBelonging(belongingId, false);
             if (categoryId && raceBelongings[belongingId].categories[categoryId]) {
                 showCreatureCategory(belongingId, categoryId, false);
-                if (raceId && races[raceId]) showRace(raceId, categoryId, false);
+                if (raceId && races[raceId]) {
+                    showRace(raceId, categoryId, false);
+                    if (peopleView === "peoples" && races[raceId].peoples) {
+                        showPeoples(raceId, categoryId, false);
+                        if (peopleCategoryId && peoples[races[raceId].peoples]?.categories[peopleCategoryId]) {
+                            showPeopleCategory(raceId, categoryId, peopleCategoryId, false);
+                            if (peopleId) {
+                                showPeople(raceId, categoryId, peopleCategoryId, peopleId, false);
+                            }
+                        }
+                    }
+                }
             }
         }
     } else if (section === "orders") {
