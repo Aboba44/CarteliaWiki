@@ -70,15 +70,10 @@ function buildSearchIndex() {
     const dynamicContent = [
         "#church-content",
         "#races-content",
-        "#god-list",
-        "#god-info",
+        "#gods-content",
         "#worlds-content",
-        "#worlds-info",
-        "#orders-content",
-        "#magic-foundations",
-        "#magic-foundation-info",
-        "#magic-types",
-        "#magic-type-info"
+        "#magic-content",
+        "#orders-content"
     ].join(",");
 
     document.querySelectorAll(".content > section").forEach(section => {

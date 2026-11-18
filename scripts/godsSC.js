@@ -6,111 +6,74 @@
 let currentGodPantheon = "indigenous";
 
 function showGod(god) {
-
-    const info = document.getElementById("god-info");
-    if (!info) return;
-
+    const content = document.getElementById("gods-content");
     const data = gods[god];
+
+    if (!content) return;
+
     if (!data) {
-        info.textContent = "Бог не найден.";
+        content.innerHTML = renderWikiPage(
+            "Боги",
+            "Бог не найден",
+            "",
+            `<p class="page-empty">Проверьте ссылку на статью.</p>`
+        );
         return;
     }
 
-    const pantheon = godPantheons[data.pantheon || "indigenous"];
+    const pantheonId = data.pantheon || "indigenous";
+    const pantheon = godPantheons[pantheonId];
     const category = pantheon?.categories[data.category];
+
     setBreadcrumbs([
-        { label: "Боги", route: `#gods/${data.pantheon || "indigenous"}` },
+        { label: "Боги", route: `#gods/${pantheonId}` },
         ...(category ? [{
             label: category.name,
-            route: `#gods/${data.pantheon || "indigenous"}/category/${data.category}`
+            route: `#gods/${pantheonId}/category/${data.category}`
         }] : []),
         { label: data.name || god }
     ]);
 
-    const sectionTitle = document.getElementById("god-section-title");
-    const list = document.getElementById("god-list");
-    if (list) list.hidden = true;
-    if (sectionTitle) sectionTitle.hidden = true;
-    info.hidden = false;
+    const imageHtml = data.image
+        ? `<img src="${escapeHtml(data.image)}" alt="Изображение ${escapeHtml(data.name || god)}" decoding="async">`
+        : `<span class="god-image-placeholder">${escapeHtml(data.imagePlaceholder || "Изображение пока не добавлено.")}</span>`;
 
-    const page = document.createElement("div");
-    page.className = "god-page";
-
-    const copy = document.createElement("div");
-    copy.className = "god-page-copy";
-
-    const title = document.createElement("h1");
-    title.className = "god-page-title";
-    title.textContent = data.name || god;
-    copy.appendChild(title);
-
-    if (data.title) {
-        const subtitle = document.createElement("p");
-        subtitle.className = "god-subtitle";
-        subtitle.textContent = data.title;
-        copy.appendChild(subtitle);
-    }
-
-    const image = document.createElement("div");
-    image.className = "god-image";
-    if (data.image) {
-        const imageElement = document.createElement("img");
-        imageElement.src = data.image;
-        imageElement.decoding = "async";
-        imageElement.alt = `Изображение ${data.name || god}`;
-        image.appendChild(imageElement);
-    } else {
-        image.textContent = data.imagePlaceholder || `Изображение ${data.name || god}`;
-    }
-
-    const details = document.createElement("div");
-    details.className = "god-details";
-
-    const categoryLabel = godPantheons[data.pantheon]?.categories[data.category]?.label || data.category;
-    [["Категория:", categoryLabel]]
-        .filter(function ([, value]) { return value; })
-        .forEach(function ([label, value]) {
-        const row = document.createElement("p");
-        const labelElement = document.createElement("strong");
-        labelElement.textContent = label;
-        row.append(labelElement, ` ${value}`);
-        details.appendChild(row);
-    });
-
-    if (details.childElementCount > 0) {
-        copy.appendChild(details);
-    }
-
-    const descriptionTitle = document.createElement("h3");
-    descriptionTitle.textContent = "Описание";
-    copy.appendChild(descriptionTitle);
-
-    const description = document.createElement("p");
-    description.textContent = data.description || "Описание пока не добавлено.";
-    copy.appendChild(description);
-
-    page.append(copy, image);
-
-    info.replaceChildren(page);
+    content.innerHTML = renderWikiPage(
+        [pantheon?.name, category?.name].filter(Boolean).join(" · "),
+        data.name || god,
+        data.title || "",
+        `<div class="god-page">
+            <div class="god-page-copy">
+                <h3>Описание</h3>
+                <p>${escapeHtml(data.description || "Описание пока не добавлено.")}</p>
+            </div>
+            <div class="god-image">${imageHtml}</div>
+        </div>`
+    );
 }
 
 function renderGods(pantheonId = currentGodPantheon) {
-    const list = document.getElementById("god-list");
-    if (!list) return;
-
+    const content = document.getElementById("gods-content");
     const pantheon = godPantheons[pantheonId];
-    if (!pantheon) return;
+
+    if (!content || !pantheon) return;
 
     currentGodPantheon = pantheonId;
-    const info = document.getElementById("god-info");
-    const sectionTitle = document.getElementById("god-section-title");
-    if (sectionTitle) sectionTitle.textContent = pantheon.name;
-    list.hidden = false;
-    if (sectionTitle) sectionTitle.hidden = false;
-    if (info) {
-        info.hidden = true;
-        info.replaceChildren();
-    }
+
+    setBreadcrumbs([
+        { label: "Боги", route: "#gods" },
+        { label: pantheon.name }
+    ]);
+
+    content.innerHTML = renderWikiPage(
+        "Пантеон",
+        pantheon.name,
+        "Выберите категорию или бога, чтобы открыть статью.",
+        `<div id="god-list" class="god-list"></div>`
+    );
+
+    const list = document.getElementById("god-list");
+    if (!list) return;
 
     const categories = new Map();
 

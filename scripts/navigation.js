@@ -198,24 +198,29 @@ function handleWikiRoute(force = false) {
             showOrder(decodeRoutePart(parts[1]), false, false);
         }
     } else if (section === "worlds") {
-        renderWorlds();
         const [, detailType, detailId] = parts;
-        if (detailType === "world" && detailId) {
-            showWorld(decodeRoutePart(detailId), false);
-        } else if (detailType === "dimension" && detailId) {
-            showDimension(decodeRoutePart(detailId), false);
+        const decodedDetailId = detailId ? decodeRoutePart(detailId) : null;
+
+        if (detailType === "world" && worlds[decodedDetailId]) {
+            showWorld(decodedDetailId, false);
+        } else if (detailType === "dimension" && dimensions[decodedDetailId]) {
+            showDimension(decodedDetailId, false);
+        } else {
+            renderWorlds();
         }
     } else if (section === "magic") {
-        renderMagicFoundations();
-        renderMagicTypes();
-        document.getElementById("magic-foundation-info")?.replaceChildren();
-        document.getElementById("magic-type-info")?.replaceChildren();
-
         const [, detailType, detailId] = parts;
-        if (detailType === "foundation" && detailId) {
-            showMagicFoundation(decodeRoutePart(detailId), false);
-        } else if (detailType === "type" && detailId) {
-            showMagicType(decodeRoutePart(detailId), false);
+        const decodedDetailId = detailId ? decodeRoutePart(detailId) : null;
+        const hasFoundation = detailType === "foundation" &&
+            magic.foundations.some(topic => topic.id === decodedDetailId);
+        const hasType = detailType === "type" && Boolean(magic.types[decodedDetailId]);
+
+        if (hasFoundation) {
+            showMagicFoundation(decodedDetailId, false);
+        } else if (hasType) {
+            showMagicType(decodedDetailId, false);
+        } else {
+            renderMagic();
         }
     }
 

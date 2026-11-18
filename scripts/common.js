@@ -111,6 +111,26 @@ function renderPageHeader(eyebrow, title, lead) {
     `;
 }
 
+function renderWikiPage(eyebrow, title, lead, body) {
+    // Общая оболочка страницы раздела: центрированный заголовок и содержимое.
+    return `
+        <article class="wiki-page">
+            ${renderPageHeader(eyebrow, title, lead)}
+            ${body || ""}
+        </article>
+    `;
+}
+
+function renderWikiSection(title, body) {
+    // Внутренний блок главной страницы раздела: центрированный подзаголовок и карточки.
+    return `
+        <section class="wiki-section">
+            <h2 class="wiki-section-title">${escapeHtml(title)}</h2>
+            ${body || ""}
+        </section>
+    `;
+}
+
 function renderWikiCards(items, renderItem) {
     return `
         <div class="wiki-cards">

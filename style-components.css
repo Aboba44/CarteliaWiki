@@ -501,24 +501,71 @@
    СТРАНИЦА РАЗДЕЛА
    ========================= */
 
-.section-description {
-    color: var(--text-muted);
-
-    font-size: 17px;
-
-    margin-top: -15px;
-    margin-bottom: 35px;
-}
-
-.races-page {
+.wiki-page {
     width: 100%;
     max-width: 1040px;
     margin: 0 auto;
     text-align: center;
 }
 
-.races-page .wiki-cards {
+.wiki-page .wiki-cards {
     justify-content: center;
+}
+
+.wiki-section {
+    margin-top: 46px;
+}
+
+.wiki-section-title {
+    margin: 0;
+    color: var(--accent-strong);
+    font-size: 30px;
+    text-align: center;
+}
+
+.wiki-section .wiki-cards {
+    margin-top: 22px;
+}
+
+.wiki-article {
+    max-width: 760px;
+    margin: 26px auto 0;
+    text-align: left;
+}
+
+.wiki-article p {
+    margin-top: 0;
+}
+
+.wiki-article h2 {
+    margin: 26px 0 8px;
+    color: var(--accent-strong);
+    font-size: 24px;
+}
+
+.wiki-intro {
+    max-width: 760px;
+    margin: 18px auto 0;
+    text-align: center;
+}
+
+.wiki-intro p {
+    margin: 0 0 10px;
+}
+
+.wiki-intro p:last-child {
+    margin-bottom: 0;
+}
+
+.wiki-card-meta {
+    display: block;
+    margin-bottom: 6px;
+    color: var(--accent);
+    font-family: var(--font-body);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
 }
 
 .page-header {
@@ -712,10 +759,6 @@
     font-family: var(--font-body);
     font-size: 14px;
     line-height: 1.45;
-}
-
-.races-section {
-    margin-top: 46px;
 }
 
 .races-group {

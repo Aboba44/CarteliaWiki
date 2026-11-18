@@ -140,6 +140,10 @@
         font-size: 17px;
     }
 
+    .wiki-page .wiki-card {
+        width: min(100%, 300px);
+    }
+
     .content .races-belonging-card {
         width: min(100%, 340px);
         min-height: 340px;
@@ -149,7 +153,7 @@
         width: min(100%, 360px);
     }
 
-    .races-section {
+    .wiki-section {
         margin-top: 36px;
     }
 

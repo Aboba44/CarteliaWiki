@@ -53,7 +53,7 @@ function renderRacePeoplesSection(raceId, categoryId) {
     const peopleCategories = Object.entries(context.group.categories || {});
 
     return `
-        <section class="races-section races-people">
+        <section class="wiki-section races-people">
             ${peopleCategories.length
                 ? peopleCategories.map(([peopleCategoryId, peopleCategory]) => {
                     const entries = Object.entries(peopleCategory.entries || {});
@@ -102,7 +102,7 @@ function showPeople(raceId, categoryId, peopleCategoryId, peopleId, syncRoute = 
     ]);
 
     container.innerHTML = `
-        <article class="races-page">
+        <article class="wiki-page">
             ${renderPageHeader(
                 `${context.belonging.name} · ${context.category.name} · ${peopleCategory.name}`,
                 people.name,

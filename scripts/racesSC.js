@@ -58,7 +58,7 @@ function renderBelongingRoot() {
     ]);
 
     container.innerHTML = `
-        <article class="races-page">
+        <article class="wiki-page">
             ${renderPageHeader(
                 "Расы",
                 "Принадлежность",
@@ -95,7 +95,7 @@ function showBelonging(belongingId, syncRoute = true) {
     const categories = Object.entries(belonging.categories || {});
 
     container.innerHTML = `
-        <article class="races-page">
+        <article class="wiki-page">
             ${renderPageHeader("Принадлежность", belonging.name, belonging.description)}
             ${categories.length
                 ? `<div class="wiki-cards races-tiles">
@@ -160,7 +160,7 @@ function showCreatureCategory(belongingId, categoryId, syncRoute = true) {
         .filter(function ([, race]) { return Boolean(race); });
 
     container.innerHTML = `
-        <article class="races-page">
+        <article class="wiki-page">
             ${renderPageHeader(belonging.name, category.name, category.description)}
             ${raceEntries.length
                 ? `<div class="wiki-cards races-tiles">
@@ -217,7 +217,7 @@ function showRace(raceId, categoryId = "sentient", syncRoute = true) {
     const peopleGroup = race.peoples ? peoples[race.peoples] : null;
 
     container.innerHTML = `
-        <article class="races-page">
+        <article class="wiki-page">
             ${renderPageHeader(
                 `${belonging.name} · ${category.name}`,
                 race.name,

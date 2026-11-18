@@ -84,39 +84,6 @@
     min-width: 0;
 }
 
-#god-info {
-    margin-top: 40px;
-
-    padding: 0;
-
-    background-color: transparent;
-
-    min-height: 0;
-}
-
-.god-page {
-    width: 100%;
-    margin: 0;
-    padding: 0;
-    background-color: transparent;
-    border: 0;
-    border-radius: 0;
-}
-
-.god-page h2 {
-    font-size: 38px;
-
-    margin-bottom: 5px;
-}
-
-.god-subtitle {
-    color: var(--text-muted);
-
-    font-size: 20px;
-
-    margin-top: 0;
-}
-
 .god-image {
     height: 300px;
 
@@ -391,40 +358,28 @@
     }
 }
 
-#god-info {
-    width: 100%;
-    max-width: 1240px;
-    margin: 0 auto;
-}
-
 .god-page {
     display: grid;
     grid-template-columns: minmax(0, 1fr) minmax(360px, 460px);
     gap: 32px clamp(28px, 4vw, 56px);
     align-items: start;
     width: 100%;
-    margin: 0;
+    margin: 10px 0 0;
     padding: 12px 0 8px;
     background: transparent;
     border: 0;
     border-radius: 0;
 }
 
+.god-image-placeholder {
+    display: block;
+    padding: 24px;
+    color: var(--text-muted);
+    line-height: 1.5;
+}
+
 .god-page-copy {
     min-width: 0;
-}
-
-.god-page-title {
-    margin: 0 0 4px;
-    color: var(--text-primary);
-    font-size: 42px;
-    line-height: 1.1;
-}
-
-.god-page .god-subtitle {
-    margin: 0;
-    color: var(--text-muted);
-    font-size: 18px;
 }
 
 .god-page .god-image {
@@ -444,25 +399,13 @@
     border-radius: 10px;
 }
 
-.god-page .god-details {
-    padding: 0;
-    margin: 12px 0 18px;
-    background: transparent;
-    color: var(--text-secondary);
-    border-radius: 0;
-}
-
-.god-page .god-details p {
-    margin: 0;
-}
-
 .god-page h3 {
     margin: 0 0 4px;
     color: var(--text-primary);
     font-size: 18px;
 }
 
-.god-page-copy > p:not(.god-subtitle) {
+.god-page-copy > p {
     margin: 0;
     color: var(--text-secondary);
     line-height: 1.6;
@@ -529,10 +472,6 @@
         flex-direction: column;
         gap: 18px;
         padding-top: 18px;
-    }
-
-    .god-page-title {
-        font-size: 34px;
     }
 
     .god-page .god-image {
